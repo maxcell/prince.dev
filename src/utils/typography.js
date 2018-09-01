@@ -1,5 +1,9 @@
-import Typography from "typography";
+// import Typography from "typography";
 
-const typography = new Typography({ baseFontSize: "100px" });
+// const typography = new Typography({ 
+//     baseFontSize: "30px", 
+//     bodyFontFamily: ['Helvetica'],
+//     includeNormalize: true
+// });
 
-export default typography;
+// export default typography;

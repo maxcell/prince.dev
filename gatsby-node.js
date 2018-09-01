@@ -11,17 +11,15 @@
  const _ = require('lodash')
 
  exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
-     const { createNodeField } = boundActionCreators
-     if(node.internal.type === "MarkdownRemark"){
-         const slug = createFilePath({ node, getNode, basePath: 'pages' })
-        //  console.log("Here's the slug:", slug)
-         createNodeField({
-             node,
-             name: 'slug',
-             value: slug
-         })
-     }
-    //  console.log(node.internal.type)
+    const { createNodeField } = boundActionCreators
+    if(node.internal.type === "MarkdownRemark"){
+        const relativeFilePath = createFilePath({ node, getNode, basePath: 'pages/posts' })
+        createNodeField({
+            node,
+            name: 'slug',
+            value: `/blog${relativeFilePath}`
+        })
+    }
  }
 
  exports.createPages = ({ graphql, boundActionCreators }) => {
@@ -39,7 +37,6 @@
                   slug
                 }
                 frontmatter {
-                  path
                   tags
                 }
               }
@@ -50,18 +47,20 @@
         if (result.error) {
           return Promise.reject(result.errors)
         }
-        debugger
-        console.log(result)
+        
         const posts = result.data.allMarkdownRemark.edges
 
         posts.forEach(({node}) => {
-            createPage({
+
+            post = {
                 path: node.fields.slug,
                 component: path.resolve('./src/templates/blog-post.js'),
                 context: {
                     slug: node.fields.slug
                 }
-            })
+            }
+
+            createPage(post)
         })
 
         let tags = []

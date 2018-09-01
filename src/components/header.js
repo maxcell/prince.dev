@@ -5,7 +5,7 @@ import Link from 'gatsby-link'
 const ListLink = (props) => {
  return (
   <li style={{ display: 'inline-block', marginRight: '1rem'}}>
-    <Link to={props.to}>
+    <Link to={props.to} style={{ color: 'black', textDecoration: 'none', fontWeight: 600, opacity: 0.75 }}>
       {props.children}
     </Link>
   </li>
@@ -14,33 +14,19 @@ const ListLink = (props) => {
 
 
 const Header = ({ siteTitle }) => (
-  <div
-    style={{
-      background: 'rebeccapurple',
-      marginBottom: '1.45rem',
-    }}
-  >
+  <div>
     <div
       style={{
         margin: '0 auto',
         maxWidth: 960,
-        padding: '1.45rem 1.0875rem',
+        padding: '1.45rem 1.0875rem 0  1.0875rem',
       }}
     >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: 'white',
-            textDecoration: 'none',
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-      <ul style={{ listStyle: 'none', float: 'right' }} >
-        <ListLink to="/">Home</ListLink>
-        <ListLink to="/blog">Blog</ListLink>
+    <h3 style={{ display: 'inline'}}>
+      <Link to="/" style={{ textDecoration: 'none', color: '#772073', opacity: 0.75 }}>Prince</Link>
+    </h3>
+      <ul style={{ listStyle: 'none', float: 'right'  }} >
+        <ListLink to="/about">About</ListLink>
       </ul>
     </div>
   </div>

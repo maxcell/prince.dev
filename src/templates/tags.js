@@ -11,10 +11,11 @@ const Tags = ({ pathContext, data }) => {
       <h1>{tagHeader}</h1>
       <ul>
         {edges.map(({node}) => {
-          const { path, title } = node.frontmatter
+          const { title } = node.frontmatter
+          const { slug } = node.fields
           return (
-            <li key={path}>
-              <Link to={path}>{title}</Link>
+            <li key={slug}>
+              <Link to={slug}>{title}</Link>
             </li>
           )
         })}
@@ -35,9 +36,12 @@ export const pageQuery = graphql`
       totalCount
       edges {
         node {
+          fields {
+            slug
+          }
+
           frontmatter {
             title
-            path
           }
         }
       }
