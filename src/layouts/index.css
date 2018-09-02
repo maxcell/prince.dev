@@ -410,8 +410,8 @@ pre {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 10px 24px;
   color: #FDFDFD;
   border-radius: 3px;
-  overflow: auto;
-  word-wrap: normal;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
   padding: 1rem;
 }
 table {
