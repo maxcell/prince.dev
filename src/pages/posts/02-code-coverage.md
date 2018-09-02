@@ -1,7 +1,8 @@
 ---
-title: "Mastering Debugging: Ruby"
-date: "2017-08-10"
+title: "Working Inside Out: Code Coverage"
+date: "2017-09-10"
 tags: ["test", "test2"]
+draft: true
 ---
 
 - Why do we want to debug?

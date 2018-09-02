@@ -5,7 +5,21 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-react-next',
-    `gatsby-transformer-remark`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-highlights`,
+            options: {
+              codeWrap: {
+                className: 'midnight'
+              }
+            }
+          }
+        ]
+      }
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {

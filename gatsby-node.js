@@ -14,11 +14,14 @@
     const { createNodeField } = boundActionCreators
     if(node.internal.type === "MarkdownRemark"){
         const relativeFilePath = createFilePath({ node, getNode, basePath: 'pages/posts' })
+        let slug = relativeFilePath.split(/([0-9]+\-)/g)
+        console.log(slug[slug.length - 1])
         createNodeField({
             node,
             name: 'slug',
-            value: `/blog${relativeFilePath}`
+            value: `/blog/${slug[slug.length - 1]}`
         })
+
     }
  }
 
@@ -30,6 +33,7 @@
           allMarkdownRemark(
             limit: 2000
             sort: { fields: [frontmatter___date], order: DESC}
+            filter: { frontmatter: {draft: { ne: true }}}
           ) {
             edges {
               node {

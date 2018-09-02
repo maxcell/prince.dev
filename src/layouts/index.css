@@ -7,10 +7,6 @@ html {
 }
 
 
-a:hover {
-  background-color: #FB9AC2;
-}
-
 body {
   margin: 0;
 }
@@ -387,7 +383,7 @@ p {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
-  margin-bottom: 1.45rem;
+  margin-bottom: 1.25rem;
 }
 figure {
   margin-left: 0;
@@ -410,11 +406,13 @@ pre {
   margin-bottom: 1.45rem;
   font-size: 0.85rem;
   line-height: 1.42;
-  background: hsla(0, 0%, 0%, 0.04);
+  background-color: #2A3132;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 10px 24px;
+  color: #FDFDFD;
   border-radius: 3px;
   overflow: auto;
   word-wrap: normal;
-  padding: 1.45rem;
+  padding: 1rem;
 }
 table {
   margin-left: 0;
@@ -592,9 +590,8 @@ td:last-child {
 }
 tt,
 code {
-  background-color: hsla(0, 0%, 0%, 0.04);
   border-radius: 3px;
-  font-family: "SFMono-Regular", Consolas, "Roboto Mono", "Droid Sans Mono",
+  font-family: Hack, "SFMono-Regular", Consolas, "Roboto Mono", "Droid Sans Mono",
     "Liberation Mono", Menlo, Courier, monospace;
   padding: 0;
   padding-top: 0.2em;

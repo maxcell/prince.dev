@@ -20,7 +20,7 @@ export default IndexPage
 
 export const query = graphql`
     query BlogPageQuery {
-        allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }){
+        allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { draft: {ne: true} }}){
           edges {
             node {
               frontmatter {

@@ -13,7 +13,10 @@ const Layout = ({ children, data }) => (
         { name: 'description', content: 'Testing' },
         { name: 'keywords', content: 'sample, something' },
       ]}
-    />
+    >
+      <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"></link>
+      <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700" rel="stylesheet"></link>
+    </Helmet>
     <Header siteTitle={data.site.siteMetadata.title} />
     <hr/>
     <div
