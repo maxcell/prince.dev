@@ -33,7 +33,7 @@ app.rb:3:in `print_name': wrong number of arguments (given 0, expected 1) (Argum
 ```
 
 This is known as a stack trace. Whenever your code gets read and comes across an error in the execution, this
-gets sent back in the Terminal. It dictates what journey did take for you to get to this error, what calls had to be
+gets sent back in the Terminal. It dictates how did you stumble to get to this error, what calls had to be
 made in order for you to (potentially) run. Unlike many programming languages, Ruby does its best to give you as much
 information as possible to get you on your way to fixing the code. From the bottom-up, it is saying how you got here:
 
