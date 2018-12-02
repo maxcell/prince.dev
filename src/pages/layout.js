@@ -1,12 +1,23 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
+import { StaticQuery, graphql } from 'gatsby'
 
 import Header from '../components/header'
-import './index.css'
+import '../layouts/index.css'
 
-const Layout = ({ children, data }) => (
-  <div style={{ minHeight: 'inherit', margin: '0 auto', backgroundColor: 'white',width: '70%', maxWidth: '45em',}}>
+
+const Layout = ({ children }) => (
+  <StaticQuery 
+  query={graphql`
+    query SiteTitleQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }`}
+  render={data=> (
+    <div style={{ minHeight: 'inherit', margin: '0 auto', backgroundColor: 'white',width: '70%', maxWidth: '45em',}}>
     <Helmet
       title={data.site.siteMetadata.title}
       meta={[
@@ -26,23 +37,11 @@ const Layout = ({ children, data }) => (
         padding: '1.45rem 1.0875rem 0',  
       }}
     >
-      {children()}
+      {children}
     </div>
   </div>
+  )}
+  />
 )
 
-Layout.propTypes = {
-  children: PropTypes.func,
-}
-
 export default Layout
-
-export const query = graphql`
-  query SiteTitleQuery {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-`

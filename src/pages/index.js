@@ -1,5 +1,7 @@
 import React from 'react'
-import Link from 'gatsby-link'
+import { Link } from 'gatsby'
+import Layout from './layout'
+import { StaticQuery, graphql } from 'gatsby'
 
 const BlogList = ({edges}) => (    
   edges.map(markdown => {
@@ -9,31 +11,35 @@ const BlogList = ({edges}) => (
   })
 )
 
-const IndexPage = ({data}) => (
-    (
-    <BlogList edges={data.allMarkdownRemark.edges}/>
-    )
+const IndexPage = ({children}) => (
+  <StaticQuery 
+  query={graphql`
+  query BlogPageQuery {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { draft: {ne: true} }}){
+      edges {
+        node {
+          frontmatter {
+            title
+            date(formatString: "MMM Do")
+          }
+          fields {
+              slug
+          }
+          timeToRead
+          html
+        }
+      }
+    }
+  } `}
+  render={data => 
+     (
+    <Layout>
+     <BlogList edges={data.allMarkdownRemark.edges}/>
+    </Layout>
+  )}
+  
+/>
 )
 
+
 export default IndexPage
-
-
-export const query = graphql`
-    query BlogPageQuery {
-        allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { draft: {ne: true} }}){
-          edges {
-            node {
-              frontmatter {
-                title
-                date(formatString: "MMM Do")
-              }
-              fields {
-                  slug
-              }
-              timeToRead
-              html
-            }
-          }
-        }
-    }
-`

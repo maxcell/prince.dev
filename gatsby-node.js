@@ -10,8 +10,8 @@
  const path = require('path')
  const _ = require('lodash')
 
- exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
-    const { createNodeField } = boundActionCreators
+ exports.onCreateNode = ({ node, getNode, actions }) => {
+    const { createNodeField } = actions
     if(node.internal.type === "MarkdownRemark"){
         const relativeFilePath = createFilePath({ node, getNode, basePath: 'pages/posts' })
         let slug = relativeFilePath.split(/([0-9]+\-)/g)
@@ -25,8 +25,8 @@
     }
  }
 
- exports.createPages = ({ graphql, boundActionCreators }) => {
-    const { createPage } = boundActionCreators
+ exports.createPages = ({ graphql, actions }) => {
+    const { createPage } = actions
 
     return graphql(`
         {

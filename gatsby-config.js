@@ -4,7 +4,6 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-react-next',
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -27,11 +26,5 @@ module.exports = {
         path: `${__dirname}/src`
       }
     },
-    // {
-    //   resolve: 'gatsby-plugin-typography',
-    //   options: {
-    //     pathToConfigModule: 'src/utils/typography.js'
-    //   }
-    // }
   ],
 }

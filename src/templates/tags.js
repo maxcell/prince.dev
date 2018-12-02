@@ -1,8 +1,8 @@
 import React from 'react';
-import Link from 'gatsby-link';
+import { Link, graphql } from 'gatsby';
 
-const Tags = ({ pathContext, data }) => {
-  const { tag } = pathContext
+const Tags = ({ pageContext, data }) => {
+  const { tag } = pageContext
   const { edges, totalCount } = data.allMarkdownRemark;
   const tagHeader = `${totalCount} post${totalCount > 1 ? "s" : ""} tagged with "${tag}"`
 

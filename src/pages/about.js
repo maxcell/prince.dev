@@ -1,7 +1,10 @@
 import React from 'react'
+import Layout from '../pages/layout'
 
 export default () => {
-        return (<div>
+        return (
+        <Layout>
+            <div>
             <p>
                 Howdy! I'm Maxcell Prince Wilson, but you can call me Prince. I am a person who cares about making 
                 better communities one step at a time. Whether it is through giving talks at meetups/conferences,
@@ -17,5 +20,6 @@ export default () => {
                 Now, I enjoy exploring New York City and really getting to experience a new world! I look for opportunities to give
                 back to communities that helped me become who I am today, through mentorship and open source. But most of all, I really really love corgis.
             </p>
-            </div>)
+            </div>
+            </Layout>)
 }
