@@ -1,5 +1,5 @@
-import React from 'react'
-import Helmet from 'react-helmet'
+import React, {Fragment} from 'react'
+import Head from '../components/social'
 import { StaticQuery, graphql } from 'gatsby'
 
 import Header from '../components/header'
@@ -13,22 +13,16 @@ const Layout = ({ children }) => (
     site {
       siteMetadata {
         title
+        description
+        twitter
       }
     }
   }`}
-  render={data=> (
+  render={({ site: {siteMetadata}})=> (
+    <Fragment>
+    <Head title={siteMetadata.title} description={siteMetadata.description} />
     <div style={{ minHeight: 'inherit', margin: '0 auto', backgroundColor: 'white',width: '70%', maxWidth: '45em',}}>
-    <Helmet
-      title={data.site.siteMetadata.title}
-      meta={[
-        { name: 'description', content: 'An organically growing notebook of thoughts and learnings!' },
-        { name: 'keywords', content: 'sample, something' },
-      ]}
-    >
-      <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"></link>
-      <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700" rel="stylesheet"></link>
-    </Helmet>
-    <Header siteTitle={data.site.siteMetadata.title} />
+    <Header siteTitle={siteMetadata.title} />
     <hr/>
     <div
       style={{
@@ -40,6 +34,7 @@ const Layout = ({ children }) => (
       {children}
     </div>
   </div>
+  </Fragment>
   )}
   />
 )

@@ -1,6 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: 'Prince Wilson - Developer',
+    twitter: 'https://twitter.com/maxcell',
+    url: 'https://maxcell.me',
+    description: 'An organically growing notebook of thoughts and learnings!'
   },
   plugins: [
     'gatsby-plugin-react-helmet',
