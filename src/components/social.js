@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-
+import logo from '../assets/maxcell.png'
 
 
 const Head = (props) => {  
@@ -11,6 +11,7 @@ const Head = (props) => {
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:description" content={props.description} />
       <meta property="twitter:title" content={props.title} />
+      <meta property="og:image" content={logo}/>
   </Helmet>
 )
 }
