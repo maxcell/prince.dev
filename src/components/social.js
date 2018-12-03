@@ -3,9 +3,7 @@ import Helmet from 'react-helmet';
 
 
 
-const Head = (props) => {
-  console.log(props)
-  
+const Head = (props) => {  
  return (
   <Helmet defaultTitle={props.title}>
       <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"></link>

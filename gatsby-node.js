@@ -15,7 +15,7 @@
     if(node.internal.type === "MarkdownRemark"){
         const relativeFilePath = createFilePath({ node, getNode, basePath: 'pages/posts' })
         let slug = relativeFilePath.split(/([0-9]+\-)/g)
-        console.log(slug[slug.length - 1])
+
         createNodeField({
             node,
             name: 'slug',
