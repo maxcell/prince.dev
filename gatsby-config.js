@@ -9,11 +9,12 @@ module.exports = {
       options: {
         plugins: [
           {
-            resolve: `gatsby-remark-highlights`,
+            resolve: `gatsby-remark-prismjs`,
             options: {
-              codeWrap: {
-                className: 'midnight'
-              }
+              classPrefix: 'language-',
+              inlineCodeMarker: `>`,
+              showLineNumbersGlobal: false,
+              noInlineHighlight: false,
             }
           }
         ]
