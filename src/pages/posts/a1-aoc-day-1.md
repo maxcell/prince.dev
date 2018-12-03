@@ -129,7 +129,7 @@ function part2(input){
   while(true){
     for(let i = 0; i < input.length; i++){
       if(frequencies.includes(result)){
-        break;
+         return result
       } else {
         frequencies.push(result)
       }
@@ -137,8 +137,6 @@ function part2(input){
     result += parseInt(markup[i])
     }
   }
-
-  return result
 }
 ```
 
