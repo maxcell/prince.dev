@@ -11,7 +11,7 @@ const Head = (props) => {
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:description" content={props.description} />
       <meta property="twitter:title" content={props.title} />
-      <meta property="twitter:image" content={logo}/>
+      <meta property="twitter:image" content={"https://maxcell.me" + logo}/>
       <meta property="og:image" content={logo}/>
   </Helmet>
 )
