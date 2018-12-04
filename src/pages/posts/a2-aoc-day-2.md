@@ -4,7 +4,13 @@ date: "2018-12-02"
 tags: ["Advent of Code"]
 ---
 
-Here we are with Day Two - [Inventory Management System][1]! 
+Advent of Code has been a ton of fun. Trying these problems lets me find out cool 
+algorithms out there as well as write about different techniques one can use. 
+The biggest thing about it as well is avoiding the trap of over optimizations.
+Sometimes a solution may not be computationly fast in realtime, but as far as 
+readability much better.
+
+Let's take a look at Day Two - [Inventory Management System][1]! 
 
 ## Part 1
 The first part of our problem essentially is asking us to help
@@ -170,12 +176,6 @@ looking thing is, that's from ES6 known as [Destructuring Assignment][3]. It all
 to break apart our array from `overlap` and assign it to a list of variables matching
 values in position of the array. With that being done, we want to see where our count
 of substitutions is equal to exactly 1, and then we have a match!
-
-I will definitely say that this has been a ton of fun. Advent of Code lets me find
-out cool algorithms out there as well as write about different techniques
-one can use. The biggest thing about this also is avoiding the trap of over optimizations.
-Sometimes a solution may not be computationly fast in realtime, but as far as readability
-much better.
 
 
 [1]: https://adventofcode.com/2018/day/2
