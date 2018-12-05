@@ -21,7 +21,7 @@ const Layout = ({ children }) => (
   render={({ site: {siteMetadata}})=> (
     <Fragment>
     <Head title={siteMetadata.title} description={siteMetadata.description} />
-    <div style={{ minHeight: 'inherit', margin: '0 auto', backgroundColor: 'white',width: '70%', maxWidth: '45em',}}>
+    <div className="container" style={{ minHeight: 'inherit', margin: '0 auto', backgroundColor: 'white',width: '70%', maxWidth: '45em',}}>
     <Header siteTitle={siteMetadata.title} />
     <hr/>
     <div

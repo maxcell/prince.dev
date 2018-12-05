@@ -617,6 +617,14 @@ pre tt:after {
   }
 }
 
+@media (max-width: 600px){
+    
+  .container {
+    width: 96% !important; 
+    /* max-width: 1em; */
+  }
+}
+
 p a, span a {
   color: inherit;
   border-bottom: 3px solid #336b87;
