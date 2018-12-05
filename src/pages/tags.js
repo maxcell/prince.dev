@@ -1,4 +1,5 @@
 import React from "react";
+import Layout from "../pages/layout"
 
 // Utilities
 import kebabCase from "lodash/kebabCase";
@@ -15,7 +16,7 @@ const TagsPage = ({
     },
   },
 }) => (
-  <div>
+  <Layout>
     <Helmet title={title} />
     <div>
       <h1>Tags</h1>
@@ -29,7 +30,7 @@ const TagsPage = ({
         ))}
       </ul>
     </div>
-  </div>
+  </Layout>
 );
 
 export default TagsPage;

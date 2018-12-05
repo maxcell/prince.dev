@@ -1,4 +1,5 @@
 import React from 'react';
+import Layout from '../pages/layout';
 import { Link, graphql } from 'gatsby';
 
 const Tags = ({ pageContext, data }) => {
@@ -7,7 +8,7 @@ const Tags = ({ pageContext, data }) => {
   const tagHeader = `${totalCount} post${totalCount > 1 ? "s" : ""} tagged with "${tag}"`
 
   return (
-    <div>
+    <Layout>
       <h1>{tagHeader}</h1>
       <ul>
         {edges.map(({node}) => {
@@ -20,7 +21,7 @@ const Tags = ({ pageContext, data }) => {
           )
         })}
       </ul>
-    </div>
+    </Layout>
   )
 }
 
