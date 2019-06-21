@@ -4,10 +4,12 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@weknow/gatsby-remark-twitter": "^0.2.1",
     "gatsby": "^2.9.4",
     "gatsby-plugin-react-helmet": "^3.0.4",
     "gatsby-plugin-sharp": "^2.1.5",
     "gatsby-plugin-styled-components": "^3.0.4",
+    "gatsby-plugin-twitter": "^2.1.0",
     "gatsby-plugin-typography": "^2.2.2",
     "gatsby-remark-highlights": "^1.3.4",
     "gatsby-remark-images": "^3.0.16",
