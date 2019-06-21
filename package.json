@@ -31,7 +31,7 @@
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gatsby build && cp public/static/CNAME public/ && gh-pages -d public -b master"
+    "deploy": "gatsby build && gh-pages -d public -b master"
   },
   "devDependencies": {
     "gatsby-plugin-eslint": "^2.0.1",
