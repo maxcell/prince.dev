@@ -26,7 +26,6 @@ const Layout = ({ children }) => (
         />
         <div className="container">
           <Header siteTitle={siteMetadata.title} />
-          <hr />
           <div
             style={{
               padding: '1.45rem 1.0875rem 0',

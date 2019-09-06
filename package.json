@@ -3,6 +3,9 @@
   "description": "Gatsby default starter",
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "engines": {
+    "node": "11.10.1"
+  },
   "dependencies": {
     "@weknow/gatsby-remark-twitter": "^0.2.1",
     "gatsby": "^2.9.4",

@@ -510,9 +510,9 @@ dt {
 th {
   font-weight: bold;
 }
-li {
+/* li {
   margin-bottom: calc(1.45rem / 2);
-}
+} */
 ol li {
   padding-left: 0;
 }
@@ -643,8 +643,18 @@ pre tt:after {
   }
 }
 
+.blog-list {
+  list-style: none;
+  margin: 0;
+}
+
+.navigation {
+  list-style: none;
+  margin: 0;
+}
+
 p a,
-span a {
+li a {
   color: inherit;
   border-bottom: 3px solid #336b87;
   display: inline-block;
@@ -653,7 +663,7 @@ span a {
 }
 
 p a:hover,
-span a:hover {
+li a:hover {
   background-color: #90afc5;
 }
 
