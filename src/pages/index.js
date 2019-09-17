@@ -3,6 +3,8 @@ import { Link } from 'gatsby'
 import Layout from './layout'
 import { StaticQuery, graphql } from 'gatsby'
 
+import '../layouts/prism-atom-dark.css'
+
 const BlogList = ({ edges }) =>
   edges.map(markdown => {
     return (
