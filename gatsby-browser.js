@@ -3,3 +3,5 @@
  *
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
+
+ require('./src/assets/css/prism-atom-dark.css')
