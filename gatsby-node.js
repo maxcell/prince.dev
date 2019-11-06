@@ -16,7 +16,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const relativeFilePath = createFilePath({
       node,
       getNode,
-      basePath: 'pages/posts',
+      basePath: 'content',
     })
     let slug = relativeFilePath.split(/([0-9]+\-)/g)
     createNodeField({
