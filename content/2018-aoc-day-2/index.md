@@ -1,6 +1,7 @@
 ---
 title: 'Day 2 - Inventory Management System'
 date: '2018-12-02'
+slug: 'aoc-2018-day-2'
 tags: ['Advent of Code']
 ---
 

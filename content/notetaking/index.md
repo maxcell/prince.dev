@@ -1,6 +1,7 @@
 ---
 title: 'Note-taking -- People still Do That?'
 date: '2019-06-24'
+slug: 'notetaking'
 tags: ['learning', 'notetaking']
 ---
 
@@ -42,7 +43,7 @@ As a teacher, I always have to be growing too. For note-taking I use
 The goal is to quickly "chunk" information together and make it easier to retrieve
 or find.
 
-![Table of Contents for Intro to React course](./TOC.png)
+![Table of Contents for Intro to React course](./images/TOC.png)
 
 This makes it easy to identify what topic am I going over in that particular section.
 It is not likely I will find any insights in the `Context` section if the code
@@ -62,7 +63,7 @@ to your future self. You don't need to write every detail but snippets of code
 and context of why you wrote that can be insightful. Since our brain can't store
 everything we learn forever and easily recall it, this is a nice way to make something easy to reference.
 
-![useEffect notes](./useEffect-notes.png)
+![useEffect notes](./images/useEffect-notes.png)
 
 I make sure to indicate to myself what things are important by some sort of emphasis,
 such as the order of which I put items into the second parameter of `useEffect` doesn't matter.
@@ -98,7 +99,7 @@ also freehanding a lot of my notes and feeling okay with marking them up. You ca
 actually see the notes on my [reMarkable][remarkable], an e-ink tablet
 (not a pitch by any means).
 
-![My handwritten notes from my reMarkable](./written-hooks.png)
+![My handwritten notes from my reMarkable](./images/written-hooks.png)
 
 Marking up the code and indicating what exactly is happening helps me retain the information
 more than just typing it out. The mental act of deconstructing the syntax of code
@@ -112,7 +113,7 @@ I am not good at it yet -- but we get better by practice. The goal is to have a
 "central" theme or idea in the center and then connect information
 together to build an entire map that will help us explain that idea.
 
-![My mindmap for React Hooks](./react-hooks-mindmap.png)
+![My mindmap for React Hooks](./images/react-hooks-mindmap.png)
 
 This may work well for you when you're trying to have a bigger picture understanding of a
 concept rather than everyday note-taking. I personally like doing it after I have sat
