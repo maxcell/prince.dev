@@ -48,6 +48,19 @@ const BlogSection = () => {
   )
 }
 
+const SocialList = () => {
+  return (
+    <Fragment>
+    <ul>
+      <li>Read my <a target="_blank" rel="noopener noreferrer" href="http://bit.ly/prince-resume">resume</a> and let's do work together!</li>
+      <li>Connect with me on <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/maxcell">LinkedIn</a></li>
+      <li>See my code on <a target="_blank" rel="noopener noreferrer" href="https://github.com/maxcell">GitHub</a></li>
+      <li>Follow me on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/maxcell">Twitter</a></li>
+    </ul>
+    </Fragment>
+  )
+}
+
 const ShortAbout = () => {
   return (
     <Fragment>
@@ -55,8 +68,10 @@ const ShortAbout = () => {
       <p>
         I am a full-stack web developer based in NYC. I love building things and
         making sure to bring people together around accessibility and security.
-        Beyond the work I do, I really love corgis.
+        Beyond the work I do, I love corgis.
       </p>
+
+      <SocialList />
     </Fragment>
   )
 }
