@@ -7,22 +7,24 @@
 // You can delete this file if you're not using it
 
 const { createFilePath } = require('gatsby-source-filesystem')
+const slugify = require('@sindresorhus/slugify')
 const path = require('path')
 const _ = require('lodash')
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
+  const parent = getNode(node.parent)
   const { createNodeField } = actions
   if (node.internal.type === 'MarkdownRemark') {
     const relativeFilePath = createFilePath({
       node,
       getNode,
-      basePath: 'pages/posts',
+      basePath: 'content',
     })
-    let slug = relativeFilePath.split(/([0-9]+\-)/g)
+    let slug = node.frontmatter.slug || slugify(parent.name)
     createNodeField({
       node,
       name: 'slug',
-      value: `/blog/${slug[slug.length - 1]}`,
+      value: `/blog/${slug}`,
     })
   }
 }

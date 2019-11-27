@@ -1,6 +1,7 @@
 ---
 title: 'Day 3 - No Matter How You Slice It'
 date: '2018-12-03'
+slug: 'aoc-2018-day-3'
 tags: ['Advent of Code']
 draft: true
 ---

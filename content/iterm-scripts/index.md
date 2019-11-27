@@ -1,6 +1,7 @@
 ---
 title: 'Automate the Workflow - iTerm2'
 date: '2019-06-24'
+slug: 'iterm-script'
 tags: ['workflow', 'iterm']
 draft: true
 ---

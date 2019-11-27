@@ -1,6 +1,7 @@
 ---
 title: 'Day 1 - Chronal Calibration'
 date: '2018-12-01'
+slug: 'aoc-2018-day-1'
 tags: ['Advent of Code']
 ---
 
