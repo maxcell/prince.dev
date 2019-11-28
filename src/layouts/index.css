@@ -624,8 +624,10 @@ pre tt:after {
 .gatsby-highlight-code-line {
   background-color: rgb(53, 59, 69);
   display: block;
-  margin: -0.125rem calc(-1rem - 15px);
-  padding: 0.125rem calc(-1rem + 15px);
+  margin-right: -1em;
+  margin-left: -1em;
+  padding-right: 1em;
+  padding-left: 0.75em;
   border-left: 0.25em solid #f99;
 }
 
