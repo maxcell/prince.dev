@@ -33,12 +33,12 @@ This worked! Closed ticket. Not quite.
 At the last second, the requirements changed and you gotta handle more cases.
 In our redirect url, we can't pass in any previous query parameters that were there,
 so all context might be removed from the page. In addition, when you think about
-"going back" you wouldn't want to had more history (`history.push()`) so I also
+"going back" you wouldn't want to add more history (`history.push()`) so I also
 wanted to think about how could we tidy up this code.
 
 ## Links to the rescue!
 
-In React Router, the `Link` component is commonly used with a `to` prop as a string:
+In [React Router][react router], the `Link` component is commonly used with a `to` prop as a string:
 
 ```jsx
 function BlogPostLink({ post }) {
@@ -121,8 +121,10 @@ me and it is a bit easier to manage the complexities of the UI logic.
 
 ### References and Additional Readings
 
+- [React Training - React Router][react router]
 - [React Training - API Hooks](https://reacttraining.com/react-router/web/api/Hooks)
 - [React Training - Link API](https://reacttraining.com/react-router/web/api/Link/to-object)
 - [React Training - Modal Example](https://reacttraining.com/react-router/web/example/modal-gallery)
 
 [history documentation]: https://reacttraining.com/react-router/web/api/history/history-is-mutable
+[react router]: https://reacttraining.com/react-router/web/guides/quick-start
