@@ -51,12 +51,12 @@ const BlogSection = () => {
 const SocialList = () => {
   return (
     <Fragment>
-    <ul>
-      <li>Read my <a target="_blank" rel="noopener noreferrer" href="http://bit.ly/prince-wilson">resume</a> and let's do work together!</li>
-      <li>Connect with me on <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/maxcell">LinkedIn</a></li>
-      <li>See my code on <a target="_blank" rel="noopener noreferrer" href="https://github.com/maxcell">GitHub</a></li>
-      <li>Follow me on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/maxcell">Twitter</a></li>
-    </ul>
+      <ul>
+        {/*<li>Read my <a target="_blank" rel="noopener noreferrer" href="http://bit.ly/prince-wilson">resume</a> and let's do work together!</li>*/}
+        <li>Follow me on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/maxcell">Twitter</a></li>
+        <li>Connect with me on <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/maxcell">LinkedIn</a></li>
+        <li>See my code on <a target="_blank" rel="noopener noreferrer" href="https://github.com/maxcell">GitHub</a></li>
+      </ul>
     </Fragment>
   )
 }
