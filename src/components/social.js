@@ -19,16 +19,6 @@ const Head = props => {
       <meta property="twitter:title" content={props.title} />
       <meta property="twitter:image" content={'https://maxcell.me' + logo} />
       <meta property="og:image" content={logo} />
-
-      {/* Global site tag (gtag.js) - Google Analytics */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-82244410-2"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-82244410-2');
-      </script>
     </Helmet>
   )
 }
