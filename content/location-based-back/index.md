@@ -48,9 +48,22 @@ function BlogPostLink({ post }) {
 }
 ```
 
-However, you can change it to an object and pass in additional context such as `state`!
+You can instead use an object for the `to` value! If we wanted to recreate the same
+behavior, the code would look like this:
+
+```jsx{5}
+function BlogPostLink({ post }) {
+  const { id: postId, title } = post
+
+  // `pathname` value is equivalent to the string form `to`
+  return <Link to={{ pathname: `/post/${postId}` }}>{title}</Link>
+}
+```
+
+Now, you can pass in additional context through the key `state`!
 This optional key allows you to pass in information that can be used for things
-such as location-based rendering!
+such as location-based rendering! It should take the shape of an object.
+It is intentionally something we have to set for it to appear in the location object.
 
 ```jsx{5-10}
 function BlogPostLink({ post }) {
