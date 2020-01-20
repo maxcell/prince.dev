@@ -16,10 +16,10 @@ users to the previous page they were looking at. Originally we handled this thro
 inserting a redirect path within our query parameters.
 
 ```js
-// Current URL
-// You'll notice at the end we have a query parameter (?redirect_url=) that said
-// where we came from and so we would use that param to send us to the previous page
-const url = 'http://somecoolwebsite.com/posts/12341?redirect_url=/posts'
+// You'll notice at the end we have a query parameter (?redirect_url=)
+// that said where we came from and so we would use that param
+// to send us to the previous page
+const currentUrl = 'http://somecoolwebsite.com/posts/12341?redirect_url=/posts'
 
 // Parse out the redirect_url
 // ...
@@ -30,15 +30,15 @@ history.push(redirectUrl) // This would be "/posts"
 
 This worked! Closed ticket. Not quite.
 
-At the last second, the changed requirements changed and you gotta handle more cases.
+At the last second, the requirements changed and you gotta handle more cases.
 In our redirect url, we can't pass in any previous query parameters that were there,
 so all context might be removed from the page. In addition, when you think about
-"going back" you wouldn't want to had more history (see `history.push()`) so I also
+"going back" you wouldn't want to had more history (`history.push()`) so I also
 wanted to think about how could we tidy up this code.
 
 ## Links to the rescue!
 
-In React Router, the `Link` component is commonly used with a `to` prop as a string
+In React Router, the `Link` component is commonly used with a `to` prop as a string:
 
 ```jsx
 function BlogPostLink({ post }) {
@@ -48,11 +48,11 @@ function BlogPostLink({ post }) {
 }
 ```
 
-However, you can change it to actually take in an object and pass in additional
-context such as `state`! This optional key allows you to pass in information that
-can be used for this such as context dependent rendering!
+However, you can change it to an object and pass in additional context such as `state`!
+This optional key allows you to pass in information that can be used for things
+such as location-based rendering!
 
-```jsx
+```jsx{5-10}
 function BlogPostLink({ post }) {
   const { id: postId, title } = post
   return (
@@ -77,7 +77,7 @@ the actual **magic** happen. It is when we want our back button to change. Let's
 say we want to have special text for when we are coming directly from the blog
 roll vs. any other page
 
-```jsx
+```jsx{10}
 function BackButton(props) {
   // See documentation about React Router's Hook API
   // https://reacttraining.com/react-router/web/api/Hooks
