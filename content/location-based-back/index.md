@@ -42,9 +42,9 @@ In [React Router][react router], the `Link` component is commonly used with a `t
 
 ```jsx
 function BlogPostLink({ post }) {
-  const { id: postId, title } = post
+  const { slug, title } = post
 
-  return <Link to={`/post/${postId}`}>{title}</Link>
+  return <Link to={`/post/${slug}`}>{title}</Link>
 }
 ```
 
@@ -53,10 +53,10 @@ behavior, the code would look like this:
 
 ```jsx{5}
 function BlogPostLink({ post }) {
-  const { id: postId, title } = post
+  const { slug, title } = post
 
   // `pathname` value is equivalent to the string form `to`
-  return <Link to={{ pathname: `/post/${postId}` }}>{title}</Link>
+  return <Link to={{ pathname: `/post/${slug}` }}>{title}</Link>
 }
 ```
 
@@ -67,11 +67,11 @@ It is intentionally something we have to set for it to appear in the location ob
 
 ```jsx{5-10}
 function BlogPostLink({ post }) {
-  const { id: postId, title } = post
+  const { slug, title } = post
   return (
     <Link
       to={{
-        pathname: `/post/${postId}`,
+        pathname: `/post/${slug}`,
         state: {
           fromBlogRoll: true,
         },
