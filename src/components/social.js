@@ -19,7 +19,7 @@ const Head = props => {
       <meta property="twitter:description" content={props.description} />
       <meta property="twitter:title" content={props.title} />
       <meta property="twitter:image" content={socialImage} />
-      <meta property="og:image" content={logo} />
+      <meta property="og:image" content={socialImage} />
     </Helmet>
   )
 }
