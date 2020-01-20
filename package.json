@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@sindresorhus/slugify": "^0.9.1",
+    "@jlengstorf/get-share-image": "0.5.0",
     "@weknow/gatsby-remark-twitter": "^0.2.3",
     "eslint": "^6.4.0",
     "eslint-config-react-app": "^5.0.1",
