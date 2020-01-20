@@ -1,5 +1,5 @@
 ---
-title: 'React Router - Using Location State'
+title: 'React Router - Using Location State for Custom UI Navigation'
 date: '2019-01-21'
 slug: 'location-state'
 tags: ['react', 'react-router', 'javascript']
