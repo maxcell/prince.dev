@@ -15,11 +15,16 @@ const Head = props => {
         rel="stylesheet"
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:description" content={props.description} />
+      <meta name="description" content={props.description} />
+      <meta name="image" content={socialImage} />
+
+      <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:title" content={props.title} />
-      <meta property="twitter:image" content={socialImage} />
+
       <meta property="og:image" content={socialImage} />
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content={props.title} />
+      <meta name="og:description" content={props.description} />
     </Helmet>
   )
 }
