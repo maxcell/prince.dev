@@ -5,19 +5,19 @@ slug: 'location-state'
 tags: ['react', 'react-router', 'javascript']
 ---
 
-In much of the code we write, we have to think about designing software that
-can handle the current requirements and create opportunity for other developers to
+When we write our code, we have to think about designing it in a way such that
+it can handle the current requirements and create opportunity for other developers to
 come in to change the code whenever the requirements change. An example of this
-came up when I was dealing with changing around some pieces of our code that handles
-navigational flow within our application.
+came up when I was dealing with code that handles navigational flow within our
+application.
 
-In our application, we wanted to have a back button on some pages that would return
-users to the previous page they were looking at. Originally we handled this through
-inserting a redirect path within our query parameters.
+We wanted to have a back button on some pages that would return users to the p
+revious page they were looking at. Originally, we handled this through inserting
+a redirect path inside a query parameter.
 
 ```js
 // You'll notice at the end we have a query parameter (?redirect_url=)
-// that said where we came from and so we would use that param
+// that says where we came from and so we would use that param
 // to send us to the previous page
 const currentUrl = 'http://somecoolwebsite.com/posts/12341?redirect_url=/posts'
 
@@ -25,20 +25,21 @@ const currentUrl = 'http://somecoolwebsite.com/posts/12341?redirect_url=/posts'
 // ...
 
 // Send us to the previous page
-history.push(redirectUrl) // This would be "/posts"
+history.push(redirectUrl) // i.e. "/posts"
 ```
 
 This worked! Closed ticket, shut laptop and let's call it a day -- not quite.
 
-At the last second, the requirements changed and you gotta handle more cases.
+At the last second, the requirements changed and now you gotta handle more cases.
 In our redirect url, we can't pass in any previous query parameters that were there,
-so all context might be removed from the page. In addition, when you think about
-"going back" you wouldn't want to add more history (`history.push()`) so I also
-wanted to think about how could we tidy up this code.
+so all context would be removed from the page. In addition, conceptually "going back"
+shouldn't add more history (such as `history.push()` does). This was an excellent
+time to figure out how to tidy everything up.
 
 ## Links to the rescue!
 
-In [React Router][react router], the `Link` component is commonly used with a `to` prop as a string:
+In [React Router][react router], the `Link` component is commonly used with a `to`
+prop as a string:
 
 ```jsx
 function BlogPostLink({ post }) {
@@ -48,7 +49,7 @@ function BlogPostLink({ post }) {
 }
 ```
 
-You can instead use an object for the `to` value! If we wanted to recreate the same
+You can instead use an object for `to`! If we wanted to recreate the same
 behavior, the code would look like this:
 
 ```jsx{5}
@@ -65,7 +66,7 @@ This optional key allows you to pass in information that can be used for things
 such as location-based rendering. It should take the shape of an object.
 It is intentionally something we have to set for it to appear in the location object.
 
-```jsx{5-10}
+```jsx{7-9}
 function BlogPostLink({ post }) {
   const { slug, title } = post
   return (
@@ -86,9 +87,9 @@ function BlogPostLink({ post }) {
 ## Location-based rendering
 
 Now that we have this state being inserted into our location object, where does
-the actual **magic** happen. It is when we want our back button to change. Let's
-say we want to have special text for when we are coming directly from the blog
-roll vs. any other page
+the actual **magic** happen? It all happens on the back button. Let's
+say we want to have special text when we are coming directly from the blog
+roll vs. any other page:
 
 ```jsx{10}
 function BackButton(props) {
@@ -111,17 +112,16 @@ function BackButton(props) {
 ```
 
 Now we have a nice back button for our needs. This will take advantage of the history
-object, so if we want to go back and still have all our query parameters, they will
-be there as well as any other things we've stored in our app's state. This also
-handles for the case of what if a user directly shares the link to someone else
-and instead of seeing a back button, they should see a home button. This also works
-for applications that might want to have sharable links but not let unauthenticated users
-navigate through certain parts of the app. It will fallback and present a home button
-and so we can assure that our page has navigation.
+object, so if we want to go back (`history.goBack()`) and still have all our query parameters, they will be there as well as any other things we've stored in our app's state.
 
-An important note is we want to make sure in this case also is to use the
-`location` object and **not** the `history` object for determining the **current location**
-state. The [history object can be mutated][history documentation] and
+This handles for the case of what if a user directly shares the link to someone else
+and instead of seeing a back button, they should see a home button. So if we have
+unauthenticated users, they cannot navigate through the app like other users. It will
+fallback and present a home button.
+
+An important note is we want to make sure to use the `location` object and **not**
+the `history` object for determining the **current location** state.
+The [history object can be mutated][history documentation] and
 makes it not a good source of truth.
 
 ## Last Thoughts
