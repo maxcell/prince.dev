@@ -28,7 +28,7 @@ const currentUrl = 'http://somecoolwebsite.com/posts/12341?redirect_url=/posts'
 history.push(redirectUrl) // This would be "/posts"
 ```
 
-This worked! Closed ticket. Not quite.
+This worked! Closed ticket, shut laptop and let's call it a day -- not quite.
 
 At the last second, the requirements changed and you gotta handle more cases.
 In our redirect url, we can't pass in any previous query parameters that were there,
@@ -60,9 +60,9 @@ function BlogPostLink({ post }) {
 }
 ```
 
-Now, you can pass in additional context through the key `state`!
+Now, you can pass in additional context through the key `state`.
 This optional key allows you to pass in information that can be used for things
-such as location-based rendering! It should take the shape of an object.
+such as location-based rendering. It should take the shape of an object.
 It is intentionally something we have to set for it to appear in the location object.
 
 ```jsx{5-10}
