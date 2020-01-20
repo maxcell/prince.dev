@@ -2,6 +2,7 @@ import React from 'react'
 import Footer from '../components/footer'
 import Layout from '../pages/layout'
 import Head from '../components/social'
+import getShareImage from '@jlengstorf/get-share-image'
 
 import { graphql } from 'gatsby'
 
