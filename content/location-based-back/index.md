@@ -121,7 +121,6 @@ me and it is a bit easier to manage the complexities of the UI logic.
 
 ### References and Additional Readings
 
-- [Dan Abramov - Complete Guide to useEffect](https://overreacted.io/a-complete-guide-to-useeffect/)
 - [React Training - API Hooks](https://reacttraining.com/react-router/web/api/Hooks)
 - [React Training - Link API](https://reacttraining.com/react-router/web/api/Link/to-object)
 - [React Training - Modal Example](https://reacttraining.com/react-router/web/example/modal-gallery)
