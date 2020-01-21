@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import logo from '../assets/maxcell.png'
 
 const Head = props => {
-  const socialImage = props.socialImage || `https://maxcell.me${logo}`
+  const socialImage = props.socialImage || logo
   return (
     <Helmet defaultTitle={props.title}>
       <link
