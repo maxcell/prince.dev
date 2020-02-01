@@ -1,5 +1,5 @@
 ---
-title: 'React Context - Can you useContext in a sentence?'
+title: 'React Context - Can you useContext in a sentence'
 date: '2020-01-31'
 slug: 'react-context'
 tags: ['learning', 'react', 'context']
