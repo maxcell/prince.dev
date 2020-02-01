@@ -5,7 +5,7 @@ slug: 'react-context'
 tags: ['learning', 'react', 'context']
 ---
 
-If you're like me, hooks are still a thing that you hear about but don't actively use at work. Regardless, I never used the Context API pre-hooks and so I had to learn the mental model in both implementations before it clicked with me. But I am here to help you out so you can add to your list of skills!
+If you're like me, hooks are still a thing that you hear about but don't actively use at work. Regardless, I never used the Context API pre-hooks and so I had to learn the mental model in both implementations before it clicked with me. I am here to help you out so you can add to your list of skills!
 
 ## So what is Context?
 
@@ -20,7 +20,7 @@ We'll go through a small example to align on what the API can do and what tools 
 
 ## React.createContext
 
-In order to begin using your context, you will need to first create a context. This will return an object which has two very important things inside of it, a `Provider` and a `Consumer`!
+To begin using your context, you will need to first create a context. This will return an object which has two very important things inside of it, a `Provider` and a `Consumer`!
 
 ```jsx
 import React from 'react'
@@ -142,7 +142,7 @@ import React from 'react'
 const PokemonContext = React.createContext()
 
 // We're exposing a provider that just has our value which
-// is unchangable from the outside.
+// is unchangeable from the outside.
 function PokemonProvider(props) {
   return (
     <PokemonContext.Provider value={'Pikachu'}>
