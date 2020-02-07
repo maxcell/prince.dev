@@ -96,5 +96,41 @@ import React, { useState, useContext } from 'react'
 
 const NotificationContext = React.createContext()
 
-function NotificationProvider({ children }) {}
+function NotificationProvider({ children }) {
+  const [notifications, setNotifications] = useState([])
+
+  return (
+    <NotificationContext.Provider>
+      {children}
+      {notifications.length > 0 ? (
+        <Notification {...notifications[0]} />
+      ) : null}
+    </NotificationContext.Provider>
+  )  
+}
+```
+
+Here we can see what our Provider will be like with just a single notification. It can help to visualize what we are gonna do from here. We need to figure out how we can get more notifications added to our queue (our state!). And this is why context can help us.
+
+What we'll do is add a function called `add` and it will be the `value` we expose through the context. This will allow other components to update it!
+
+```jsx
+const NotificationContext = React.createContext()
+
+function NotificationProvider({ children }) {
+  const [notifications, setNotifications] = useState([])
+  
+  function add({ text, status }){
+    setNotifications([...notifications, { text, status }])
+  }
+  
+  return (
+    <NotificationContext.Provider value={{ add }}>
+      {children}
+      {notifications.length > 0 ? (
+        <Notification {...notifications[0]} />
+      ) : null}
+    </NotificationContext.Provider>
+  )  
+}
 ```
