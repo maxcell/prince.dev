@@ -91,7 +91,7 @@ Since notifications can be used across any part of the application, it helps us 
 
 We'll place the logic for making the Notification appear/disppear, using `setOpen` and `handleClose`, inside of the Provider and pass them down to our `Notification` component. We'll also have `messageData` represent what should be displayed to the user.
 
-```jsx{2,6,8-10,12-14,16-22}
+```jsx{2,6,8-10,12-19,21-27}
 // in notification-context.js
 import React, { useState } from 'react'
 
@@ -100,10 +100,15 @@ import React, { useState } from 'react'
 export const NotificationContext = React.createContext()
 
 export function NotificationProvider({ children }) {
-  const [open, setOpen] = React.useState(false)
-  const [messageData, setMessageData] = React.useState(undefined)
+  const [open, setOpen] = useState(false)
+  const [messageData, setMessageData] = useState(undefined)
 
   function handleClose() {
+    if (reason === 'clickaway') {
+      // To make sure that the notification stays on
+      // the page no matter if we click somewhere else
+      return
+    }
     setOpen(false)
   }
 
@@ -118,7 +123,7 @@ export function NotificationProvider({ children }) {
 
 This will lay the foundation for our notification to be presented, but doesn't yet have the logic of adding any notifications. Since there can be multiple notification updates, we need to make sure only one appears at a time. We'll need to incorporate a queue. For our case, we'll use a `ref` to store it since we want to maintain our transitions.
 
-```jsx{2,11,17-21,24}
+```jsx{2,11,20-24,27}
 // in notification-context.js
 import React, { useState, useRef } from 'react'
 
@@ -127,11 +132,14 @@ import React, { useState, useRef } from 'react'
 export const NotificationContext = React.createContext()
 
 export function NotificationProvider({ children }) {
-  const [open, setOpen] = React.useState(false)
-  const [messageData, setMessageData] = React.useState(undefined)
+  const [open, setOpen] = useState(false)
+  const [messageData, setMessageData] = useState(undefined)
   const queueRef = useRef([])
 
   function handleClose() {
+    if (reason === 'clickaway') {
+      return
+    }
     setOpen(false)
   }
 
@@ -154,7 +162,7 @@ If you take a gander, you'll notice our `value` prop on our `NotificationContext
 
 Finally, we need to add the logic to handle processing our notifications! This function essentially will be called any time we create a notification and when a notification exits from view, our `handleExited`.
 
-```jsx{17-22,24-26,31-37}
+```jsx{20-25,27-29,34-40}
 // in notification-context.js
 import React, { useState, useRef } from 'react'
 
@@ -163,11 +171,14 @@ import React, { useState, useRef } from 'react'
 export const NotificationContext = React.createContext()
 
 export function NotificationProvider({ children }) {
-  const [open, setOpen] = React.useState(false)
-  const [messageData, setMessageData] = React.useState(undefined)
+  const [open, setOpen] = useState(false)
+  const [messageData, setMessageData] = useState(undefined)
   const queueRef = useRef([])
 
   function handleClose() {
+    if (reason === 'clickaway') {
+      return
+    }
     setOpen(false)
   }
 
@@ -244,7 +255,15 @@ function AssignmentForm(props) {
 }
 ```
 
-Now our form is consuming our context and we can just call our `createNotification` any time we need it!
+Now our form is consuming our context and we can just call our `createNotification` any time we need it! Here a CodePen of it in application:
+
+<iframe
+     src="https://codesandbox.io/embed/intelligent-bush-3sq60?autoresize=1&fontsize=14&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="notification-example"
+     allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+     sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+   ></iframe>
 
 ## Conclusion
 
