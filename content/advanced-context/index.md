@@ -10,42 +10,43 @@ A lot of blog posts highlight React Context as a way to pass data to components 
 ## Background - Reinventing the Wheel Everywhere
 
 Across your codebase, you might notice certain chunks of code being repeated.
-And if you work on a team where things get rewritten, you might notice certain patterns copied and used again but changed slightly. In a codebase I was working on I noticed us reimplementing code in several places for notifying our users about the state of an interaction in our app. It would generally look like this:
+And if you work on a team where things get rewritten, you might notice certain patterns copied and used again but changed slightly. In our example codebase, we notice code being reimplemented in several places for notifying our users about the state of an interaction in our app. It generally looks like this:
 
 ```jsx
 function AssignmentForm(props) {
-	// Bunch of other state stuff...
-	const [open, setOpen] = useState(false)
-	const [message, setMessage] = useState('')
-	const [status, setStatus] = useState('')
+  // Bunch of other state stuff...
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState('')
+  const [status, setStatus] = useState('')
 
 
-	function handleSave() {
-		// Handle saving your assignment, used within renderAssignment
-		// ...
+  function handleSave() {
+    // Handle saving your assignment, used within renderAssignment
+    // ...
 
-		function onSuccess() {
-			setOpen(true)
-			setMessage('This worked successfully')
-			setStatus('success')
-		}
+    function onSuccess() {
+      setOpen(true)
+      setMessage('This worked successfully')
+      setStatus('success')
+    }
 
-		function onError() {
-			setOpen(true)
-			setMessage('This failed. Oops.')
-			setStatus('error')
-		}
-	}
+    function onError() {
+      setOpen(true)
+      setMessage('This failed. Oops.')
+      setStatus('error')
+    }
+  }
 
-	return (
-		{this.renderAssignment()}
-		<Snackbar
-			autoHideDuration={2000}
-			open={this.state.isOpen},
-			message={this.state.message}
-			status={this.state.statusColor}
-			/>
-	)
+  return (
+    <React.Fragment>
+      {this.renderAssignment()}
+      <Snackbar
+        autoHideDuration={2000}
+        open={this.state.isOpen},
+        message={this.state.message}
+        status={this.state.statusColor} />
+    </React.Fragment>
+  )
 }
 ```
 
@@ -68,7 +69,7 @@ function Notification({ message, status, open, handleClose, handleExited }) {
     <Snackbar
       anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       open={open}
-      autoHideDuration={3500} // Automatically calls onClose after 1000ms (3.5secs)
+      autoHideDuration={3500} //calls onClose after 3500ms (3.5secs)
       onClose={handleClose}
       onExited={handleExited}
     >
@@ -90,7 +91,7 @@ Since notifications can be used across any part of the application, it helps us 
 
 We'll place the logic for making the Notification appear/disppear, using `setOpen` and `handleClose`, inside of the Provider and pass them down to our `Notification` component. We'll also have `messageData` represent what should be displayed to the user.
 
-```jsx{2,6,8-22}
+```jsx{2,6,8-10,12-14,16-22}
 // in notification-context.js
 import React, { useState } from 'react'
 
@@ -135,8 +136,8 @@ export function NotificationProvider({ children }) {
   }
 
   // This should take the shape of an object
-  // with a key of message and status
-  function createNotification(notificationData) {
+  // with two keys, message and status
+  function createNotification(notification) {
     queueRef.current.push(notification)
   }
 
@@ -153,7 +154,7 @@ If you take a gander, you'll notice our `value` prop on our `NotificationContext
 
 Finally, we need to add the logic to handle processing our notifications! This function essentially will be called any time we create a notification and when a notification exits from view, our `handleExited`.
 
-```jsx{17-26,31-37}
+```jsx{17-22,24-26,31-37}
 // in notification-context.js
 import React, { useState, useRef } from 'react'
 
@@ -171,7 +172,7 @@ export function NotificationProvider({ children }) {
   }
 
   function processQueue() {
-    if (queueRef.curren.length > 0) {
+    if (queueRef.current.length > 0) {
       setMessageData(queueRef.current.shift())
       setOpen(true)
     }
@@ -211,7 +212,7 @@ Now, the only thing left to do is rewrite the places that we were using our `Sna
 
 We can change our original example to something like this:
 
-```jsx
+```jsx{1-2,6}
 import React, { useContext } from 'react';
 import { NotificationContext } from './notification-context'
 
@@ -243,6 +244,8 @@ function AssignmentForm(props) {
 }
 ```
 
+Now our form is consuming our context and we can just call our `createNotification` any time we need it!
+
 ## Conclusion
 
-Now this is just a small example of how Context can be used to surface patterns across your application. It does not need to be only used for exposing your user data or your theme to the entirety of your application. There are times where you want to bring reusability to your application to avoid adhoc cases that cannot just be their own component. The great thing about this solution is that this makes sure to separate the concerns of our application so a component doesn't need to worry about maintaining the logic for launching the `Snackbar` when it doesn't need to.
+This was just an example of how Context can be used to surface patterns across an application. It does not need to be only used for exposing user data or the theme to the entirety of an application. There are times where we want to bring reusability to our application to avoid adhoc cases that cannot just be their own component. The great thing about this solution is that this makes sure to separate the concerns of our application so a component doesn't need to worry about maintaining the logic for launching the `Snackbar` when it doesn't need to.
