@@ -5,11 +5,12 @@ slug: 'reuse-context'
 tags: ['learning', 'react', 'context']
 ---
 
-A lot of blog posts will talk about context as something you can use to pass along data to your components so you can display information or hide certain views without having to drill down several components. In this blog post, we'll talk about using Context to provide consistent patterns for your peers, refactor your application, and create a great user experience.
+A lot of blog posts highlight React Context as a way to pass data to components without needing to prop drill. They tend to use an example like passing along user information or creating a light/dark theme. I wanted to showcase another way to think about React Context. Instead of just passing along data, we'll use Context to refactor our application's management of notifications. We'll expose a function so that way developers can have a consistent pattern to follow and users will have a great experience.
 
-## Reinventing the Wheel Everywhere
+## Background - Reinventing the Wheel Everywhere
 
-Sometimes in your React codebase, you'll notice that there are patterns of code that happen over and over again. And if you work on a team or go through stages of places where things get rewritten, you might notice certain patterns copied and used again but changed slightly. In a codebase I was working on I noticed us reimplementing code in several places for notifying our users about some successful/erronous interaction. It would look generally something like:
+Across your codebase, you might notice certain chunks of code being repeated.
+And if you work on a team where things get rewritten, you might notice certain patterns copied and used again but changed slightly. In a codebase I was working on I noticed us reimplementing code in several places for notifying our users about the state of an interaction in our app. It would generally look like this:
 
 ```jsx
 function AssignmentForm(props) {
@@ -48,17 +49,17 @@ function AssignmentForm(props) {
 }
 ```
 
-This isn't a bad approach at all! However, as we create more interactions across the site, we have to remain consistent on how and when it should open and for how long. When thinking about accessibility this is crucial! So how can we provide standardization while still providing flexibility? Well this is where Context can help us out!
+While this isn't a bad approach, as we create more interactions across the site, we weren't being consistent about how long it should remain open and sometimes there were custom colors that it should display. Some interactions even didn't launch because of how hard it was to manage the state. We thought, "how can we provide standardization while still providing flexibility?" This is where Context gave us some help!
 
 ## Building Out our Reusable Notification
 
-We'll start with building out the Notification Component since it is the smallest and then we'll dive into how we want to use Context to make it appear! We will be using [Material UI's Snackbar](https://material-ui.com/components/snackbars/) which will handle the appearance and determining the location on the page. The main properties we want to look at are: `open`, `message`, `anchorOrigin`, `status`, `autoHideDuration`, `onClose`, `onExited`.
+We'll start with building out a `Notification` component. This will be presentational and just take in a bunch of props. It will be using the [Material UI's Snackbar](https://material-ui.com/components/snackbars/), so it already has patterns for how to handle displaying it. The main props we want to look at are: `open`, `message`, `anchorOrigin`, `status`, `autoHideDuration`, `onClose`, `onExited`.
 
-For our developers, we just care about them telling us what the `message` is and what kind of `status` does it require. The other properties should be consistent no matter what, so we won't expose a way to change them. Let's start a new file called `notification-context.js`:
+Let's start a new file called `notification-context.js`:
 
 ```jsx
 // in notification-context.js
-import React, { useState } from 'react'
+import React from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import { Alert } from '@material-ui/lab' // used to style our Snackbar
 
@@ -79,17 +80,17 @@ function Notification({ message, status, open, handleClose, handleExited }) {
 }
 ```
 
-With just this component alone, we have solved the issue of consistency issue. No matter where you are in the application, you will always be presented the snackbar in the same location and for a predetermined time. For our developers they can also use this component to put in whatever text/status they feel is necessary. The status is limited to predefined colors we want to represent feedback, so people aren't putting random magentas.
+Developers using this component at least need to tell us the `message` they want to display and the `status` which determines the colors we want the `Snackbar` in. The other properties will be consistent no matter what, so we won't expose a way to change them outside of our file. With just this component, we already solve the issue of consistency!
 
-Now while having a single component to present rather than declaring them adhoc is nice, it doesn't quite yet solve the problem of the localized state issue. Somehow we have to get these components to get rendered after an interaction. This is where context will help us expose functions to launch the snackbar.
+While having a single component to present rather than declaring them adhoc is nice, it doesn't quite yet solve the problem of the localized state in every component. We have to get this component to get rendered after an interaction. We'll have React Context expose a function to make the Snackbar appear.
 
-## Thinking about Context
+## Thinking with Context
 
-Since notifications can be used across any part of the application, it helps us to think about creating the Provider at the highest level of the component tree and just having our notifications rendered there.
+Since notifications can be used across any part of the application, it helps us to think about creating the Provider at the highest level of the component tree and only rendering our notifications there.
 
-We'll place the logic for making the Notification appear/disppear, `setOpen` and `handleClose`, inside of the Provider and pass them down to our `Notification`. We'll also have `messageData` represent what should be displayed to the user, such as the message and the color.
+We'll place the logic for making the Notification appear/disppear, using `setOpen` and `handleClose`, inside of the Provider and pass them down to our `Notification` component. We'll also have `messageData` represent what should be displayed to the user.
 
-```jsx
+```jsx{2,6,8-22}
 // in notification-context.js
 import React, { useState } from 'react'
 
@@ -114,11 +115,9 @@ export function NotificationProvider({ children }) {
 }
 ```
 
-This will control what the page looks like so far, but it currently doesn't have the crux which is adding notifications onto the screen.
+This will lay the foundation for our notification to be presented, but doesn't yet have the logic of adding any notifications. Since there can be multiple notification updates, we need to make sure only one appears at a time. We'll need to incorporate a queue. For our case, we'll use a `ref` to store it since we want to maintain our transitions.
 
-Since there can be multiple notification updates, we'd like to make sure only one appears at a time. We'll need to incorporate a queue, for our case we'll use a `ref` to store it since we want to maintain our transitions.
-
-```jsx
+```jsx{2,11,17-21,24}
 // in notification-context.js
 import React, { useState, useRef } from 'react'
 
@@ -135,6 +134,8 @@ export function NotificationProvider({ children }) {
     setOpen(false)
   }
 
+  // This should take the shape of an object
+  // with a key of message and status
   function createNotification(notificationData) {
     queueRef.current.push(notification)
   }
@@ -142,22 +143,17 @@ export function NotificationProvider({ children }) {
   return (
     <NotificationContext.Provider value={{ createNotification }}>
       {children}
-      <Notification
-        {...messageData}
-        open={open}
-        handleClose={handleClose}
-        handleExited={handleExited}
-      />
+      <Notification {...messageData} open={open} handleClose={handleClose} />
     </NotificationContext.Provider>
   )
 }
 ```
 
-If you take a gander, you'll notice our value is our `createNotification` function! This is going to be exposed to all children that consume our context. This means that if we were to set this up in our app right now, we'd have a bunch of objects being added to our `queueRef`.
+If you take a gander, you'll notice our `value` prop on our `NotificationContext.Provider` is our `createNotification` function! This is going to be exposed to all children that consume our context. If we were to set this up in our app right now, we'd have a bunch of objects being added to our `queueRef` any time we called `createNotification`.
 
-The last piece will be is the logic to display everything on the page and handle processing our notifications! We'll need to write a function that essentially knows hwo to process our notifications and just update our `createNotification` function so it knows to process them instead of only adding more!
+Finally, we need to add the logic to handle processing our notifications! This function essentially will be called any time we create a notification and when a notification exits from view, our `handleExited`.
 
-```jsx
+```jsx{17-26,31-37}
 // in notification-context.js
 import React, { useState, useRef } from 'react'
 
@@ -189,8 +185,10 @@ export function NotificationProvider({ children }) {
     queueRef.current.push(notification)
 
     if (open) {
+      // If it is already open, close it, calls handleExited.
       setOpen(false)
     } else {
+      // If not opened already, process your notification.
       processQueue()
     }
   }
@@ -209,9 +207,9 @@ export function NotificationProvider({ children }) {
 }
 ```
 
-Everything is finally tidyed up with our snackbar. The only thing left to do is rewrite the places that we were using them before in our application. Make sure that our topmost component is wrapped with our `NotificationProvider` before using it anywhere.
+Now, the only thing left to do is rewrite the places that we were using our `Snackbar`s in our application. **Make sure that our topmost component is wrapped with our `NotificationProvider` before using it anywhere.**
 
-Now we can change our original example to something like this:
+We can change our original example to something like this:
 
 ```jsx
 import React, { useContext } from 'react';
@@ -225,14 +223,14 @@ function AssignmentForm(props) {
 		// Handle saving your assignment, used within renderAssignment
 		// ...
 		function onSuccess() {
-			props.createNotification({
+			createNotification({
 				message: 'This worked successfully',
 				status: 'success',
 			})
 		}
 
 		function onError() {
-			props.createNotification({
+			createNotification({
 				message: 'This failed',
 				status: 'error',
 			})
@@ -247,4 +245,4 @@ function AssignmentForm(props) {
 
 ## Conclusion
 
-Now this is just a small example of how Context can be used to surface patterns across your application. It does not always need to be used for simply exposing your user data or your theme to the entirety of your application. There are times where you want to bring reusability and patterns to your application that allows for discoverability without rewriting adhoc cases. Sometimes your team will need to do something over and over again and this is a way to make it easier for them to utilize pre-existing patterns since they don't have to change up their own components work.
+Now this is just a small example of how Context can be used to surface patterns across your application. It does not need to be only used for exposing your user data or your theme to the entirety of your application. There are times where you want to bring reusability to your application to avoid adhoc cases that cannot just be their own component. The great thing about this solution is that this makes sure to separate the concerns of our application so a component doesn't need to worry about maintaining the logic for launching the `Snackbar` when it doesn't need to.
