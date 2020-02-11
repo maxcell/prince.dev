@@ -103,7 +103,7 @@ export function NotificationProvider({ children }) {
   const [open, setOpen] = useState(false)
   const [messageData, setMessageData] = useState(undefined)
 
-  function handleClose() {
+  function handleClose(event, reason) {
     if (reason === 'clickaway') {
       // To make sure that the notification stays on
       // the page no matter if we click somewhere else
@@ -136,7 +136,7 @@ export function NotificationProvider({ children }) {
   const [messageData, setMessageData] = useState(undefined)
   const queueRef = useRef([])
 
-  function handleClose() {
+  function handleClose(event, reason) {
     if (reason === 'clickaway') {
       return
     }
@@ -175,7 +175,7 @@ export function NotificationProvider({ children }) {
   const [messageData, setMessageData] = useState(undefined)
   const queueRef = useRef([])
 
-  function handleClose() {
+  function handleClose(event, reason) {
     if (reason === 'clickaway') {
       return
     }
