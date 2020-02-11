@@ -42,9 +42,9 @@ function AssignmentForm(props) {
       {this.renderAssignment()}
       <Snackbar
         autoHideDuration={2000}
-        open={this.state.isOpen},
-        message={this.state.message}
-        status={this.state.statusColor} />
+        open={open},
+        message={message}
+        status={status} />
     </React.Fragment>
   )
 }
