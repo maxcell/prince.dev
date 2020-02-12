@@ -5,7 +5,7 @@ slug: 'reuse-context'
 tags: ['learning', 'react', 'context']
 ---
 
-A lot of blog posts highlight React Context as a way to pass data to components without needing to prop drill. They tend to use an example like passing along user information or creating a light/dark theme. I wanted to showcase another way to think about React Context. Instead of just passing along data, we'll use Context to refactor our application's management of notifications. We'll expose a function so that way developers can have a consistent pattern to follow and users will have a great experience.
+A lot of blog posts highlight React Context as a way to pass data to components without needing to [prop drill](https://kentcdodds.com/blog/prop-drilling). They tend to use an example like passing along user information or creating a light/dark theme. I wanted to showcase another way to think about Context. Instead of just passing along data, we'll use Context to refactor our application's management of notifications. We'll expose a function to allow developers to have a consistent pattern to follow while also improving the user experience.
 
 ## Background - Reinventing the Wheel Everywhere
 
@@ -13,6 +13,15 @@ Across your codebase, you might notice certain chunks of code being repeated.
 And if you work on a team where things get rewritten, you might notice certain patterns copied and used again but changed slightly. In our example codebase, we notice code being reimplemented in several places for notifying our users about the state of an interaction in our app. It generally looks like this:
 
 ```jsx
+// in AssignmentForm.jsx
+import React, { useState } from 'react'
+import Snackbar from '@material-ui/core/Snackbar'
+
+/**
+ * Returns a form that will be used for creating an assignment.
+ * An assignment represents a piece of work that would be given to a student.
+ * An assignment in this example will only have a title and description.
+ */
 function AssignmentForm(props) {
   // Bunch of other state stuff...
   const [open, setOpen] = useState(false)
@@ -36,10 +45,16 @@ function AssignmentForm(props) {
       setStatus('error')
     }
   }
+  
+  function renderForm() {
+    // Displays the form which would have labels/inputs 
+    // for title and description
+    // ...
+  }
 
   return (
     <React.Fragment>
-      {this.renderAssignment()}
+      {renderForm()}
       <Snackbar
         autoHideDuration={2000}
         open={open}
@@ -52,9 +67,9 @@ function AssignmentForm(props) {
 
 While this isn't a bad approach, as we create more interactions across the site, we weren't being consistent about how long it should remain open and sometimes there were custom colors that it should display. Some interactions even didn't launch because of how hard it was to manage the state. We thought, "how can we provide standardization while still providing flexibility?" This is where Context gave us some help!
 
-## Building Out our Reusable Notification
+## Building Out Our Reusable Notification
 
-We'll start with building out a `Notification` component. This will be presentational and just take in a bunch of props. It will be using the [Material UI's Snackbar](https://material-ui.com/components/snackbars/), so it already has patterns for how to handle displaying it. The main props we want to look at are: `open`, `message`, `anchorOrigin`, `status`, `autoHideDuration`, `onClose`, `onExited`.
+We'll start with building out a `Notification` component. This will be presentational and just take in a bunch of props. It will be using the [Material UI's `<Snackbar />`](https://material-ui.com/components/snackbars/), so it already has patterns for how to handle displaying it. The main props we want to look at are: `open`, `message`, `anchorOrigin`, `status`, `autoHideDuration`, `onClose`, `onExited`.
 
 Let's start a new file called `notification-context.js`:
 
@@ -81,9 +96,9 @@ function Notification({ message, status, open, handleClose, handleExited }) {
 }
 ```
 
-Developers using this component at least need to tell us the `message` they want to display and the `status` which determines the colors we want the `Snackbar` in. The other properties will be consistent no matter what, so we won't expose a way to change them outside of our file. With just this component, we already solve the issue of consistency!
+Developers using this component at least need to tell us the `message` they want to display and the `status` which determines the colors we want the `<Snackbar />` in. The other properties will be consistent no matter what, so we won't expose a way to change them outside of our file. With just this component, we already solve the issue of consistency!
 
-While having a single component to present rather than declaring them adhoc is nice, it doesn't quite yet solve the problem of the localized state in every component. We have to get this component to get rendered after an interaction. We'll have React Context expose a function to make the Snackbar appear.
+While having a single component to present rather than declaring them adhoc is nice, it doesn't quite yet solve the problem of the localized state in every component. We have to get this component to get rendered after an interaction. We'll have React Context expose a function to make the `<Snackbar />` appear.
 
 ## Thinking with Context
 
@@ -219,14 +234,20 @@ export function NotificationProvider({ children }) {
 }
 ```
 
-Now, the only thing left to do is rewrite the places that we were using our `Snackbar`s in our application. **Make sure that our topmost component is wrapped with our `NotificationProvider` before using it anywhere.**
+Now, the only thing left to do is rewrite the places that we were using our `<Snackbar />`s in our application. **Make sure that our topmost component is wrapped with our `NotificationProvider` before using it anywhere.**
 
 We can change our original example to something like this:
 
-```jsx{1-2,6}
+```jsx{2-3,12}
+// in AssignmentForm.jsx
 import React, { useContext } from 'react';
 import { NotificationContext } from './notification-context'
 
+/**
+ * Returns a form that will be used for creating an assignment.
+ * An assignment represents a piece of work that would be given to a student.
+ * An assignment in this example will only have a title and description.
+ */
 function AssignmentForm(props) {
 
 	const { createNotification } = useContext(NotificationContext)
@@ -248,9 +269,15 @@ function AssignmentForm(props) {
 			})
 		}
 	}
+  
+  function renderForm() {
+    // Displays the form which would have labels/inputs 
+    // for title and description
+    // ...
+  }
 
 	return (
-		{this.renderAssignment()}
+		{renderForm()}
 	)
 }
 ```
@@ -267,4 +294,4 @@ Now our form is consuming our context and we can just call our `createNotificati
 
 ## Conclusion
 
-This was just an example of how Context can be used to surface patterns across an application. It does not need to be only used for exposing user data or the theme to the entirety of an application. There are times where we want to bring reusability to our application to avoid adhoc cases that cannot just be their own component. The great thing about this solution is that this makes sure to separate the concerns of our application so a component doesn't need to worry about maintaining the logic for launching the `Snackbar` when it doesn't need to.
+This was just an example of how Context can be used to surface patterns across an application. It does not need to be only used for exposing user data or the theme to the entirety of an application. There are times where we want to bring reusability to our application to avoid adhoc cases that cannot just be their own component. The great thing about this solution is that this makes sure to separate the concerns of our application so a component doesn't need to worry about maintaining the logic for launching the `<Snackbar />` when it doesn't need to.
