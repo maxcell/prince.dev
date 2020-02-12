@@ -1,11 +1,11 @@
 ---
-title: 'Digging Deeper with React Context'
+title: 'Reducing Boilerplate With React Context'
 date: '2020-02-12'
 slug: 'reuse-context'
 tags: ['learning', 'react', 'context']
 ---
 
-A lot of blog posts highlight React Context as a way to pass data to components without needing to <a target="_blank" rel="noopener noreferrer" href="https://kentcdodds.com/blog/prop-drilling">prop drill</a>. They tend to use an example like passing along user information or creating a light/dark theme. I wanted to showcase another way to think about Context. Instead of just passing along data, we'll use Context to refactor our application's management of notifications. We'll expose a function to allow developers to have a consistent pattern to follow while also improving the user experience.
+A lot of blog posts I have read highlight React Context as a way to pass data to components without needing to <a target="_blank" rel="noopener noreferrer" href="https://kentcdodds.com/blog/prop-drilling">prop drill</a>. They tend to use an example like passing along user information or creating a light/dark theme. I wanted to showcase another way to think about Context. Instead of just passing along data, we'll use Context to refactor our application's management of notifications. We'll expose a function to allow developers to have a consistent pattern to follow, reduce some of the boilerplate, while also improving the user experience.
 
 ## Background - Reinventing the Wheel Everywhere
 
@@ -294,4 +294,9 @@ Now our form is consuming our context and we can just call our `createNotificati
 
 ## Conclusion
 
-This was just an example of how Context can be used to surface patterns across an application. It does not need to be only used for exposing user data or the theme to the entirety of an application. There are times where we want to bring reusability to our application to avoid adhoc cases that cannot just be their own component. The great thing about this solution is that this makes sure to separate the concerns of our application so a component doesn't need to worry about maintaining the logic for launching the `<Snackbar />` when it doesn't need to.
+This was just an example of how Context can be used to surface patterns across an application. It does not need to be only used for exposing data or a theme to the entirety of an application. There are times where we want to bring reusability to our application to avoid adhoc cases that cannot be their own component. The great thing about this solution is that this makes sure to separate the concerns of our application so a component doesn't need to worry about maintaining the logic for launching the `<Snackbar />` when it doesn't need to.
+
+P.S. Shoutout to a few folks who helped with this blog post!
+- [Adam McNeilly](https://twitter.com/AdamMc331) for coming up with the title.
+- [Sylwia Vargas](https://twitter.com/SylwiaVargas), [Zade Kaakarni](https://twitter.com/_xadeka), and [Joe Previte](https://twitter.com/jsjoeio) for reading through it and giving me their amazing feedback.
+-  [Ryan Harris](https://twitter.com/ryan_c_harris) and [Ryan Warner](https://twitter.com/ryanwarnercodes) for cheering me on!
