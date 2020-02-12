@@ -282,7 +282,7 @@ function AssignmentForm(props) {
 }
 ```
 
-Now our form is consuming our context and we can just call our `createNotification` any time we need it! Here a CodePen of it in application:
+Now our form is consuming our context and we can just call our `createNotification` any time we need it! Here a CodeSandbox of it in application:
 
 <iframe
      src="https://codesandbox.io/embed/intelligent-bush-3sq60?autoresize=1&fontsize=14&theme=dark"
