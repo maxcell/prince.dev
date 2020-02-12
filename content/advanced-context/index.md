@@ -5,7 +5,7 @@ slug: 'reuse-context'
 tags: ['learning', 'react', 'context']
 ---
 
-A lot of blog posts highlight React Context as a way to pass data to components without needing to [prop drill](https://kentcdodds.com/blog/prop-drilling). They tend to use an example like passing along user information or creating a light/dark theme. I wanted to showcase another way to think about Context. Instead of just passing along data, we'll use Context to refactor our application's management of notifications. We'll expose a function to allow developers to have a consistent pattern to follow while also improving the user experience.
+A lot of blog posts highlight React Context as a way to pass data to components without needing to <a target="_blank" rel="noopener noreferrer" href="https://kentcdodds.com/blog/prop-drilling">prop drill</a>. They tend to use an example like passing along user information or creating a light/dark theme. I wanted to showcase another way to think about Context. Instead of just passing along data, we'll use Context to refactor our application's management of notifications. We'll expose a function to allow developers to have a consistent pattern to follow while also improving the user experience.
 
 ## Background - Reinventing the Wheel Everywhere
 
@@ -69,7 +69,7 @@ While this isn't a bad approach, as we create more interactions across the site,
 
 ## Building Out Our Reusable Notification
 
-We'll start with building out a `Notification` component. This will be presentational and just take in a bunch of props. It will be using the [Material UI's `<Snackbar />`](https://material-ui.com/components/snackbars/), so it already has patterns for how to handle displaying it. The main props we want to look at are: `open`, `message`, `anchorOrigin`, `status`, `autoHideDuration`, `onClose`, `onExited`.
+We'll start with building out a `Notification` component. This will be presentational and just take in a bunch of props. It will be using the <a target="_blank" rel="noopener noreferrer" href="https://material-ui.com/components/snackbars/">Material UI's `<Snackbar />`</a>, so it already has patterns for how to handle displaying it. The main props we want to look at are: `open`, `message`, `anchorOrigin`, `status`, `autoHideDuration`, `onClose`, `onExited`.
 
 Let's start a new file called `notification-context.js`:
 
