@@ -5,7 +5,9 @@ slug: 'django-models'
 tags: ['django', 'python', 'models']
 ---
 
-A lot of applications nowadays require having some sort of database. This affords a great advantage because once a user leaves a page, they can know that their interactions have persisted even if they decided to go do something else. In Django, our application communicates to our database through a tool called an ORM, Object Relational Mapper. Developers can describe the data and their relationships in the system using Python without directly writing the code to communicate within the database, such as SQL.
+A lot of applications nowadays require having some sort of database. This affords a great advantage because once a user leaves a page, they can know that their interactions have persisted even if they decided to go do something else.
+
+In Django, our application communicates to our database through a tool called an ORM, Object Relational Mapper. Developers can describe the data and their relationships in the system using Python without directly writing the code to communicate within the database, such as SQL.
 
 In this post, we'll cover:
 
@@ -41,13 +43,13 @@ Dissecting this code:
 - We write a class for our `CardBundle`. It will be a child of the `models.Model` class, meaning it will inherit properties from `models.Model`.
 - Lastly, we declare two fields on our model, `title` and `description`. For any column in our database, we would write it as a data attribute within that class. `models.CharField` represents the data type we want to be stored, along with any arguments that can be used as validations like `max_length`.
 
-There we have our first model!
+There we have our first model! Even though we've created this model, we have to make sure that the database knows about it.
 
-### Getting our model into the database
+### Adding our model to the database
 
-Even though we've created this model, we have to make sure that the database knows about it. **It is important to do these steps because otherwise nothing else works**!
+We will need to wire up some settings in our project. **It is important to do these steps**, otherwise nothing will be connected together and simply won't work. We will need to connect our application to the project.
 
-First, we need to connect our application to our project. We need to make sure that our `flashcards` app is in our `INSTALLED_APPS` before we can create data:
+Let's add our `flashcards` app to the listed `INSTALLED_APPS` array found within our settings:
 
 ```python{7}
 # Inside `django-model-example/flashcard_project/settings.py`
@@ -66,7 +68,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-Let's tell Django to make a migration, a file that describes the changes we want to make to the database, on our `flashcards` app:
+Now, Django is aware that we have an application we created. To get a model on the datbase will require two things: 1) creating the changes we want to make and then 2) running the changes on the database. We need to tell Django to make a migration, a file that describes the changes we want to make to the database, on our `flashcards` app:
 
 ```shell
 # In your terminal
@@ -80,7 +82,7 @@ Migrations for 'flashcards':
 
 You should notice a file under `flashcards/migrations/0001_initial.py` which describes the changes we want to make to our database. Since this is our first one, it gets the designation as our `initial` migration. These files are imperative to communicating how the database was modified over the course of time!
 
-Lastly, we need to perform the migration:
+Then finally, we need to perform the migration:
 
 ```shell
 # In your terminal
@@ -189,7 +191,7 @@ Breaking this down:
 
 - We import our models again. Notice how you can import multiple through the same package!
 - Then, we find one of our bundles using `CardBundle.objects.get()`. This can take any attribute on our model and find the first thing that matches. We store the result of that into a variable called `models_bundle` so we can later use it for creating our `Card`s.
-- Lastly, we create two `Card`s we want in our bundle. Each one of the models receives `models_bundle` as the value to `bundle`. This is because the Django ORM is expecting something with a `CardBundle` type.
+- To wrap up, we create two `Card`s we want in our bundle. Each one of the models receives `models_bundle` as the value to `bundle`. This is because the Django ORM is expecting something with a `CardBundle` type.
 
 With that, we've made all the associations and set the base of our application up.
 
