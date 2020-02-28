@@ -25,7 +25,7 @@ For our learning, we'll build the structure for a flashcard app. Our MVP will ha
 In our `CardBundle`, we could have a title and a description. That way in the user interface, one would be able to understand what kind of `Card`s could be inside. Let's write our `CardBundle` model:
 
 ```python
-# flashcard_app/flashcards/models.py
+# django-model-example/flashcards/models.py
 from django.db import models
 
 class CardBundle(models.Model):
@@ -48,7 +48,7 @@ Even though we've created this model, we have to make sure that the database kno
 First, we need to connect our application to our project. We need to make sure that our `flashcards` app is in our `INSTALLED_APPS` before we can create data:
 
 ```python{7}
-# Inside `flashcard_project/settings.py`
+# Inside `django-model-example/flashcard_project/settings.py`
 
 # ...
 # Application definition
@@ -124,7 +124,7 @@ You'll notice we're using `CardBundle.objects`. This is known as the `Manager`. 
 Now that we have our `CardBundles`, we should build out our cards! A `Card` has a `front_text` and a `back_text` for our user. To start, our model will look like this:
 
 ```python{8-10}
-# flashcard_app/flashcards/models.py
+# django-model-example/flashcards/models.py
 from django.db import models
 
 class CardBundle(models.Model):
@@ -139,7 +139,7 @@ class Card(models.Model):
 However in our code now, we have no connection between a `Card` and a `CardBundle`. For every bundle, there could be many `Card`s but each `Card` will only ever live inside of a single `CardBundle`. This is where we need to describe the relationship between a `CardBundle` and a `Card`. In our `Card` model we will need to say, "This card belongs to a specific `CardBundle`", we do this through a `ForeignKey`:
 
 ```python{11}
-# flashcard_app/flashcards/models.py
+# django-model-example/flashcards/models.py
 from django.db import models
 
 class CardBundle(models.Model):
