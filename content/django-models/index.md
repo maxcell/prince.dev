@@ -68,7 +68,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-Now, Django is aware that we have an application we created. To get a model on the database will require two things: 1) creating the changes we want to make and then 2) running the changes on the database. We need to tell Django to make a migration, a file that describes the changes we want to make to the database, on our `flashcards` app:
+Now, Django is aware that we have an application we created. To get a model on the database will require two things: 1) creating the changes we want to make and then 2) running the changes on the database. We need to tell Django to make a migration, a file that specifies the changes we want to make to the database, on our `flashcards` app:
 
 ```shell
 # In your terminal
@@ -80,7 +80,7 @@ Migrations for 'flashcards':
     - Create model CardBundle
 ```
 
-You should notice a file under `flashcards/migrations/0001_initial.py` which describes the changes we want to make to our database. Since this is our first one, it gets the designation as our `initial` migration. These files are imperative to communicating how the database was modified over the course of time!
+You should notice a file under `flashcards/migrations/0001_initial.py` listing the changes we want to make to our database. Since this is our first one, it gets the designation as our `initial` migration. These files are imperative to communicating how the database was modified over the course of time!
 
 Then finally, we need to perform the migration:
 
@@ -140,7 +140,7 @@ class Card(models.Model):
 	back_text = models.CharField(max_length=500)
 ```
 
-However in our code now, we have no connection between a `Card` and a `CardBundle`. For every bundle, there could be many `Card`s but each `Card` will only ever live inside of a single `CardBundle`. This is where we need to describe the relationship between a `CardBundle` and a `Card`. In our `Card` model we will need to say, "This card belongs to a specific `CardBundle`". We do this through a `ForeignKey`, which describes a [Many-to-One Relationship](https://docs.djangoproject.com/en/3.0/topics/db/examples/many_to_one/):
+However in our code now, we have no connection between a `Card` and a `CardBundle`. For every bundle, there could be many `Card`s but each `Card` will only ever live inside of a single `CardBundle`. We need to establish the relationship between a `CardBundle` and a `Card`. In our `Card` model we will need to say, "This card belongs to a specific `CardBundle`". We do this through a `ForeignKey`, which can make our [Many-to-One Relationship](https://docs.djangoproject.com/en/3.0/topics/db/examples/many_to_one/):
 
 ```python{11}
 # django-model-example/flashcards/models.py
