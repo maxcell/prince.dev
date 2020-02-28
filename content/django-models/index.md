@@ -68,7 +68,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-Now, Django is aware that we have an application we created. To get a model on the datbase will require two things: 1) creating the changes we want to make and then 2) running the changes on the database. We need to tell Django to make a migration, a file that describes the changes we want to make to the database, on our `flashcards` app:
+Now, Django is aware that we have an application we created. To get a model on the database will require two things: 1) creating the changes we want to make and then 2) running the changes on the database. We need to tell Django to make a migration, a file that describes the changes we want to make to the database, on our `flashcards` app:
 
 ```shell
 # In your terminal
