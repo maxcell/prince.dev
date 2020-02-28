@@ -140,7 +140,7 @@ class Card(models.Model):
 	back_text = models.CharField(max_length=500)
 ```
 
-However in our code now, we have no connection between a `Card` and a `CardBundle`. For every bundle, there could be many `Card`s but each `Card` will only ever live inside of a single `CardBundle`. This is where we need to describe the relationship between a `CardBundle` and a `Card`. In our `Card` model we will need to say, "This card belongs to a specific `CardBundle`", we do this through a `ForeignKey`:
+However in our code now, we have no connection between a `Card` and a `CardBundle`. For every bundle, there could be many `Card`s but each `Card` will only ever live inside of a single `CardBundle`. This is where we need to describe the relationship between a `CardBundle` and a `Card`. In our `Card` model we will need to say, "This card belongs to a specific `CardBundle`". We do this through a `ForeignKey`, which describes a [Many-to-One Relationship](https://docs.djangoproject.com/en/3.0/topics/db/examples/many_to_one/):
 
 ```python{11}
 # django-model-example/flashcards/models.py
