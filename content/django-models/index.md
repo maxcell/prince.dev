@@ -198,3 +198,7 @@ With that, we've made all the associations and set the base of our application u
 ## Conclusion
 
 Models are a friendly way to interface with data and not have to leave the comfort of your language. This means we can spend more time focused on building the rest of the application and making all the stuff that users enjoy! Continue your journey with Django reading through some other [fields on Models in the Django Documentation](https://docs.djangoproject.com/en/3.0/ref/models/fields/#module-django.db.models.fields) and try building your own models! You can also read about different ways to [get data through queries](https://docs.djangoproject.com/en/3.0/topics/db/queries/#retrieving-all-objects).
+
+P.S. Shoutout to a few folks who helped with this blog post!
+
+- [Ryan](https://twitter.com/ryancharris), [Zac](https://twitter.com/thatzacdavis), and Jeremy for proofreading!
