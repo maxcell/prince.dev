@@ -13,6 +13,8 @@ In this post, we'll cover:
 - Creating data in our database
 - Describing relationships between data
 
+If you want to follow along, feel free to [clone down the project](https://github.com/maxcell/django-model-example). You can also see the [differences](https://github.com/maxcell/django-model-example/compare/final) or just the [end result after this post](https://github.com/maxcell/django-model-example/tree/final).
+
 ## Building a Model
 
 A **model** is our source of truth, from inside our application, about data within our database. It will contain fields and behaviors of our data.
