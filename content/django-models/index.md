@@ -5,7 +5,7 @@ slug: 'django-models'
 tags: ['django', 'python', 'models']
 ---
 
-A lot of applications nowadays require having some sort of database. This affords a great advantage because once a user leaves a page, they can know that their interactions have persisted even if they decided to go do something else.
+A lot of applications nowadays require having some sort of database. This allows developers to build better experiences as information about a user's interactions can persist even if they decide to leave the page.
 
 In Django, our application communicates to our database through a tool called an ORM, Object Relational Mapper. Developers can describe the data and their relationships in the system using Python without directly writing the code to communicate within the database, such as SQL.
 
@@ -19,7 +19,7 @@ If you want to follow along, feel free to [clone down the project](https://githu
 
 ## Building a Model
 
-A **model** is our source of truth, from inside our application, about data within our database. It will contain fields and behaviors of our data.
+[Models](https://docs.djangoproject.com/en/3.0/topics/db/models/) are a human-readable way of describing what the data is and can do. They follow the paradigm of Object Oriented Programming where our models will contain fields and behaviors of our data. Models act as our source of truth, from inside our application, about data within our database.
 
 For our learning, we'll build the structure for a flashcard app. Our MVP will have cards with text on the front and back, and bundle cards together. This surfaces two models for us:
 
@@ -100,7 +100,7 @@ Now we're ready to go to create some data!
 
 ## Creating Data inside of Our Database
 
-For now, we're going to create data within the Terminal that way we can understand what is happening within our application code. We can access our database through a command in our Terminal: `python manage.py shell`. This will create an interactive Python shell where we can talk to our database.
+For now, we're going to create data within the Terminal that way we can better understand what is happening within our application code. We can access our database through a command in our Terminal: `python manage.py shell`. This will create an interactive Python shell where we can talk to our database.
 
 ```bash
 # In your terminal
