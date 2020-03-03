@@ -27,7 +27,7 @@ export default function FeedbackForm(props) {
 
   return (
     <form name="feedback" method="post" onSubmit={handleSubmit}>
-      <input type="hidden" name="feedback" value="feedback" />
+      <input type="hidden" name="form-name" value="feedback" />
       <input
         id="yes"
         checked={value === 'positive'}
