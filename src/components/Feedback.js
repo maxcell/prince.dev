@@ -26,7 +26,13 @@ export default function FeedbackForm(props) {
   }
 
   return (
-    <form name="feedback" method="post" onSubmit={handleSubmit} netlify>
+    <form
+      name="feedback"
+      method="post"
+      onSubmit={handleSubmit}
+      netlify
+      netlify-honeypot="bot-field"
+    >
       <input type="hidden" name="form-name" value="feedback" />
       <input
         id="yes"
