@@ -2,6 +2,7 @@ import React from 'react'
 import Footer from '../components/footer'
 import Layout from '../pages/layout'
 import Head from '../components/social'
+import Feedback from '../components/Feedback'
 import getShareImage from '@jlengstorf/get-share-image'
 
 import { graphql } from 'gatsby'
@@ -31,6 +32,7 @@ export default ({ data }) => {
       <div>
         <h1>{post.frontmatter.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <Feedback />
         <Footer />
       </div>
     </Layout>
