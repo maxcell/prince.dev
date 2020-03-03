@@ -72,11 +72,11 @@ exports.createPages = ({ graphql, actions }) => {
 
     let tags = []
 
-    posts.forEach(edge => {
-      if (edge.node.frontmatter.tags) {
+    posts
+      .filter(edge => edge.node.frontmatter.tags.length > 0)
+      .forEach(edge => {
         tags = [...tags, ...edge.node.frontmatter.tags]
-      }
-    })
+      })
 
     tags = [...new Set(tags)]
 

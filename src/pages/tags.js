@@ -1,12 +1,12 @@
-import React from "react";
-import Layout from "../pages/layout"
+import React from 'react'
+import Layout from '../pages/layout'
 
 // Utilities
-import kebabCase from "lodash/kebabCase";
+import kebabCase from 'lodash/kebabCase'
 
 // Components
-import Helmet from "react-helmet";
-import { Link, graphql } from "gatsby";
+import Helmet from 'react-helmet'
+import { Link, graphql } from 'gatsby'
 
 const TagsPage = ({
   data: {
@@ -31,9 +31,9 @@ const TagsPage = ({
       </ul>
     </div>
   </Layout>
-);
+)
 
-export default TagsPage;
+export default TagsPage
 
 export const pageQuery = graphql`
   query TagsQuery {
@@ -44,6 +44,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       limit: 2000
+      filter: { frontmatter: { draft: { ne: true } } }
     ) {
       group(field: frontmatter___tags) {
         fieldValue
@@ -51,4 +52,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`;
+`
