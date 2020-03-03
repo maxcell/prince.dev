@@ -2,14 +2,14 @@
 title: 'Adding Line Highlighting to your Code Examples using Prism.js'
 date: '2019-11-28'
 slug: 'line-highlighting'
-tags: ['javascript', 'js', 'blog']
+tags: ['javascript', 'blog']
 draft: false
 ---
 
 Company blogs, tutorials, and many other websites have code examples on them to help users learn about
 their product, perform some cool integration, or highlight some specific problem they found and solved.
 These code examples help tell a story for the reader. They also serve as nice snippets to just take with
-you to solve your own coding-related issues. Heck that's how StackOverlow finds itself doing the best work. 
+you to solve your own coding-related issues. Heck that's how StackOverlow finds itself doing the best work.
 So how can we improve the experiences of code examples? We are going to introduce line highlighting!
 
 ## Prerequisite
@@ -21,35 +21,35 @@ For context, I use Prism with Gatsby to make all of my code examples. If you wan
 
 If you want to read more about adding Prism or customizing the finer details, take a gander in at [documentation on Gatsby's plugin site][gatsby-prismjs].
 
-## Line Highlighting with Prism	
+## Line Highlighting with Prism
 
 Let's start with building our own code example. Below we have a wonderful code block:
 
 ```js
 class Doggo {
-	constructor(name) {
-		this.name = name
-	}
+  constructor(name) {
+    this.name = name
+  }
 
-	bark() {
-		console.log(`${this.name} barks and wags their tag!`);
-	}
+  bark() {
+    console.log(`${this.name} barks and wags their tag!`)
+  }
 }
 ```
 
 In order to get the nice syntax highlighting we need to make sure to distinguish the language by three ticks (\`) and the language's name,
-such as` ```js` or ` ```javascript`. Now to highlight specific line(s), we need to list out the line number(s). For example, we want
-to discuss the parameter list of the constructor we could write ` ```js{3}` and this would produce:
+such as` ```js ` or ` ```javascript `. Now to highlight specific line(s), we need to list out the line number(s). For example, we want
+to discuss the parameter list of the constructor we could write ` ```js{3} ` and this would produce:
 
 ```js{3}
 class Doggo {
-	constructor(name) {
-		this.name = name
-	}
+  constructor(name) {
+    this.name = name
+  }
 
-	bark() {
-		console.log(`${this.name} barks and wags their tag!`);
-	}
+  bark() {
+    console.log(`${this.name} barks and wags their tag!`)
+  }
 }
 ```
 
@@ -58,37 +58,36 @@ reader can tell, "Oh this is the new code they added!"
 
 ```js{10-12}
 class Doggo {
-	constructor(name) {
-		this.name = name
-	}
+  constructor(name) {
+    this.name = name
+  }
 
-	bark() {
-		console.log(`${this.name} barks and wags their tag!`);
-	}
+  bark() {
+    console.log(`${this.name} barks and wags their tag!`)
+  }
 
-	hide() {
-		console.log(`${this.name} hides!`)
-	}
+  hide() {
+    console.log(`${this.name} hides!`)
+  }
 }
 ```
 
-In the way we would do this here, we would have ` ```js{10-12}` so that way it highlights multiple lines! You can also mix and match these two syntaxes
-by just separating them by commas (` ```js{3,10-12}` ).
-
+In the way we would do this here, we would have ` ```js{10-12} ` so that way it highlights multiple lines! You can also mix and match these two syntaxes
+by just separating them by commas (` ```js{3,10-12} ` ).
 
 ```js{3,10-12}
 class Doggo {
-	constructor(name) {
-		this.name = name
-	}
+  constructor(name) {
+    this.name = name
+  }
 
-	bark() {
-		console.log(`${this.name} barks and wags their tag!`);
-	}
+  bark() {
+    console.log(`${this.name} barks and wags their tag!`)
+  }
 
-	hide() {
-		console.log(`${this.name} hides!`)
-	}
+  hide() {
+    console.log(`${this.name} hides!`)
+  }
 }
 ```
 
