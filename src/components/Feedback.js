@@ -26,7 +26,7 @@ export default function FeedbackForm(props) {
   }
 
   return (
-    <form name="feedback" method="post" onSubmit={handleSubmit}>
+    <form name="feedback" method="post" onSubmit={handleSubmit} netlify>
       <input type="hidden" name="form-name" value="feedback" />
       <input
         id="yes"
