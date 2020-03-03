@@ -32,9 +32,12 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
+  const blogPostTemplate = path.resolve('./src/templates/blog-post.js')
+  const tagTemplate = path.resolve('./src/templates/tags.js')
+
   return graphql(`
     {
-      allMarkdownRemark(
+      postsRemark: allMarkdownRemark(
         limit: 2000
         sort: { fields: [frontmatter___date], order: DESC }
         filter: { frontmatter: { draft: { ne: true } } }
@@ -50,18 +53,26 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
       }
+      tagsGroup: allMarkdownRemark(
+        limit: 2000
+        filter: { frontmatter: { draft: { ne: true } } }
+      ) {
+        group(field: frontmatter___tags) {
+          fieldValue
+        }
+      }
     }
   `).then(result => {
     if (result.error) {
       return Promise.reject(result.errors)
     }
 
-    const posts = result.data.allMarkdownRemark.edges
+    const posts = result.data.postsRemark.edges
 
     posts.forEach(({ node }) => {
       post = {
         path: node.fields.slug,
-        component: path.resolve('./src/templates/blog-post.js'),
+        component: blogPostTemplate,
         context: {
           slug: node.fields.slug,
         },
@@ -70,22 +81,14 @@ exports.createPages = ({ graphql, actions }) => {
       createPage(post)
     })
 
-    let tags = []
-
-    posts
-      .filter(edge => edge.node.frontmatter.tags.length > 0)
-      .forEach(edge => {
-        tags = [...tags, ...edge.node.frontmatter.tags]
-      })
-
-    tags = [...new Set(tags)]
+    let tags = result.data.tagsGroup.group
 
     tags.forEach(tag => {
       createPage({
-        path: `/tags/${_.kebabCase(tag)}`,
-        component: path.resolve('./src/templates/tags.js'),
+        path: `/tags/${_.kebabCase(tag.fieldValue)}`,
+        component: tagTemplate,
         context: {
-          tag,
+          tag: tag.fieldValue,
         },
       })
     })
