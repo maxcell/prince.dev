@@ -13,7 +13,7 @@ const ListLink = (props) => {
 }
 
 
-const Header = ({ siteTitle }) => (
+const Header = () => (
   <div>
     <div
       style={{
