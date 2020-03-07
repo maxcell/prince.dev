@@ -657,6 +657,8 @@ pre tt:after {
 
 .container {
   max-width: 1024px;
+  padding-left: 1.0875rem;
+  padding-right: 1.0875rem;
   margin: 0 auto;
 }
 @media (max-width: 480px) {
