@@ -26,13 +26,14 @@ const Layout = ({ children }) => (
         />
         <div className="container">
           <Header siteTitle={siteMetadata.title} />
-          <div
+          <main
             style={{
-              padding: '1.45rem 1.0875rem 0',
+              paddingTop: '1.45rem',
+              paddingBottom: '0px'
             }}
           >
             {children}
-          </div>
+          </main>
         </div>
       </Fragment>
     )}

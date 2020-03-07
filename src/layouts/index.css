@@ -202,7 +202,7 @@ html {
 body {
   height: 100%;
   width: 100%;
-  color: #2a3132;
+  color: #222426;
   font-weight: normal;
   font-kerning: normal;
   -moz-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
@@ -656,7 +656,9 @@ pre tt:after {
 }
 
 .container {
-  max-width: 860px;
+  max-width: 75ch;
+  padding-left: 1.0875rem;
+  padding-right: 1.0875rem;
   margin: 0 auto;
 }
 @media (max-width: 480px) {
