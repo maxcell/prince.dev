@@ -10,8 +10,7 @@ export default function FeedbackForm(props) {
   const [value, setValue] = useState('')
 
   function handleSubmit(e) {
-    e.preventDefault()
-
+    console.log('The value is: ', encode({ 'form-name': 'feedback', response: value }))
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -19,6 +18,7 @@ export default function FeedbackForm(props) {
     })
       .then(() => alert('Success!'))
       .catch(error => alert(error))
+    e.preventDefault()
   }
 
   function handleChange(e) {
@@ -33,9 +33,9 @@ export default function FeedbackForm(props) {
       data-netlify="true"
       data-netlify-honeypot="bot-field"
     >
-      <input type="hidden" name="form-name" value="feedback" />
       <input
         id="yes"
+        name="response"
         checked={value === 'positive'}
         type="radio"
         value="positive"
@@ -50,6 +50,7 @@ export default function FeedbackForm(props) {
       <input
         id="no"
         type="radio"
+        name="response"
         checked={value === 'negative'}
         value="negative"
         onChange={handleChange}
