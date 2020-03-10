@@ -15,7 +15,7 @@ export default function FeedbackForm(props) {
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({ 'form-name': 'contact', response: value }),
+      body: encode({ 'form-name': 'feedback', response: value }),
     })
       .then(() => alert('Success!'))
       .catch(error => alert(error))
