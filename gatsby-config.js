@@ -1,4 +1,17 @@
+const { createProxyMiddleware } = require("http-proxy-middleware")
+
 module.exports = {
+  developMiddleware: app => {
+    app.use(
+      "/.netlify/functions/",
+      createProxyMiddleware({
+        target: "http://localhost:8888",
+        pathRewrite: {
+          "/.netlify/functions/": "",
+        },
+      })
+    )
+  },
   siteMetadata: {
     title: 'Prince Wilson - Developer',
     twitter: 'https://twitter.com/maxcell',

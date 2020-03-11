@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Helmet from 'react-helmet'
-import logo from '../assets/maxcell.png'
+import { random } from '../utils'
 
 const Head = props => {
   const socialImage =
     props.socialImage ||
     'https://res.cloudinary.com/maxcell/image/upload/v1579584116/main_social.png'
+
+  useEffect(() => {
+    if (!localStorage.getItem('visitorId')) {
+      localStorage.setItem('visitorId', random())
+    }
+  }, [])
+
   return (
     <Helmet defaultTitle={props.title}>
       <link

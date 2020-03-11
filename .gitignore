@@ -1,8 +1,13 @@
 # Project dependencies
 .cache
+.env
+functions-build/
 node_modules
 yarn-error.log
 
 # Build directory
 /public
 .DS_Store
+
+# Local Netlify folder
+.netlify

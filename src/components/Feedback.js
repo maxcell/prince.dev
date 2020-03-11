@@ -1,23 +1,24 @@
 import React, { useState } from 'react'
 
-const encode = data => {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-    .join('&')
-}
-
 export default function FeedbackForm(props) {
   const [value, setValue] = useState('')
 
   function handleSubmit(e) {
-    console.log('The value is: ', encode({ 'form-name': 'feedback', response: value }))
-    fetch('/', {
+    fetch('/.netlify/functions/feedback', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({ 'form-name': 'feedback', response: value }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        rating: value,
+        date: Date.now(),
+        text: 'empty text for now',
+        visitorId: localStorage.getItem('visitorId')
+      }),
     })
-      .then(() => alert('Success!'))
-      .catch(error => alert(error))
+      .then(res => res.json())
+      .then((msg) => console.log(msg))
+      .catch(error => console.log(error))
     e.preventDefault()
   }
 
