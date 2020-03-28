@@ -11,7 +11,7 @@ export default () => {
                 or building and securing technology to make people's lives better.
             </p>
             <p>
-                I previously worked as a software engineer over at <a target="_blank" rel="noopener noreferrer" href="https://flatironschool.com/">Flatiron School</a>, powered by <a target="_blank" rel="noopener noreferrer" href="https://wework.com/">WeWork</a>.
+                I work as a software engineer at <a href="https://newsela.com">Newsela</a>. I previously worked as a software engineer over at <a target="_blank" rel="noopener noreferrer" href="https://flatironschool.com/">Flatiron School</a>, powered by <a target="_blank" rel="noopener noreferrer" href="https://wework.com/">WeWork</a>.
                 I started off as an instructor there and helped over 400 folks transition into a career of technology!
                 Some of my previous work includes working at Clarifai and State Farm Insurance.
             </p>
