@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Link } from 'gatsby'
+import Link from '../components/Link'
 import Layout from './layout'
 import { StaticQuery, graphql } from 'gatsby'
 
