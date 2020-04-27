@@ -50,7 +50,6 @@ export default ({ children, className, metastring }) => {
             )
           }
           )}
-        }
         </pre>
       )}
     </Highlight>
