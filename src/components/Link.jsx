@@ -1,23 +1,37 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { Link } from 'gatsby';
+import { Link as GatsbyLink } from 'gatsby';
 
-export default function StyledLink6(props) {
-  return (
-    <Link
-      to={props.to}
-      sx={{
-        '&:link,&:visited': {
-          color: 'text',
-        },
-        '&:hover': {
-          color: 'white',
-          bg: 'primary'
-        }
-      }}
-      {...props}
-    >
-      {props.children}
-    </Link>
-  )
+export default function StyledLink(props) {
+
+  const linkStyles = {
+    '&:link,&:visited': {
+      color: 'text',
+    },
+    '&:hover': {
+      color: 'white',
+      bg: 'primary'
+    }
+  }
+
+
+
+  const isInternal = /^\/(?!\/)/.test(props.to)
+
+  if (isInternal) {
+    return (
+      <GatsbyLink
+        {...props}
+        sx={linkStyles}
+      >
+        {props.children}
+      </GatsbyLink>
+    )
+  } else {
+    return (
+      <a {...props} sx={linkStyles}>
+        {props.children}
+      </a>
+    )
+  }
 }

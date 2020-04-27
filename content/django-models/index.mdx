@@ -3,6 +3,7 @@ title: 'Building Your First Django Models'
 date: '2020-02-26'
 slug: 'django-models'
 tags: ['django', 'python', 'models']
+draft: false
 ---
 
 A lot of applications nowadays require having some sort of database. This allows developers to build better experiences as information about a user's interactions can persist even if they decide to leave the page.
@@ -51,7 +52,7 @@ We will need to wire up some settings in our project. **It is important to do th
 
 Let's add our `flashcards` app to the listed `INSTALLED_APPS` array found within our settings:
 
-```python{7}
+```python {7}
 # Inside `django-model-example/flashcard_project/settings.py`
 
 # ...
@@ -127,7 +128,7 @@ You'll notice we're using `CardBundle.objects`. This is known as the `Manager`. 
 
 Now that we have our `CardBundles`, we should build out our cards! A `Card` has a `front_text` and a `back_text` for our user. To start, our model will look like this:
 
-```python{8-10}
+```python {8-10}
 # django-model-example/flashcards/models.py
 from django.db import models
 
@@ -142,7 +143,7 @@ class Card(models.Model):
 
 However in our code now, we have no connection between a `Card` and a `CardBundle`. For every bundle, there could be many `Card`s but each `Card` will only ever live inside of a single `CardBundle`. We need to establish the relationship between a `CardBundle` and a `Card`. In our `Card` model we will need to say, "This card belongs to a specific `CardBundle`". We do this through a `ForeignKey`, which can make our [Many-to-One Relationship](https://docs.djangoproject.com/en/3.0/topics/db/examples/many_to_one/):
 
-```python{11}
+```python {11}
 # django-model-example/flashcards/models.py
 from django.db import models
 
