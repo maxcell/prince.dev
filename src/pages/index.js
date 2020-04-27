@@ -27,7 +27,7 @@ const BlogSection = () => {
               node {
                 frontmatter {
                   title
-                  date(formatString: "MMM Do")
+                  date
                 }
                 fields {
                   slug
@@ -37,13 +37,38 @@ const BlogSection = () => {
               }
             }
           }
+          allMdx(
+            sort: { fields: [frontmatter___date], order: DESC }
+            filter: { frontmatter: { draft: { ne: true } } }
+          ) {
+            edges {
+              node {
+                frontmatter {
+                  title
+                  date
+                }
+                fields {
+                  slug
+                }
+                timeToRead
+                body
+              }
+            }
+          }
         }
       `}
-      render={data => (
-        <ol class="blog-list">
-          <BlogList edges={data.allMarkdownRemark.edges} />
-        </ol>
-      )}
+      render={data => {
+
+        const edges = data.allMarkdownRemark.edges.concat(data.allMdx.edges).sort((a, b) => (
+          -a.node.frontmatter.date.localeCompare(b.node.frontmatter.date)
+        ))
+
+        return (
+          <ol class="blog-list">
+            <BlogList edges={edges} />
+          </ol>
+        )
+      }}
     />
   )
 }
