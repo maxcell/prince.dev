@@ -12,7 +12,7 @@ import '../layouts/index.css'
 
 const components = {
   a: (props) => <Link {...props} />,
-  pre: (props) => <div {...props} />,
+  pre: (props) => <div className="gatsby-highlight" {...props} />,
   code: CodeBlock,
   inlineCode: InlineCode
 }
