@@ -23,6 +23,7 @@ export default function StyledLink(props) {
       <GatsbyLink
         {...props}
         sx={linkStyles}
+        activeStyle={{ backgroundColor: 'white', borderBottom: '2px solid #5E0887' }}
       >
         {props.children}
       </GatsbyLink>
