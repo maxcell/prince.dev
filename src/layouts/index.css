@@ -622,10 +622,10 @@ pre tt:after {
   border-left: 0.3em solid #f99;
 }
 
-.gatsby-highlight {
+.prism-code, .gatsby-highlight {
   background-color: #1d1f21;
   border-radius: 0.3em;
-  margin: 0.5em 0;
+  margin: 2em 0;
   padding: 1em;
   overflow: auto;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 10px 24px;

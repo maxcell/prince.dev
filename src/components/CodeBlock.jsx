@@ -1,4 +1,5 @@
 import React from 'react'
+import { cx, css } from '@emotion/core'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 
 const calculateLinesToHighlight = (meta) => {
@@ -33,7 +34,12 @@ export default ({ children, className, metastring }) => {
   const shouldHighlightLine = calculateLinesToHighlight(metastring)
 
   return (
-    <Highlight {...defaultProps} code={children} language={language} theme={undefined}>
+    <Highlight
+      {...defaultProps}
+      code={children}
+      language={language}
+      theme={undefined}
+    >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={{ ...style }}>
           {tokens.map((line, index) => {
