@@ -1,6 +1,5 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import logo from '../assets/maxcell.png'
 
 const Head = props => {
   const socialImage =

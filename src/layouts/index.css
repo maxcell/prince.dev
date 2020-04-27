@@ -40,14 +40,16 @@ progress {
 template {
   display: none;
 }
-a {
-  background-color: transparent;
-  -webkit-text-decoration-skip: objects;
+
+a, a:visited {
+ color: #222426;
 }
-a:active,
+
 a:hover {
-  outline-width: 0;
+  color: white;
+  background-color: #5E0887;
 }
+
 a[target='_blank']::after {
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
   margin: 0 3px 0 5px;
@@ -630,10 +632,10 @@ pre tt:after {
   border-left: 0.3em solid #f99;
 }
 
-.gatsby-highlight {
+.prism-code, .gatsby-highlight {
   background-color: #1d1f21;
   border-radius: 0.3em;
-  margin: 0.5em 0;
+  margin: 2em 0;
   padding: 1em;
   overflow: auto;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 10px 24px;
@@ -685,20 +687,6 @@ pre tt:after {
 .navigation {
   list-style: none;
   margin: 0;
-}
-
-p a,
-li a {
-  color: inherit;
-  border-bottom: 3px solid #336b87;
-  display: inline;
-  line-height: 1.05;
-  text-decoration: none;
-}
-
-p a:hover,
-li a:hover {
-  background-color: #90afc5;
 }
 
 a > img {

@@ -2,13 +2,15 @@ module.exports = {
   siteMetadata: {
     title: 'Prince Wilson - Developer',
     twitter: 'https://twitter.com/maxcell',
-    url: 'https://maxcell.me',
+    url: 'https://prince.dev',
     description: 'An organically growing notebook of thoughts and learnings!',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    'gatsby-plugin-theme-ui',
+    'gatsby-plugin-mdx',
     {
       resolve: `gatsby-transformer-remark`,
       options: {
