@@ -1,5 +1,4 @@
 import React from 'react'
-import { cx, css } from '@emotion/core'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 
 const calculateLinesToHighlight = (meta) => {
@@ -12,7 +11,6 @@ const calculateLinesToHighlight = (meta) => {
       .split(',')
       .map((v) => v.split('-').map((v) => parseInt(v, 10)))
 
-    console.log('Line numbers to highlight: ', lineNumbers)
     return (index) => {
       const lineNumber = index + 1
       const inRange = lineNumbers.some(([start, end]) =>
@@ -26,11 +24,9 @@ const calculateLinesToHighlight = (meta) => {
 
 export default ({ children, className, metastring }) => {
   // Pull the className
-  console.log('Props: ', children)
-  const language = className.replace(/language-/, '')
+  const language = className.replace(/language-/, '') || ""
 
   // Determine if we need highlighting
-  console.log('metastring: ', metastring)
   const shouldHighlightLine = calculateLinesToHighlight(metastring)
 
   return (

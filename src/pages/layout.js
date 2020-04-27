@@ -6,13 +6,15 @@ import { StaticQuery, graphql } from 'gatsby'
 import Header from '../components/header'
 import Link from '../components/Link'
 import CodeBlock from '../components/CodeBlock'
+import InlineCode from '../components/InlineCode'
 import '../layouts/index.css'
 
 
 const components = {
   a: (props) => <Link {...props} />,
   pre: (props) => <div {...props} />,
-  code: CodeBlock
+  code: CodeBlock,
+  inlineCode: InlineCode
 }
 
 const Layout = ({ children }) => (
