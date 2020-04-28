@@ -1,0 +1,207 @@
+---
+title: Migrating from gatsby-remark-prismjs to prism-react-renderer
+date: '2020-04-28'
+slug: 'prism-react-renderer'
+tags: ['prism', 'mdx']
+---
+
+As I slowly migrate my blog to use some new tools, I wanted to make sure that 
+I kept a good record as far as what tools I have been using and how I've been moving
+around with them. One of the most important things for me as I switch to [MDX][mdx] has been
+maintaining the readability of my code blocks. I won't be talking about how to install MDX
+but the maintainers have a [great set of docs about it for Gatsby][mdx-gatsby] (which is what I use)!
+
+## Adding a `CodeBlock` component to MDX
+
+To start off, we need to make sure that out layout file has `MDXProvider` and we can add in
+custom components that match to their [shortcodes][mdx-shortcodes]. In my case, 
+I needed to declare the component for `code`. I went to my `src/pages/layout.js` and added:
+
+```jsx {3-4,8-9,14}
+// src/pages/layout.js
+import React, {Fragment} from 'react'
+import {MDXProvider} from '@mdx-js/react'
+import CodeBlock from 'src/components/CodeBlock'
+// ... some more imports
+ 
+const components = {
+  pre: props => <div {...props}>,
+  code: CodeBlock
+}
+ 
+const Layout = ({ children }) => (
+  <MDXProvider
+    components={components}
+  >
+    {/* */}
+  </MDXProvider>
+)
+```
+
+The `pre` will always wrap around our `code` by default so we need to make sure
+to pass through any props we receive down to the code block. In addition, we
+can pass in any additional styles on the `pre` wrapper. I do this so I can
+support smaller devices with my line highlighting.
+
+## Writing our `CodeBlock` component
+
+We told our `layout.js` that we should be using our `CodeBlock` component so let's go ahead and create that.
+We'll use `prism-react-renderer`'s `Highlight` component to handle how to present everything on the screen.
+This was an almost exact copy from [MDX's Syntax Highlight documentation][mdx-syntax-highlight]
+but some important things worth noting are:
+
+```jsx {7,11-12}
+// src/components/CodeBlock.jsx
+import React from 'react'
+import Highlight, { defaultProps } from 'prism-react-renderer'
+ 
+export default ({ children, className }) => {
+  // Pull the className
+  const language = className.replace(/language-/, '')
+ 
+  return (
+    <Highlight {...defaultProps}
+      code={children}
+      language={language}
+    >
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre className={className} style={{ ...style }}>
+          {tokens.map((line, index) => {
+            const lineProps = getLineProps({ line, key: index })
+            return (
+              <div key={index} {...lineProps}>
+                {line.map((token, key) => (
+                  <span key={key}{...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            )
+          }
+          )}
+        </pre>
+      )}
+    </Highlight>
+  )
+}
+```
+
+1. We need to pull the language off of our codeblock and we will get that from the `className` prop.
+We will make sure to use a big regex magic to get the language that we want. And pass that as a 
+prop called `language` to `<Highlight>`.
+2. We will pass in the `children` prop as a pro named `code` to `<Highlight>`. Then we'll have 
+all the syntax highlighting working by default!
+
+### Removing `gatsby-remark-prismjs`
+
+And now... we can just remove the plugin entirely from our `gatsby-config.json` and everything should still
+work!
+
+```diff
+plugins: [
+  'gatsby-plugin-theme-ui',
+  'gatsby-plugin-mdx',
+  {
+    resolve: `gatsby-transformer-remark`,
+    options: {
+      plugins: [
+-        {
+-          resolve: `gatsby-remark-prismjs`,
+-          options: {
+-            classPrefix: 'language-',
+-            inlineCodeMarker: `>`,
+-            showLineNumbersGlobal: false,
+-            noInlineHighlight: false,
+-          },
+-        },
+       // ....
+      ]
+    }
+  }
+]
+```
+
+### Updating Theme
+
+At this point there is nothing else left but customizations! If you're like me, you want to make your site
+a bit personal so I will show you 1) how to use other preset themes and 2) how to reuse the ones you had
+with `gatsby-remark-prismjs`. 
+
+
+#### Preset Themes
+
+`prism-react-renderer` has a bunch of preset themes. You can find the list
+[here][prism-react-renderer-themes]. By default it uses the `duotoneDark` theme. To add the theme,
+you want to import the specific one and then pass it as the `theme` prop for `Highlight`:
+
+```jsx {4,14}
+// src/components/CodeBlock.jsx
+import React from 'react'
+import Highlight, { defaultProps } from 'prism-react-renderer'
+import vsDark from 'prism-react-renderer/themes/vsDark';
+ 
+export default ({ children, className }) => {
+  // Pull the className
+  const language = className.replace(/language-/, '')
+ 
+  return (
+    <Highlight {...defaultProps}
+      code={children}
+      language={language}
+      theme={vsDark}
+    >
+     {/* ... */}
+    </Highlight>
+  )
+}
+```
+
+#### Reusing the gatsby-remark-prismjs theme
+
+You might have had a custom theme installed through your `gatsby-browser`. I have been using
+`prism-atom-dark` theme for a long time and it has been great! To keep using it, I just needed
+to tell the `theme` is `undefined`.
+
+So make sure in you have your css file imported:
+
+```js
+// gatsby-browser.js
+ 
+// This is where source path to my CSS theme
+require('./src/assets/css/prism-atom-dark.css')
+```
+
+Then in our `CodeBlock` component: 
+
+```jsx {13}
+// src/components/CodeBlock.jsx
+import React from 'react'
+import Highlight, { defaultProps } from 'prism-react-renderer'
+ 
+export default ({ children, className }) => {
+  // Pull the className
+  const language = className.replace(/language-/, '')
+ 
+  return (
+    <Highlight {...defaultProps}
+      code={children}
+      language={language}
+      theme={undefined}
+    >
+     {/* ... */}
+    </Highlight>
+  )
+}
+```
+
+### Conclusion
+
+And that's a wrap! This was an excellent fun project for me over the weekend. There are a few things I will 
+expand on, like how do I keep my line highlighting now that I am using `prism-react-renderer`! Let me know if this
+helped you out!
+
+P.S. Thank you to [Ryan Warner](https://twitter.com/ryanwarnercodes) for inspiring me to take on this project!
+
+[mdx]: https://mdxjs.com/
+[mdx-gatsby]: https://mdxjs.com/getting-started/gatsby
+[mdx-shortcodes]: https://mdxjs.com/table-of-components
+[mdx-syntax-highlight]: https://mdxjs.com/guides/syntax-highlighting#all-together
+[prism-react-renderer-themes]: https://github.com/FormidableLabs/prism-react-renderer/tree/master/src/themes
