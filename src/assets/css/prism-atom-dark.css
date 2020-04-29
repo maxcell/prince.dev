@@ -39,6 +39,7 @@ pre[class*="language-"] {
 	background: #1d1f21;
 }
 
+/* Handles the actual highlighting process */
 .highlight-line {
   background-color: rgb(53, 59, 69);
   display: block;

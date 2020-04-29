@@ -1,0 +1,124 @@
+---
+title: Add line highlighting with prism-react-renderer
+date: '2020-04-29'
+slug: 'highlight-with-react'
+tags: ['prism', 'mdx', 'gatsby']
+---
+
+I've been recently migrating away from `gatsby-remark-prismjs` to `prism-react-renderer`, which if you're
+doing the same you can read about [here][blog-post]! To keep the same feel for my readers (like yourself),
+I needed to also make sure I could support one of my favorite features: line highlighting!
+
+## Why is Line Highlighting Important?
+
+Now you might be wondering, "Why bother?" Well, have you ever read a blog post but 
+felt super lost in what would be important to get out of the code blocks they shown? 
+What about seeing big blocks of code and not quite what changed across the two? This is where I 
+think line highlighting really helps!
+
+It makes you, the author, pay more attention to what you need to be communicating, visually and written.
+
+## Adding Line Highlight with `prism-react-renderer`
+
+When using MDX, the `code` [shortcode][MDX-code] passes 3 props `className`, `children`, `metastring` by default.
+In my [migration post][blog-post], we used `className` to display the correct styling by language and the
+`children` prop was the actual code we want to display. The newest prop is `metastring`
+which is a string representation of everything following the backticks and language (**THE SPACE IS IMPORTANT**):
+
+```md
+There are some limitations such as trying to render
+markdown code blocks in a codeblock 😅
+ 
+But ignoring the leading #, we would use this to denote a codeblock
+# ```js {1,2,3-4}
+```
+
+This metastring can be used for all sorts of things, but for now we'll focus on
+getting out the lines! I used a package, `parse-numeric-range`, that will help with parsing
+ranges which you'll want to add through either `npm` or `yarn`. Then in my `CodeBlock` component,
+I added a bit of code:
+
+```jsx {3,8-17}
+// src/components/CodeBlock.jsx
+import React from 'react'
+import rangeParser from 'parse-numeric-range';
+import Highlight, { defaultProps } from 'prism-react-renderer'
+
+// Create a closure that determines if we have
+// to highlight the given index
+const calculateLinesToHighlight = (meta) => {
+  const RE = /{([\d,-]+)}/
+  if (RE.test(meta)) {
+    const strlineNumbers = RE.exec(meta)[1]
+    const lineNumbers = rangeParser(strlineNumbers)
+    return (index) => (lineNumbers.includes(index + 1))
+  } else {
+    return () => false
+  }
+}
+
+// ...
+```
+
+This `calculateLinesToHighlight` will actually return a function that can be executed to determine
+if it is a line to highlight. This will make it so we don't need to recompute what the range is every
+time we check for a line. The only acceptable characters inside of the `{}` are numbers, `-`, and `,`.
+
+Then we can go into our actual render for the codeblock and add:
+
+```jsx {3,11}
+// src/components/CodeBlock.jsx
+// ...
+  const shouldHighlightLine = calculateLinesToHighlight(metastring)
+
+  return (
+    <Highlight {...defaultProps} code={children} language={language}>
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre className={className} style={{ ...style }}>
+          {tokens.map((line, index) => {
+            const lineProps = getLineProps({ line, key: index })
+            if (shouldHighlightLine(index)) { lineProps.className = `${lineProps.className} highlight-line` }
+            return (
+              <div key={index} {...lineProps}>
+                {line.map((token, key) => (
+                  <span key={key}{...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            )
+          })}
+        </pre>
+      )}
+    </Highlight>
+  )
+```
+
+If we need to highlight our line through `shouldHighlightLine`, we will need to add `highlight-line`
+to the `className` string for the line. This is finally then missing what the value it should receive:
+
+```css
+/* inside of my custom theme */
+
+/* Handles the actual highlighting process */
+.highlight-line {
+  background-color: rgb(53, 59, 69);
+  display: block;
+  margin-right: -1em;
+  margin-left: -1em;
+  padding-right: 1em;
+  padding-left: 0.75em;
+  border-left: 0.3em solid #f99;
+}
+```
+
+And from there, this should now allow you to go and write your own line highlights in
+your code blocks! Feel free to customize your line highlighting to your needs. You will now
+be able to write the same things you were writing before in your markdown files in your MDX
+files. As a final reminder, the code blocks will need a space after you declare the language
+in order for the meta string to be picked up! I spent a good amount of time frustrated wondering,
+why the heck isn't it working! Don't be like past me, learn from my mistakes!
+
+Whenever you get your line highlighting setup, feel free to [share it with me on Twitter][twitter]!
+
+[blog-post]: prism-react-renderer
+[MDX-code]: https://github.com/syntax-tree/mdast#code
+[twitter]: https://twitter.com/maxcell

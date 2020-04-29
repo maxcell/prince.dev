@@ -1,23 +1,17 @@
 import React from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
+import rangeParser from 'parse-numeric-range';
 
+// Create a closure that determines if we have
+// to highlight the given index
 const calculateLinesToHighlight = (meta) => {
   const RE = /{([\d,-]+)}/
-
-  if (!RE.test(meta)) {
-    return () => false
+  if (RE.test(meta)) {
+    const strlineNumbers = RE.exec(meta)[1]
+    const lineNumbers = rangeParser(strlineNumbers)
+    return (index) => (lineNumbers.includes(index + 1))
   } else {
-    const lineNumbers = RE.exec(meta)[1]
-      .split(',')
-      .map((v) => v.split('-').map((v) => parseInt(v, 10)))
-
-    return (index) => {
-      const lineNumber = index + 1
-      const inRange = lineNumbers.some(([start, end]) =>
-        end ? lineNumber >= start && lineNumber <= end : lineNumber === start
-      )
-      return inRange
-    }
+    return () => false
   }
 }
 
