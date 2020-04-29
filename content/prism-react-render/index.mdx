@@ -88,8 +88,8 @@ export default ({ children, className }) => {
 
 1. We need to pull the language off of our codeblock and we will get that from the `className` prop.
 We will make sure to use a big regex magic to get the language that we want. And pass that as a 
-prop called `language` to `<Highlight>`.
-2. We will pass in the `children` prop as a pro named `code` to `<Highlight>`. Then we'll have 
+value to the `language` prop on `<Highlight>`.
+2. We will pass in the `children` as a value to the `code` prop on `<Highlight>`. Then we'll have 
 all the syntax highlighting working by default!
 
 ### Removing `gatsby-remark-prismjs`
@@ -132,8 +132,8 @@ a bit personal so I will show you:
 #### Preset Themes
 
 `prism-react-renderer` has a bunch of preset themes. You can find the list
-[here][prism-react-renderer-themes]. By default, it uses the `duotoneDark` theme. You want
-to import the specific theme and then pass it as the value for the `theme` prop on `Highlight`:
+[here][prism-react-renderer-themes]. By default, it uses the `duotoneDark` theme.
+Import the specific theme you'd like and pass it as the value for the `theme` prop on `Highlight`:
 
 ```jsx {4,14}
 // src/components/CodeBlock.jsx
