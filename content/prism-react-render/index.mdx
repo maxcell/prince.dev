@@ -5,18 +5,19 @@ slug: 'prism-react-renderer'
 tags: ['prism', 'mdx']
 ---
 
-I am gonna share a bit about how I have integrated with `prism-react-renderer` and keep styles the
-styles I was using back with `gatsby-remark-prismjs`. As I slowly migrate my blog, I wanted to make sure that 
-I kept a good record as far as what tools I have been using. One of the most important things for me 
+I am gonna share a bit about how I have integrated with `prism-react-renderer` and kept the
+styles I was using back with `gatsby-remark-prismjs`. As I migrate my blog over, I want to record
+a bit better about the tools I have been using. One of the most important things for me 
 as I switch to [MDX][mdx] has been maintaining the readability of my code blocks. I won't be talking 
-about how to install MDX but the maintainers have a 
+about how to install MDX, but the maintainers have a 
 [great set of docs about it for Gatsby][mdx-gatsby] (which is what I use)!
 
 ## Adding a `CodeBlock` component to MDX
 
-To start off, we need to make sure that out layout file has `MDXProvider` and we can add in
-custom components that match to their [shortcodes][mdx-shortcodes]. In my case, 
-I needed to declare the component for `code`. I went to my `src/pages/layout.js` and added:
+In a layout file (typically the topmost one), import `MDXProvider`. This is where one can add in
+custom components that will override how their markdown renders it. These each match to some 
+[shortcode][mdx-shortcodes]. In my case, I needed to declare the component 
+for `code`. I went to my `src/pages/layout.js` and added:
 
 ```jsx {3-4,8-9,14}
 // src/pages/layout.js
@@ -58,7 +59,7 @@ import Highlight, { defaultProps } from 'prism-react-renderer'
  
 export default ({ children, className }) => {
   // Pull the className
-  const language = className.replace(/language-/, '')
+  const language = className.replace(/language-/, '') || ""
  
   return (
     <Highlight {...defaultProps}
@@ -123,16 +124,16 @@ plugins: [
 ### Updating Theme
 
 At this point there is nothing else left but customizations! If you're like me, you want to make your site
-a bit personal so I will show you 
+a bit personal so I will show you:
 
-1. how to use other preset themes
-2. how to reuse the ones you had with `gatsby-remark-prismjs`. 
+1. Using other preset themes
+2. Reusing themes you had with `gatsby-remark-prismjs`
 
 #### Preset Themes
 
 `prism-react-renderer` has a bunch of preset themes. You can find the list
-[here][prism-react-renderer-themes]. By default it uses the `duotoneDark` theme. To add the theme,
-you want to import the specific one and then pass it as the `theme` prop for `Highlight`:
+[here][prism-react-renderer-themes]. By default, it uses the `duotoneDark` theme. You want
+to import the specific theme and then pass it as the value for the `theme` prop on `Highlight`:
 
 ```jsx {4,14}
 // src/components/CodeBlock.jsx
@@ -142,7 +143,7 @@ import vsDark from 'prism-react-renderer/themes/vsDark';
  
 export default ({ children, className }) => {
   // Pull the className
-  const language = className.replace(/language-/, '')
+  const language = className.replace(/language-/, '') || ""
  
   return (
     <Highlight {...defaultProps}
@@ -160,14 +161,15 @@ export default ({ children, className }) => {
 
 You might have had a custom theme installed through your `gatsby-browser`. I have been using
 `prism-atom-dark` theme for a long time and it has been great! To keep using it, I just needed
-to tell the `theme` is `undefined`.
+to tell the `theme` is `undefined`. This is an escape hatch that let's `prism-react-renderer` know
+we will handle the themes with global CSS declared elsewhere.
 
-So make sure in you have your css file imported:
+Make sure in you have your css file imported:
 
 ```js
 // gatsby-browser.js
  
-// This is where source path to my CSS theme
+// This is the source path to my CSS theme
 require('./src/assets/css/prism-atom-dark.css')
 ```
 
@@ -180,7 +182,7 @@ import Highlight, { defaultProps } from 'prism-react-renderer'
  
 export default ({ children, className }) => {
   // Pull the className
-  const language = className.replace(/language-/, '')
+  const language = className.replace(/language-/, '') || ""
  
   return (
     <Highlight {...defaultProps}
