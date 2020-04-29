@@ -632,7 +632,7 @@ pre tt:after {
   border-left: 0.3em solid #f99;
 }
 
-.prism-code, .gatsby-highlight {
+.gatsby-highlight {
   background-color: #1d1f21;
   border-radius: 0.3em;
   margin: 2em 0;
