@@ -1,5 +1,5 @@
 ---
-title: Add line highlighting with prism-react-renderer
+title: Add line highlighting to prism-react-renderer
 date: '2020-04-29'
 slug: 'highlight-with-react'
 tags: ['prism', 'mdx', 'gatsby']
@@ -18,7 +18,7 @@ think line highlighting really helps!
 
 It makes you, the author, pay more attention to what you need to be communicating, visually and written.
 
-## Adding Line Highlight with `prism-react-renderer`
+## Adding Line Highlight to `prism-react-renderer`
 
 When using MDX, the `code` [shortcode][MDX-code] passes 3 props `className`, `children`, `metastring` by default.
 In my [migration post][blog-post], we used `className` to display the correct styling by language and the
@@ -98,7 +98,10 @@ to the `className` string for the line. This is finally then missing what the va
 ```css
 /* inside of my custom theme */
 
-/* Handles the actual highlighting process */
+/**
+ * Handles the actual highlighting process.
+ * Feel free to customize this.
+ */
 .highlight-line {
   background-color: rgb(53, 59, 69);
   display: block;
@@ -119,6 +122,49 @@ why the heck isn't it working! Don't be like past me, learn from my mistakes!
 
 Whenever you get your line highlighting setup, feel free to [share it with me on Twitter][twitter]!
 
+### NOTE: Handling line highlighting in smaller viewports
+
+One thing that was a problem with `gatsby-remark-prismjs` and still is an issue for me is that
+on smaller viewports my code blocks only had the lines extend to the original viewport.
+This became such an issue for folks -- [the maintainers actually mention it
+now in their article][gatsby-remark-prismjs] for how to fix it.
+
+My solution to this was to have my `Highlight` component be wrapped with a component that has
+the correcting styles on it. For me, that is the `pre` component found in my MDXProvider `components`.
+I added to my `pre` component `className="gatsby-highlight"`:
+
+```jsx {3}
+const components = {
+  a: (props) => <Link {...props} />,
+  pre: (props) => <div className="gatsby-highlight" {...props} />,
+  code: CodeBlock,
+  inlineCode: InlineCode
+}
+```
+
+Then in my CSS, I added: 
+
+```css
+.gatsby-highlight {
+  background-color: #011627; /* my previous background color */
+  overflow: auto;
+}
+
+.gatsby-highlight pre[class*='language-'] {
+  background-color: transparent;
+  float: left;
+  min-width: 100%;
+}
+```
+
+The first rule makes sure I have my background color set to the same thing on my theme,
+the rule also makes sure that if it is clipped to add a scrollbar.
+
+Then in the next rule, it specifically goes and finds my `pre` tags with a class that 
+has the `language-` prefix and removes its background, and makes the content take up
+as much space as its container. Now everything should be scrollbar and useable!
+
 [blog-post]: prism-react-renderer
 [MDX-code]: https://github.com/syntax-tree/mdast#code
 [twitter]: https://twitter.com/maxcell
+[gatsby-remark-prismjs]: https://www.gatsbyjs.org/packages/gatsby-remark-prismjs/#optional-add-line-numbering
