@@ -104,7 +104,7 @@ function BackButton(props) {
   const fromBlogRoll = location.state && location.state.fromBlogRoll
 
   return fromBlogRoll ? (
-    <button onClick={() => hisory.goBack()}>Back to Blog Roll</button>
+    <button onClick={() => history.goBack()}>Back to Blog Roll</button>
   ) : (
     <button onClick={() => history.push('/home')}>Home</button>
   )
