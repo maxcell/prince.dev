@@ -7,6 +7,7 @@ import Header from '../components/header'
 import Link from '../components/Link'
 import CodeBlock from '../components/CodeBlock'
 import InlineCode from '../components/InlineCode'
+import Callout from '../components/Callout'
 import '../layouts/index.css'
 
 
@@ -14,7 +15,8 @@ const components = {
   a: (props) => <Link {...props} />,
   pre: (props) => <div className="gatsby-highlight" {...props} />,
   code: CodeBlock,
-  inlineCode: InlineCode
+  inlineCode: InlineCode,
+  Callout
 }
 
 const Layout = ({ children }) => (

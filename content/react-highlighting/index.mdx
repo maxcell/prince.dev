@@ -125,12 +125,18 @@ I want to give a massive shoutout to [Carlos][twitter-carlos] for [their solutio
 for the package. I also want to thank [Benjamin Lannon][twitter-ben], [Ryan Warner][twitter-ryan],
 and [Chris Biscardi][twitter-chris] for helping me with this blog post and giving feedback.
 
-### NOTE: Handling line highlighting in smaller viewports
+### 
+
+<Callout>
+
+**Handling line highlighting in smaller viewports**
 
 One thing that was a problem with `gatsby-remark-prismjs` and still is an issue for me is that
 on smaller viewports my code blocks only had the lines extend to the original viewport.
 This became such an issue for folks -- [the maintainers actually mention it
 now in their article][gatsby-remark-prismjs] for how to fix it.
+
+</Callout>
 
 My solution to this was to have my `Highlight` component be wrapped with a component that has
 the correcting styles on it. For me, that is the `pre` component found in my MDXProvider `components`.
