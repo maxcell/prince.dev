@@ -14,13 +14,16 @@ export default function Callout({ variant = 'info', children }) {
     }
   }
   return (
-    <div
+    <aside
       css={{
-        padding: '1rem 2rem 0.5rem 2rem',
+        padding: '1rem 2rem',
         margin: '1.5rem auto',
-        ...colorStyles[variant]
+        ...colorStyles[variant],
+        '> *:last-child': {
+          marginBottom: 0
+        }
       }}>
       {children}
-    </div>
+    </aside>
   );
 }
