@@ -1,0 +1,95 @@
+---
+title: 'Adding Callouts to a MDX-Powered Gatsby Blog'
+date: '2020-05-20'
+slug: 'callout'
+tags: ['react', 'design', 'notetaking']
+---
+
+A big part about blogging for me is making my content accessible for folks. A way for me to do that is highlighting important information. I decided to try to write up a component that helps put text in a more noticeable way. This has sometimes been referred to as a callout:
+
+<Callout>
+  This is the base variant to callout something on my site
+</Callout>
+
+To render this looks like:
+
+```jsx
+<Callout>
+  This is the base variant to callout something on my site
+</Callout>
+```
+
+The code that powers it:
+
+```jsx
+/* @jsx jsx */
+import React from 'react';
+import { jsx } from '@emotion/core';
+ 
+export default function Callout({ variant = 'info', children }) {
+  const variantStyles = {
+    info: {
+      borderLeft: '5px solid rgb(119, 32, 115)',
+      backgroundColor: 'hsla(303, 74%, 92%, 0.4)',
+    },
+    danger: {
+      borderLeft: '5px solid #f44336',
+      backgroundColor: 'rgb(253, 236, 234)'
+    }
+  }
+  return (
+    <aside
+      css={{
+        padding: '1rem 2rem',
+        margin: '1.5rem auto',
+        ...variantStyles[variant]
+      }}>
+      {children}
+    </aside>
+  );
+}
+```
+
+The component is meant to be light in what it needs to do. We pass through text and change the
+styling based on the props received. The `Callout` can be shown in different variants to 
+communicate different things, such as severity:
+
+<Callout variant="danger">
+  DANGER! DANGER! Pay attention to this!
+</Callout>
+
+```jsx
+<Callout variant="danger">
+  DANGER! DANGER! Pay attention to this!
+</Callout>
+```
+
+This component is super nice for me and I am sure I can make it even better in the future.
+Now in my authoring process, I wanted to be able to have this available for me in any of my MDX files.
+
+## Add a component to all MDX files
+
+To tie everything together, I needed to take this component and pass it into my `MDXProvider`. This will
+make sure that I have access to the component without having to directly import it every time I need it.
+
+
+```jsx {2,6}
+// src/pages/layout.js
+import Callout from '../components/Callout'
+
+const components = {
+  // ... All my other components
+  Callout
+}
+
+
+export default function Layout(props) {
+  return (
+    <MDXProvider 
+      component={components}
+    >
+    {/* ... */}
+    </MDXProvider>
+  )
+}
+```
