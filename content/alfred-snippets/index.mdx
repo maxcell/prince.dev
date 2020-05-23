@@ -1,0 +1,51 @@
+---
+title: 'My Workflows in Alfred'
+date: '2020-05-23'
+slug: 'alfred-workflows'
+tags: ['alfred', 'workflows', 'snippets']
+---
+
+I care about removing as much friction from my workflows as much as possible.
+The smallest of things cause me daily time wasters and I try to avoid them
+whenever I can.
+
+Here's a running list of workflows I created to help me minimize
+and keep the flow going.
+
+<Callout>
+
+**Note**: Using workflows in Alfred requires $$$ so the things I am about to show are 
+within the [Powerpack](https://www.alfredapp.com/powerpack/). Make the call yourself if you want it. 
+I decided that the [lifetime license](https://www.alfredapp.com/shop/) would be make it worth it.
+</Callout>
+
+### Slack Statuses
+
+While working from home, I had been manually changing my Slack status
+to accurately communicate what I am doing at the moment. Most of the time
+it is me switching between coding/meetings/lunch and unavailable. Because
+of the Slack UI, it takes a lot of steps for me to switch.
+
+To make it easier for me, I have a workflow for myself to automate the switching.
+When I am starting my day for example, I open Slack and type in `\\code` which translates to
+`/status :male-technologist::skin-tone-5: Coding`. `/status` is the command to set
+your status and you can pass in the emoji and the text you want the status to have.
+
+At a high level this means having a workflow that involves a snippet and a copy-to-clipboard output:
+
+![snippet trigger connecting to copy to clipboard output](./images/workflow-overview.png)
+
+In my snippet trigger, I look for the keyword `code` and I like the default check of the `\\` prefix:
+
+![snippet trigger menu showing \\code command](./images/snippet-trigger.png)
+
+Then this leads to a copy to clipboard output sending the `/status :male-technologist::skin-tone-5: Coding`
+to my clipboard:
+
+![copies text /status :male-technologist::skin-tone-5: Coding](./images/copy-to-clipboard.png)
+
+I also turn on the `Automatically paste to the front most app` check. This will automatically
+be sent to slack and I just submit it! This command can be run in any open chat in my organization
+and will switch my status so I don't need to worry about wherever I send this.
+
+I do the same thing for things like `lunch` or being `offline`.
