@@ -5,7 +5,7 @@ slug: 'netlify-redirects'
 tags: ['netlify', 'web']
 ---
 
-While sharing out my [twitch stream link on Twitter][twitch tweet], I ended up realizing I shared the wrong
+While sharing out my [twitch stream link on Twitter][twitch tweet], I ended up initially sharing the wrong
 user (I was off by one letter). This made me realize I never want to type this out
 myself ever again. I went to Netlify to solve this for me!
 
@@ -53,8 +53,8 @@ it will go to `prince.dev/netlify-redirects` instead. Which is what we want!
 ## What's Next For You?
 
 There are a ton of options that you can look into on Netlify's site as well if you want to 
-[learn more about redirects][redirect options]. I know that Kent C. Dodds also loves using 
-Netlify and [built a tool to support sharing more content with his own URL shortener][url shortener].
+[learn more about redirects][redirect options]. I know that [Kent C. Dodds](https://kentcdodds.com/) also loves using 
+Netlify and [built a tool to support sharing more content with their own URL shortener][url shortener].
 
 
 
