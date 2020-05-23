@@ -1,3 +1,12 @@
+const gatsbyRemarkImageConfig = {
+  resolve: `gatsby-remark-images`,
+  options: {
+    maxWidth: 750,
+    linkImagesToOriginal: true,
+    shopwCaptions: ['title'],
+  }
+}
+
 module.exports = {
   siteMetadata: {
     title: 'Prince Wilson - Developer',
@@ -10,7 +19,14 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     'gatsby-plugin-theme-ui',
-    'gatsby-plugin-mdx',
+    {
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        gatsbyRemarkPlugins: [
+          { ...gatsbyRemarkImageConfig }
+        ]
+      }
+    },
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -24,14 +40,7 @@ module.exports = {
               noInlineHighlight: false,
             },
           },
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 750,
-              linkImagesToOriginal: true,
-              shopwCaptions: ['title'],
-            },
-          },
+          { ...gatsbyRemarkImageConfig }
         ],
       },
     },
