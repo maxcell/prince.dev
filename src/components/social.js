@@ -1,6 +1,5 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import BLM from '../assets/blm.jpg'
 
 const Head = props => {
   const socialImage =
