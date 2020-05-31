@@ -4,7 +4,7 @@ import BLM from '../assets/blm.jpg'
 
 const Head = props => {
   const socialImage =
-    props.socialImage || BLM
+    props.socialImage || './blm.jpg'
   return (
     <Helmet defaultTitle={props.title}>
       <link
