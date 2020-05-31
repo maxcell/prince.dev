@@ -1,10 +1,10 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import BLM from '../assets/blm.jpg'
 
 const Head = props => {
   const socialImage =
-    props.socialImage ||
-    'https://res.cloudinary.com/maxcell/image/upload/v1579584116/main_social.png'
+    props.socialImage || BLM
   return (
     <Helmet defaultTitle={props.title}>
       <link
