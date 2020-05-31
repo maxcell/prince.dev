@@ -1,111 +1,31 @@
-import React, { Fragment } from 'react'
-import Link from '../components/Link'
+import React from 'react'
 import Layout from './layout'
-import { StaticQuery, graphql } from 'gatsby'
-
-const BlogList = ({ edges }) =>
-  edges.map(markdown => {
-    return (
-      <li>
-        <Link to={markdown.node.fields.slug}>
-          {markdown.node.frontmatter.title}
-        </Link>
-      </li>
-    )
-  })
-
-const BlogSection = () => {
-  return (
-    <StaticQuery
-      query={graphql`
-        query BlogPageQuery {
-          allMarkdownRemark(
-            sort: { fields: [frontmatter___date], order: DESC }
-            filter: { frontmatter: { draft: { ne: true } } }
-          ) {
-            edges {
-              node {
-                frontmatter {
-                  title
-                  date
-                }
-                fields {
-                  slug
-                }
-                timeToRead
-                html
-              }
-            }
-          }
-          allMdx(
-            sort: { fields: [frontmatter___date], order: DESC }
-            filter: { frontmatter: { draft: { ne: true } } }
-          ) {
-            edges {
-              node {
-                frontmatter {
-                  title
-                  date
-                }
-                fields {
-                  slug
-                }
-                timeToRead
-                body
-              }
-            }
-          }
-        }
-      `}
-      render={data => {
-
-        const edges = data.allMarkdownRemark.edges.concat(data.allMdx.edges).sort((a, b) => (
-          -a.node.frontmatter.date.localeCompare(b.node.frontmatter.date)
-        ))
-
-        return (
-          <ol class="blog-list">
-            <BlogList edges={edges} />
-          </ol>
-        )
-      }}
-    />
-  )
-}
-
-const SocialList = () => {
-  return (
-    <Fragment>
-      <ul>
-        {/*<li>Read my <a target="_blank" rel="noopener noreferrer" href="http://bit.ly/prince-wilson">resume</a> and let's do work together!</li>*/}
-        <li>Follow me on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/maxcell">Twitter</a></li>
-        <li>Connect with me on <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/maxcell">LinkedIn</a></li>
-        <li>See my code on <a target="_blank" rel="noopener noreferrer" href="https://github.com/maxcell">GitHub</a></li>
-      </ul>
-    </Fragment>
-  )
-}
-
-const ShortAbout = () => {
-  return (
-    <Fragment>
-      <h1>Howdy, I'm Prince!</h1>
-      <p>
-        I am a full-stack web developer based in NYC. I love building things and
-        making sure to bring people together around accessibility and security.
-        Beyond the work I do, I love corgis.
-      </p>
-
-      <SocialList />
-    </Fragment>
-  )
-}
 
 const IndexPage = () => (
   <Layout>
-    <ShortAbout />
-    <h2>Articles</h2>
-    <BlogSection />
+    <h2>#BlackLivesMatter</h2>
+    <p>
+      Welcome to my site. You may have originally intended to come for some tech content. While it is easy to go on reading about my latest content about JavaScript, I would like for you to take the time to support organizations that are helping my brothers and sisters fight and survive during these absolutely difficult times.
+    </p>
+    <p>
+      Being Black in tech is absolutely difficult because many folks are not interested in this sensitive topic even when it is happening predominantly in the world. But I want you to take some time and make a donation to an organization because anything you can give matters. If you can convince your employer to give something, it matters. If you can just take some time and amplify these places as opportunities, it matters.
+    </p>
+
+    <ul>
+      <li><a href="https://www.gofundme.com/f/georgefloyd">Official George Floyd Memorial Fund</a></li>
+      <li><a href="https://secure.everyaction.com/4omQDAR0oUiUagTu0EG-Ig2">Black Visions Collective</a></li>
+      <li><a href="https://www.reclaimtheblock.org/">Reclaim The Block</a></li>
+      <li><a href="https://minnesotafreedomfund.org/donate">Minnesota Freedom Fund</a></li>
+      <li><a href="https://www.communityjusticeexchange.org/nbfn-directory">National Bail Fund Network</a></li>
+      <li><a href="https://secure.actblue.com/donate/byp100-1">ActBlue - Black Youth Project 100</a></li>
+      <li><a href="https://secure.actblue.com/donate/ms_blm_homepage_2019">ActBlue - Black Lives Matter</a></li>
+      <li><a href="http://atlsolidarity.org/#support">Atlanta Solidarity Fund</a></li>
+      <li><a href="https://brooklynbailfund.org/donate">Brooklyn Community Bail Fund</a></li>
+      <li><a href="https://freethemall4publichealth.org/">Free Them All for Public Health</a></li>
+      <li><a href="https://docs.google.com/document/u/1/d/1fb2cioBcCO47L_oGPsjdGVWDAc3RTHU2tIpDtekWKs0/mobilebasic">Google Doc - MN Bail Fund and Support List</a></li>
+    </ul>
+
+    <p>If you're interested in supporting more change you can also look through <a href="https://blacklivesmatters.carrd.co/">more options</a>. The most valuable thing you can do after giving is educating yourself, your family, and your peers so none it goes away once this isn't trending.</p>
   </Layout>
 )
 
