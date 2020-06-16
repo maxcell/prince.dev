@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 
 const Head = props => {
   const socialImage =
-    props.socialImage || 'https://res.cloudinary.com/maxcell/image/upload/v1590960055/blm_social.png'
+    props.socialImage || 'https://res.cloudinary.com/maxcell/image/upload/v1579584116/main_social.png'
   return (
     <Helmet defaultTitle={props.title}>
       <link
