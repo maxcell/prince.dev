@@ -1,0 +1,171 @@
+---
+title: 'Notes - The Rust Programming Language Book'
+date: '2020-06-16'
+slug: 'rust-book'
+tags: ['rust', 'learning']
+---
+
+This is just a running list of notes along the way as I read the Rust Programming
+Language Book. It is helpful for me to write out my raw thoughts 
+
+### Chapter 1
+
+Documentation is local, offline avaibility. One can always get the documentation
+directly with the terminal through `rustup doc`. It isn't just documentation but
+also other pieces such as "Rust by Example".
+
+Unlike other programming languages such as JavaScript or Ruby, Rust splits apart 
+the idea of compilation and execution.
+
+Macros are different than functions. Super important to understanding each of their roles
+however not much detail into that yet.
+
+We have a built-in dependency manager in Rust called `Cargo`. It also handles how to
+build our projects. In Rust, dependencies are referred to as **_crates_**. These 
+will be found within the `Cargo.toml` files. It is similar to how a `package.json`
+works within Node. Similiar as well, Cargo generates `.lock` files as well.
+
+Some common Cargo info to make note of:
+  - `cargo build` - creates an executable from Cargo.toml
+  - `./target/debug/<file_name>` - location of executable
+  - `cargo run` - builds and executes
+  - `cargo check` - checks for compilation
+    - May be useful to run more often than build if checking validity
+  - `cargo build --release` compiles with optimizations
+
+### Chapter 2
+
+This was a project chapter, so I am writing down a lot of my internal
+interpretations of the lines and coupling it with things that may be
+explicitly written to make sure I have a good understanding.
+
+#### Breaking down the project
+
+```rs
+use std::io;
+```
+
+To include libraries we will use the `use` keyword
+and typically put them towards the top. `std::io` represents the standard 
+library and we're pulling out a set of traits & functions(?) for input/output.
+
+```rs
+let mut bar = String::new();
+```
+
+- `let` is used for creating variables
+- Variables are default to immutable, so we add `mut` to change them
+- `associated function` (`::`) on the type and not an instance
+  - sometimes called a static method
+- `&` reference and by default are also immutable
+
+`.expect("Failed to read line")`
+- Is a way for us to handle failed `Result` types from io
+
+`"You guessed: {}", guess`
+- `{}` represents placeholders or string interpolation
+
+`use rand::Rng` - Adds the `Rng` trait from rand
+- `rand::thread_rng().gen_range(inclusive, exclusive)`
+
+`cargo doc --open` - let's you figure out the methods, functions, and traits
+
+`use std::cmp::Ordering` - an enum like `Result` from `.expect`
+
+Shadowing a variable - converting a variable from one type to another is a common case
+
+u32 - unsigned 32-bit integers
+
+`loop` for infinite loops and `break` to break out
+
+`match` looks for something like `Ok` or `Err`. Whatever the result looks like will determine how the call should handle it
+
+### Chapter 3
+
+
+#### Variables and Constants
+
+Variables are immutable by default. In order to reassign the variables,
+we have to declare them mutable and then we can.
+
+Constants cannot be `mut`. They are always immutable. Must have its 
+value type annotated. Must be an expression not a function or computed 
+at runtime.
+
+Shadowing - Declaring a new variable with the same name as the second.
+It is different than marking something with `mut`. This allows us to
+perform transformations on a value and then have the variable be 
+immutable after those transformations have been completed. Also useful
+for performing type transformations. We can't do this with replacing
+with `mut`.
+
+There are two data type subsets: scalar and compound
+- Scalars are a single value. Composed of 4 primary types:
+  1. integers (signed and unsigned)
+  2. floating-point (IEEE-754)
+  3. Booleans
+  4. characters (emoji)
+- Compound which group multiple values into one type. Composed of two:
+  1. Tuples - fixed size length
+    - Access positions with `.` and the index
+  2. Array - every element must be the same type. Are fixed in size
+    - If you want to grow your array, you should be using a vector
+
+<Callout>
+
+**What does this mean?**
+> _"Arrays are useful when you want your data allocated on the stack rather than the heap"_
+
+</Callout>
+
+#### Functions
+
+Prefer to have snake case and use `fn` keyword
+Parameters must have the type declared
+Assignments don't return values so no multiassigns
+
+We can create blocks and the expressions can be evaluated
+
+```rs
+let y = {
+  let x = 3;
+  x + 1 // important not to have a semi-colon
+};
+```
+
+Implicit returns must not have a semicolon
+
+#### Control Flow
+
+```rs
+fn main(){
+  let number = 3;
+
+  if number < 5 {
+    println!("condition was true");
+  } else {
+    println!("condition was false");
+  }.
+}
+```
+The value in the `if` must be a Boolean
+
+You can also use an `if` in a variable statement
+
+```rs
+let condition = true;
+let number = if condition { 5 } else { 6 };
+```
+
+The types between the two cases must be same. Must have both if/else.
+
+#### Repetition with Loops
+
+- `loop`, `while`, `for`
+
+To do a loop, just `loop` block!
+we can return values in a look with a `break`
+
+`while` are conditional based
+`for` through a collection
+`for element in a.iter()`
