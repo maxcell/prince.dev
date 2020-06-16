@@ -678,6 +678,7 @@ pre tt:after {
 .blog-list {
   list-style: none;
   margin: 0;
+  padding-bottom: 2rem;
 }
 
 .blog-list > *:not(:first-child) {
