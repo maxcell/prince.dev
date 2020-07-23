@@ -54,6 +54,7 @@
     "deploy": "gatsby build && gh-pages -d public -b master"
   },
   "devDependencies": {
+    "eslint-plugin-emotion": "^10.0.27",
     "gatsby-plugin-eslint": "^2.0.5",
     "gh-pages": "^2.1.1",
     "prettier": "^1.18.2"
