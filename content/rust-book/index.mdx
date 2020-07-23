@@ -255,26 +255,26 @@ fn calculate_length(s: String) -> (String, usize) {
 
 - Two or more pointers access the same data at the same time.
 - At least one of the pointers is being used to write to the data.
- - There’s no mechanism being used to synchronize access to the data.
+- There’s no mechanism being used to synchronize access to the data.
 
- ### String Slices
+### String Slices
 
- A string slice is a reference to a part of a String. We will call a string
- with a reference and the array bit, starting_index and end_index which is exclusive.
+A string slice is a reference to a part of a String. We will call a string
+with a reference and the array bit, starting_index and end_index which is exclusive.
 
- ```rust
+```rust
 let some_str = String::from("hello world");
 let hello = &[0..5];
 let world = &[6..11];
- ```
+```
 
- `..` is the range syntax. You can use one number and it will either be the
- value to the end or the beginning to the value.
+`..` is the range syntax. You can use one number and it will either be the
+value to the end or the beginning to the value.
 
- `&String` - represents a reference of a string
- `&str` - represents a string slice
+`&String` - represents a reference of a string
+`&str` - represents a string slice
 
- To do other slices you would just do `&[type]`
+To do other slices you would just do `&[type]`
 
 ### Chapter 5 - Structs
 
@@ -344,13 +344,13 @@ enum Message {
 }
 
 impl Message {
-      fn call(&self) {
-          // method body would be defined here
-      }
-  }
+    fn call(&self) {
+        // method body would be defined here
+    }
+}
 
-  let m = Message::Write(String::from("hello"));
-  m.call();
+let m = Message::Write(String::from("hello"));
+m.call();
 ```
 
 `Option<T>` is another standard library enum that 
@@ -358,4 +358,4 @@ allows for us to expose two variants `Some<T>` or `None`.
 It is a way to say that the option holds a piece of data 
 of any type where as None is not a valid value. We want
 to ensure that we verify that the data we have received is
-valid and
+valid.
