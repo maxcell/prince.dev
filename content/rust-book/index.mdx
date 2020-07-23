@@ -41,7 +41,7 @@ explicitly written to make sure I have a good understanding.
 
 #### Breaking down the project
 
-```rs
+```rust
 use std::io;
 ```
 
@@ -49,7 +49,7 @@ To include libraries we will use the `use` keyword
 and typically put them towards the top. `std::io` represents the standard 
 library and we're pulling out a set of traits & functions(?) for input/output.
 
-```rs
+```rust
 let mut bar = String::new();
 ```
 
@@ -126,7 +126,7 @@ Assignments don't return values so no multiassigns
 
 We can create blocks and the expressions can be evaluated
 
-```rs
+```rust
 let y = {
   let x = 3;
   x + 1 // important not to have a semi-colon
@@ -137,7 +137,7 @@ Implicit returns must not have a semicolon
 
 #### Control Flow
 
-```rs
+```rust
 fn main(){
   let number = 3;
 
@@ -152,7 +152,7 @@ The value in the `if` must be a Boolean
 
 You can also use an `if` in a variable statement
 
-```rs
+```rust
 let condition = true;
 let number = if condition { 5 } else { 6 };
 ```
@@ -195,7 +195,7 @@ Three Rules to Ownership:
 `let s = "string"` - goes into the stack
 `let mut s = String::from("hello");` 
 
-```rs
+```rust
 // Does this automatically call drop
 fn main() {
   let mut s = String::from("hello");
@@ -205,7 +205,7 @@ fn main() {
 
 Conceptually double reference is a shallow copy but also invalidates the first variable so it is known as a *move*
 
-```rs
+```rust
 fn main() {
     let str1 = String::from("Jason");
     let mut str2 = str1;
@@ -214,7 +214,7 @@ fn main() {
 }
 ```
 
-```rs
+```rust
 fn main() {
     let str1 = String::from("Jason");
     let mut str2 = str1.clone();
@@ -230,7 +230,7 @@ What does this mean
 
 
 Ownership code
-```rs
+```rust
 fn main() {
     let s1 = String::from("hello");
 
@@ -262,7 +262,7 @@ fn calculate_length(s: String) -> (String, usize) {
  A string slice is a reference to a part of a String. We will call a string
  with a reference and the array bit, starting_index and end_index which is exclusive.
 
- ```rs
+ ```rust
 let some_str = String::from("hello world");
 let hello = &[0..5];
 let world = &[6..11];
@@ -281,7 +281,7 @@ let world = &[6..11];
 In order to write a struct:
 1) declare the struct and its fields
 2) then to make an instance of it with the key/pairs
-```rs
+```rust
 struct User {
     username: String,
     email: String,
@@ -325,7 +325,7 @@ _algebraic data types_ like in functional languages.
 Similiar to a struct, we declare `enum`s with a name and
 expose the different _variants_ that we'd like for it to have:
 
-```rs
+```rust
 enum IpAddrKind {
   V4(String),
   V6(String)
@@ -335,7 +335,7 @@ enum IpAddrKind {
 These can take data in if we'd like, in addition we can also
 write functions associated with them.
 
-```rs
+```rust
 enum Message {
     Quit,
     Move { x: i32, y: i32 },
