@@ -263,9 +263,12 @@ A string slice is a reference to a part of a String. We will call a string
 with a reference and the array bit, starting_index and end_index which is exclusive.
 
 ```rust
-let some_str = String::from("hello world");
-let hello = &[0..5];
-let world = &[6..11];
+fn main() {
+    let some_str = String::from("hello world");
+    let hello = &some_str[0..5];
+    let world = &some_str[6..11];
+    println!("{}", hello); // hello
+}
 ```
 
 `..` is the range syntax. You can use one number and it will either be the
