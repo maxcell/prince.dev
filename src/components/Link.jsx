@@ -14,8 +14,6 @@ export default function StyledLink(props) {
     }
   }
 
-
-
   const isInternal = /^\/(?!\/)/.test(props.to)
 
   if (isInternal) {

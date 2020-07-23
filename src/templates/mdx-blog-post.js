@@ -33,7 +33,6 @@ export default ({ data }) => {
       <h1>{post.frontmatter.title}</h1>
       <MDXRenderer>
         {post.body}
-
       </MDXRenderer>
       <Footer />
     </Layout>
