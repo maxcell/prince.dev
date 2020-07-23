@@ -169,3 +169,193 @@ we can return values in a look with a `break`
 `while` are conditional based
 `for` through a collection
 `for element in a.iter()`
+
+### Chapter 4 - Ownership
+
+#### Ownership
+
+Ownership relates to several unique features to Rust. Some ways we talk about it is borrowing, slices, and memory.
+
+Rust is unique in the way that it allocates and frees memory, it uses an ownership model which is different C and different than JavaScript
+
+- Stack -> LIFO (Last in First Out)
+Stack contains fix, known data size
+Anything else goes on a heap
+
+pointers -> references to data (addresses)
+
+> Think of being seated at a restaurant. When you enter, you state the number of people in your group, and the staff finds an empty table that fits everyone and leads you there. If someone in your group comes late, they can ask where you’ve been seated to find you.
+
+Three Rules to Ownership:
+
+- 1. Each value in Rust has a variable that’s called its owner.
+- 2. There can only be one owner at a time.
+- 3. When the owner goes out of scope, the value will be dropped.
+
+`let s = "string"` - goes into the stack
+`let mut s = String::from("hello");` 
+
+```rs
+// Does this automatically call drop
+fn main() {
+  let mut s = String::from("hello");
+  s.push_str(", world");
+}
+```
+
+Conceptually double reference is a shallow copy but also invalidates the first variable so it is known as a *move*
+
+```rs
+fn main() {
+    let str1 = String::from("Jason");
+    let mut str2 = str1;
+    str2.push_str(", Chris");
+    println!("The value of our string is: {}", str2);
+}
+```
+
+```rs
+fn main() {
+    let str1 = String::from("Jason");
+    let mut str2 = str1.clone();
+    str2.push_str(", Chris");
+    println!("The value of our first string: {}", str1);
+    println!("The value of our second string: {}", str2);
+}
+```
+
+
+What does this mean
+> If a type has the Copy trait, an older variable is still usable after assignment. Rust won’t let us annotate a type with the Copy trait if the type, or any of its parts, has implemented the Drop trait.
+
+
+Ownership code
+```rs
+fn main() {
+    let s1 = String::from("hello");
+
+    let (s2, len) = calculate_length(s1);
+
+    println!("The length of '{}' is {}.", s2, len);
+}
+
+fn calculate_length(s: String) -> (String, usize) {
+    let length = s.len(); // len() returns the length of a String
+
+    (s, length)
+}
+```
+
+#### Reference and borrowing
+
+`&` reference operator
+`*` deference operator
+
+ A data race is similar to a race condition and happens when these three behaviors occur:
+
+- Two or more pointers access the same data at the same time.
+- At least one of the pointers is being used to write to the data.
+ - There’s no mechanism being used to synchronize access to the data.
+
+ ### String Slices
+
+ A string slice is a reference to a part of a String. We will call a string
+ with a reference and the array bit, starting_index and end_index which is exclusive.
+
+ ```rs
+let some_str = String::from("hello world");
+let hello = &[0..5];
+let world = &[6..11];
+ ```
+
+ `..` is the range syntax. You can use one number and it will either be the
+ value to the end or the beginning to the value.
+
+ `&String` - represents a reference of a string
+ `&str` - represents a string slice
+
+ To do other slices you would just do `&[type]`
+
+### Chapter 5 - Structs
+
+In order to write a struct:
+1) declare the struct and its fields
+2) then to make an instance of it with the key/pairs
+```rs
+struct User {
+    username: String,
+    email: String,
+    sign_in_count: u64,
+    active: bool
+}
+```
+
+Just like JavaScript we have field init shorthands, aka
+you don't need to repeat the field name and variable name
+
+Reminder yourself with what the difference between
+these two data types are
+```
+expected struct `std::string::String`, found `&str`
+```
+
+This is the difference between string literals and dynamically
+allocated strings. Remember that `&str` is also another name for
+a string slice.
+
+Remember the difference of borrowing. When we use a struct,
+and we want to give the value back to the main function, remember to only borrow its value.
+
+Associate functions are functions that don't take self within an implementation, basically like static functions.
+
+Three types of structs
+- Classic
+- Tuple
+- Unit
+
+### Chapter 6 - Enums
+
+Enums allow you to define a type by enumerating its
+possible variants. It can encode meaning and data.
+`Option` is a common/useful enum. Enums for Rust represent
+_algebraic data types_ like in functional languages.
+
+#### Defining an Enum
+
+Similiar to a struct, we declare `enum`s with a name and
+expose the different _variants_ that we'd like for it to have:
+
+```rs
+enum IpAddrKind {
+  V4(String),
+  V6(String)
+}
+```
+
+These can take data in if we'd like, in addition we can also
+write functions associated with them.
+
+```rs
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+
+impl Message {
+      fn call(&self) {
+          // method body would be defined here
+      }
+  }
+
+  let m = Message::Write(String::from("hello"));
+  m.call();
+```
+
+`Option<T>` is another standard library enum that 
+allows for us to expose two variants `Some<T>` or `None`.
+It is a way to say that the option holds a piece of data 
+of any type where as None is not a valid value. We want
+to ensure that we verify that the data we have received is
+valid and
