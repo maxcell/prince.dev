@@ -18,7 +18,7 @@ const calculateLinesToHighlight = (meta) => {
 
 export default ({ children, className, metastring }) => {
   // Pull the className
-  const language = className.replace(/language-/, '') || ""
+  const language = className?.replace(/language-/, '') || ""
 
   // Determine if we need highlighting
   const shouldHighlightLine = calculateLinesToHighlight(metastring)
