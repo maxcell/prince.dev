@@ -1,15 +1,33 @@
+/** @jsx jsx */
 import React, { Fragment } from 'react'
+import { Link as GatsbyLink } from 'gatsby';
 import Link from '../components/Link'
 import Layout from './layout'
+import { jsx } from '@emotion/core';
 import { StaticQuery, graphql } from 'gatsby'
 
 const BlogList = ({ edges }) =>
   edges.map(markdown => {
     return (
       <li>
-        <Link to={markdown.node.fields.slug}>
+        <GatsbyLink
+          css={{
+            display: 'block',
+            borderRadius: '5px',
+            fontWeight: '700',
+            padding: '0.5rem 1rem',
+            '&:link,&:visited': {
+              color: '#222426',
+            },
+            '&:hover,&:focus': {
+              transition: 'background 0.1s ease-in-out 0s',
+              backgroundColor: 'hsla(303,74%,92%,0.4)',
+              textDecoration: 'none'
+            }
+          }}
+          to={markdown.node.fields.slug}>
           {markdown.node.frontmatter.title}
-        </Link>
+        </GatsbyLink>
       </li>
     )
   })
@@ -78,9 +96,9 @@ const SocialList = () => {
     <Fragment>
       <ul>
         {/*<li>Read my <a target="_blank" rel="noopener noreferrer" href="http://bit.ly/prince-wilson">resume</a> and let's do work together!</li>*/}
-        <li>Follow me on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/maxcell">Twitter</a></li>
-        <li>Connect with me on <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/maxcell">LinkedIn</a></li>
-        <li>See my code on <a target="_blank" rel="noopener noreferrer" href="https://github.com/maxcell">GitHub</a></li>
+        <li>Follow me on <Link target="_blank" rel="noopener noreferrer" to="https://twitter.com/maxcell">Twitter</Link></li>
+        <li>Connect with me on <Link target="_blank" rel="noopener noreferrer" to="https://linkedin.com/in/maxcell">LinkedIn</Link></li>
+        <li>See my code on <Link target="_blank" rel="noopener noreferrer" to="https://github.com/maxcell">GitHub</Link></li>
       </ul>
     </Fragment>
   )

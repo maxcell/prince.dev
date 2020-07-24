@@ -25,7 +25,7 @@ const Header = () => (
       }}
     >
       <h3 style={{ display: 'inline' }}>
-        <Link to="/" css={{ '&:hover': { backgroundColor: 'white', borderBottom: '2px solid #5E0887' } }} style={{ textDecoration: 'none', color: '#772073', opacity: 0.75 }}>Prince</Link>
+        <Link to="/" css={{ '&:hover': { backgroundColor: 'white', borderBottom: '2px solid #5E0887' } }} style={{ fontWeight: 700, textDecoration: 'none', color: '#772073', opacity: 0.75 }}>Prince</Link>
       </h3>
       <ul style={{ listStyle: 'none', float: 'right' }} >
         <ListLink to="/about">About</ListLink>

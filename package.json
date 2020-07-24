@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-default",
-  "description": "Gatsby default starter",
+  "name": "prince-wilson-site",
+  "description": "Prince Wilson's Gatsby Site",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Prince Wilson",
   "engines": {
     "node": "12.14.1"
   },
@@ -16,15 +16,12 @@
     "gatsby": "^2.18.25",
     "gatsby-image": "^2.2.34",
     "gatsby-plugin-fathom": "^1.2.0",
-    "gatsby-plugin-google-analytics": "^2.1.33",
     "gatsby-plugin-mdx": "^1.1.11",
     "gatsby-plugin-react-helmet": "^3.1.7",
     "gatsby-plugin-sharp": "^2.3.13",
     "gatsby-plugin-styled-components": "^3.1.5",
     "gatsby-plugin-theme-ui": "^0.3.0",
     "gatsby-plugin-twitter": "^2.1.6",
-    "gatsby-plugin-typography": "^2.3.7",
-    "gatsby-remark-highlights": "^1.3.4",
     "gatsby-remark-images": "^3.1.22",
     "gatsby-remark-prismjs": "^3.3.13",
     "gatsby-source-filesystem": "^2.1.22",
@@ -37,10 +34,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
-    "react-typography": "^0.16.19",
-    "styled-components": "^4.3.2",
-    "theme-ui": "^0.3.1",
-    "typography": "^0.16.19"
+    "theme-ui": "^0.3.1"
   },
   "keywords": [
     "gatsby"

@@ -64,13 +64,5 @@ module.exports = {
         siteId: process.env.FATHOM_SITE_ID
       }
     },
-    {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: {
-        trackingId: 'UA-82244410-2',
-        anonymize: true,
-        respectDNT: true,
-      },
-    },
   ],
 }

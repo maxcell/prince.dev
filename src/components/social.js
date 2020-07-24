@@ -11,7 +11,7 @@ const Head = props => {
         href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"
       />
       <link
-        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700"
+        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,500,700"
         rel="stylesheet"
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />

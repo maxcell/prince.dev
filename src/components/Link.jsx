@@ -5,12 +5,9 @@ import { Link as GatsbyLink } from 'gatsby';
 export default function StyledLink(props) {
 
   const linkStyles = {
-    '&:link,&:visited': {
-      color: 'text',
-    },
-    '&:hover': {
-      color: 'white',
-      bg: 'primary'
+    '&,&:visited,&:link': {
+      fontWeight: 500,
+      color: '#772073',
     }
   }
 
@@ -27,8 +24,11 @@ export default function StyledLink(props) {
       </GatsbyLink>
     )
   } else {
+    // If we're using the component directly, we might be using
+    // `to` whereas the MDX might be piping href
+    const url = props.to ? props.to : props.href;
     return (
-      <a {...props} sx={linkStyles}>
+      <a {...props} href={url} sx={linkStyles}>
         {props.children}
       </a>
     )

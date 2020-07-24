@@ -42,12 +42,8 @@ template {
 }
 
 a, a:visited {
- color: #222426;
-}
-
-a:hover {
-  color: white;
-  background-color: #5E0887;
+  font-weight: 500;
+  color: #772073BF;
 }
 
 a[target='_blank']::after {
@@ -682,7 +678,7 @@ pre tt:after {
 }
 
 .blog-list > *:not(:first-child) {
-  padding-top: 1em;
+  padding-top: 0.5rem;
 }
 
 .navigation {
