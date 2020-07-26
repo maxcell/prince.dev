@@ -27,7 +27,6 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const blogPostTemplate = path.resolve('./src/templates/blog-post.js')
   const mdxblogPostTemplate = path.resolve('./src/templates/mdx-blog-post.js')
   const tagTemplate = path.resolve('./src/templates/tags.js')
 
@@ -49,23 +48,7 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
       }
-      postsRemark: allMarkdownRemark(
-        limit: 2000
-        sort: { fields: [frontmatter___date], order: DESC }
-        filter: { frontmatter: { draft: { ne: true } } }
-      ) {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            frontmatter {
-              tags
-            }
-          }
-        }
-      }
-      tagsGroup: allMarkdownRemark(
+      tagsGroup: allMdx(
         limit: 2000
         filter: { frontmatter: { draft: { ne: true } } }
       ) {
@@ -78,19 +61,6 @@ exports.createPages = ({ graphql, actions }) => {
     if (result.error) {
       return Promise.reject(result.errors)
     }
-    const markdownPosts = result.data.postsRemark.edges
-
-    markdownPosts.forEach(({ node }) => {
-      const post = {
-        path: node.fields.slug,
-        component: blogPostTemplate,
-        context: {
-          slug: node.fields.slug,
-        },
-      }
-
-      createPage(post)
-    })
 
     const mdxPosts = result.data.mdxRemark.edges
 

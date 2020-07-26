@@ -52,7 +52,7 @@ function BlogPostLink({ post }) {
 You can instead use an object for `to`! If we wanted to recreate the same
 behavior, the code would look like this:
 
-```jsx{5}
+```jsx {5}
 function BlogPostLink({ post }) {
   const { slug, title } = post
 
@@ -66,7 +66,7 @@ This optional key allows you to pass in information that can be used for things
 such as location-based rendering. It should take the shape of an object.
 It is intentionally something we have to set for it to appear in the location object.
 
-```jsx{7-9}
+```jsx {7-9}
 function BlogPostLink({ post }) {
   const { slug, title } = post
   return (
@@ -91,7 +91,7 @@ the actual **magic** happen? It all happens on the back button. Let's
 say we want to have special text when we are coming directly from the blog
 roll vs. any other page:
 
-```jsx{10}
+```jsx {10}
 function BackButton(props) {
   // See documentation about React Router's Hook API
   // https://reacttraining.com/react-router/web/api/Hooks

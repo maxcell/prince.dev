@@ -41,7 +41,7 @@ const PokemonContext = React.createContext()
 
 Now that we have the context, let's talk about the `Provider`. This is the tool that will hold whatever data we want to be made available in its children. The data comes from a prop named `value`.
 
-```jsx{7,9}
+```jsx {7,9}
 import React from 'react'
 
 const PokemonContext = React.createContext()
@@ -65,7 +65,7 @@ The value could be whatever we want: a string, a number, or even an object! In o
 
 In order for any children to understand what is happening with the `Provider` though, we have to finally tell our component to listen. The way we do that is to `useContext`. This informs the component to subscribe to the context we pass in as an argument. We can then retrieve the value being sent through context as the return value of `useContext`. You can think of this as the way that the component **consumes** the context.
 
-```jsx{1,14-15}
+```jsx {1,14-15}
 import React, { useContext } from 'react'
 
 const PokemonContext = React.createContext()
@@ -112,7 +112,7 @@ function PokemonProvider(props) {
 export { PokemonContext, PokemonProvider }
 ```
 
-```jsx{4,8-10}
+```jsx {4,8-10}
 // In `App.jsx`
 
 import React, { useContext } from 'react'
@@ -134,7 +134,7 @@ function PokemonDisplay() {
 
 If we want to get even better, we can make a custom hook! This way we would have no need for exposing our context object whatsoever! This is also nice because now we can error handle and say if you're using our context hook outside of a component who isn't a descendant to our `PokemonProvider`, then throw an error.
 
-```jsx{17-23,25}
+```jsx {17-23,25}
 // In `pokemon-context.js`
 import React from 'react'
 
@@ -162,7 +162,7 @@ function usePokemonContext() {
 export { usePokemonContext, PokemonProvider }
 ```
 
-```jsx{2,3,14}
+```jsx {2,3,14}
 // In `App.jsx`
 import React from 'react'
 import { PokemonProvider, usePokemonContext } from './pokemon-context'

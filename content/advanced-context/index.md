@@ -106,7 +106,7 @@ Since notifications can be used across any part of the application, it helps us 
 
 We'll place the logic for making the Notification appear/disppear, using `setOpen` and `handleClose`, inside of the Provider and pass them down to our `Notification` component. We'll also have `messageData` represent what should be displayed to the user.
 
-```jsx{2,6,8-10,12-19,21-27}
+```jsx {2,6,8-10,12-19,21-27}
 // in notification-context.js
 import React, { useState } from 'react'
 
@@ -138,7 +138,7 @@ export function NotificationProvider({ children }) {
 
 This will lay the foundation for our notification to be presented, but doesn't yet have the logic of adding any notifications. Since there can be multiple notification updates, we need to make sure only one appears at a time. We'll need to incorporate a queue. For our case, we'll use a `ref` to store it since we want to maintain our transitions.
 
-```jsx{2,11,20-24,27}
+```jsx {2,11,20-24,27}
 // in notification-context.js
 import React, { useState, useRef } from 'react'
 
@@ -177,7 +177,7 @@ If you take a gander, you'll notice our `value` prop on our `NotificationContext
 
 Finally, we need to add the logic to handle processing our notifications! This function essentially will be called any time we create a notification and when a notification exits from view, our `handleExited`.
 
-```jsx{20-25,27-29,34-40}
+```jsx {20-25,27-29,34-40}
 // in notification-context.js
 import React, { useState, useRef } from 'react'
 
@@ -238,7 +238,7 @@ Now, the only thing left to do is rewrite the places that we were using our `<Sn
 
 We can change our original example to something like this:
 
-```jsx{2-3,12}
+```jsx {2-3,12}
 // in AssignmentForm.jsx
 import React, { useContext } from 'react';
 import { NotificationContext } from './notification-context'

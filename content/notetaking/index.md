@@ -126,7 +126,7 @@ information together with fun doodles. We saw that I am not that great at visual
 Here's an example of someone's sketchnote on how to create a more accessible React app:
 
 <figure style="margin: 0 auto;max-width: 400px;vertical-align: middle;display: block;padding-bottom: 20px;">
-<a href="https://twitter.com/stephaniecodes/status/1017121412971225090"><img style="margin: 0" src="https://pbs.twimg.com/media/Dh2Kh3IX4AECgXj.jpg:small"></a>
+<a href="https://twitter.com/stephaniecodes/status/1017121412971225090"><img style="margin: 0" src="https://pbs.twimg.com/media/Dh2Kh3IX4AECgXj.jpg:small"/></a>
 <figcaption><small><em>Image from <a href="https://twitter.com/stephaniecodes/status/1017121412971225090">@stephaniecodes</a></em></small></figcaption>
 </figure>
 

@@ -37,24 +37,6 @@ const BlogSection = () => {
     <StaticQuery
       query={graphql`
         query BlogPageQuery {
-          allMarkdownRemark(
-            sort: { fields: [frontmatter___date], order: DESC }
-            filter: { frontmatter: { draft: { ne: true } } }
-          ) {
-            edges {
-              node {
-                frontmatter {
-                  title
-                  date
-                }
-                fields {
-                  slug
-                }
-                timeToRead
-                html
-              }
-            }
-          }
           allMdx(
             sort: { fields: [frontmatter___date], order: DESC }
             filter: { frontmatter: { draft: { ne: true } } }
@@ -76,11 +58,7 @@ const BlogSection = () => {
         }
       `}
       render={data => {
-
-        const edges = data.allMarkdownRemark.edges.concat(data.allMdx.edges).sort((a, b) => (
-          -a.node.frontmatter.date.localeCompare(b.node.frontmatter.date)
-        ))
-
+        const edges = (data.allMdx.edges);
         return (
           <ol class="blog-list">
             <BlogList edges={edges} />

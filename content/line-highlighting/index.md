@@ -41,7 +41,7 @@ In order to get the nice syntax highlighting we need to make sure to distinguish
 such as` ```js ` or ` ```javascript `. Now to highlight specific line(s), we need to list out the line number(s). For example, we want
 to discuss the parameter list of the constructor we could write ` ```js{3} ` and this would produce:
 
-```js{3}
+```js {3}
 class Doggo {
   constructor(name) {
     this.name = name
@@ -56,7 +56,7 @@ class Doggo {
 Let's say we wanted to indicate a new function being introduced, we could highlight the lines that represent that function. So that way the
 reader can tell, "Oh this is the new code they added!"
 
-```js{10-12}
+```js {10-12}
 class Doggo {
   constructor(name) {
     this.name = name
@@ -75,7 +75,7 @@ class Doggo {
 In the way we would do this here, we would have ` ```js{10-12} ` so that way it highlights multiple lines! You can also mix and match these two syntaxes
 by just separating them by commas (` ```js{3,10-12} ` ).
 
-```js{3,10-12}
+```js {3,10-12}
 class Doggo {
   constructor(name) {
     this.name = name
