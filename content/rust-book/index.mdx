@@ -362,3 +362,245 @@ It is a way to say that the option holds a piece of data
 of any type where as None is not a valid value. We want
 to ensure that we verify that the data we have received is
 valid.
+
+#### `match` Control Flow Operator
+
+We can declare an Enum that will take in an argument. This 
+can then be used to match further if we want.
+
+```rs
+enum Coin {
+  Penny,
+  Nickel,
+  Dime,
+  Quarter(UsState)
+}
+
+enum Quarter {
+  Alabama,
+  Alaska,
+  // ...
+}
+```
+
+Here we build a function that let's us be able to take in a value
+and then return back the associated number
+
+```rs
+fn value_in_cents(coin: Coin) -> u8 {
+  match coin {
+    Coin::Penny => 1,
+    Coin::Nickel => 5,
+    Coin::Dime => 10,
+    Coin::Quarter => 25
+  }
+}
+```
+
+We can extend this behavior to allow us to match even finer. Let's
+say we want to pull out the state and give that to the consumer:
+
+```rs
+fn value_in_cents(coin: Coin) -> u8 {
+  match coin {
+    Coin::Penny => 1,
+    Coin::Nickel => 5,
+    Coin::Dime => 10,
+    Coin::Quarter(state) => {
+      println!("State quarter from {:?}!", state);
+    }
+  }
+}
+```
+
+Matches need to be exhaustive. You can't just be like do it only for X things,
+unless you use the `_` placeholder.
+
+
+#### Concise Control Flow with `if let`
+
+If you want to do less work to write out only for matching to one case you can write as:
+
+```rs
+let some_u8_value = Some(0u8);
+if let Some(3) = some_u8_value {
+  println!('three');
+}
+```
+
+
+### Chapter 7
+
+My brain hurts here. I want to come back to this. There are a lot of rules around
+the module system. And also how the crate system works.
+
+I posted on Twitter about my headaches on the section and several folks recommended
+this article: ["Clear explanation of Rust's module system"](http://www.sheshbabu.com/posts/rust-module-system/)
+
+### Chapter 8 - Common Collections
+
+These are data structures that can contain multiple values. Their size are not 
+known at compile time but are actually put on the heap. This also means the
+data can be increased/decreased through the course of the program.
+
+High-level explanations:
+
+- **Vector** - store a variable number of values next to each other.
+- **string** - a collection of characters.
+- **hash map** - associate a value with a particular key. Implementation of a map.
+
+
+#### Storing Lists of Values with Vectors
+
+These are useful as a list of items, e.g. lines of text in a file or the prices of
+items in a shopping cart.
+
+Creating a vector looks like:
+
+```rs
+let v: Vec<i32> = Vec::new();
+```
+
+In more common examples, we will declare the vector with an infered type with what
+items we initially store into it. To do this we will use the `vec!` 
+
+```rs
+let v = vec![1,2,3];
+```
+
+Adding things to a vector. **Note**: pay attention to the
+fact that you need to mutate.
+
+```rs
+let mut v = Vec::new();
+v.push(5);
+v.push(6);
+```
+
+Vectors, like other items deallocate after scope is done.
+However deallocation of the content inside is more complicated.
+
+#### Reading Elements of Vectors
+
+We can read from vectors in two ways:
+
+```rs
+let v = vec![1,2,3];
+let third: &i32 = &v[2];
+match v.get(2) {
+  Some(third) => println!("The third element is {}", third),
+  None => println!("There is no third elements!"),
+}
+```
+
+If you try to access a vector out of range with the `[]`
+it will not enjoy that, in fact, it will panic. So a 
+better way could be using the `.get` operator because
+of handling a match. Very useful for handling user logic
+errors.
+
+Reminder, you can only have mutable reference staying as mutable and not switching between the two.
+
+
+#### Iterating over Values in Iterator
+
+We can iterate through the values of a vec using a `for` loop
+
+```rs
+let v = vec![100,32,57];
+for i in &v {
+  println!("{}", i);
+}
+```
+
+If we want to mutate the reference, dereference first:
+
+```rs
+let mut v = vec![100, 32, 57];
+for i in &mut v {
+  *i += 50;
+}
+```
+
+To circumvent the "same type" rule of vectors, you can
+pass in enums, however, you have to make an exhaustive list.
+
+
+#### Strings
+
+Strings become sticky for folks for 3 reasons:
+
+1. Rust's propensity for exposing possible errors
+2. strings being more complicated data structure
+3. UTF-8
+
+`String` is part of the standard library whereas `string`
+is in the core.
+
+```rs
+String::from("this is a test");
+// To use to_string must have Display trait
+"this is a test".to_string();
+```
+
+Use `format!()` for handling multiple strings wanting to be concat
+
+To iterate over a string consider `for c in <string>.chars()`
+
+#### Hash Maps
+
+Implemented as `HashMap<K, V>`. Rather than an index, we
+look for the key to return the value.
+
+Creating a new HashMap:
+
+```rs
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+score.insert(String::from("Blue"), 10);
+score.insert(String::from("Yellow"), 50);
+```
+
+First has to be included since not automatically in the
+prelude. Data must be homogenous.
+
+Another way to create a hashmap is through `collect` on 
+a vector of tuples. `collect` gathers data into a number
+of collection types.
+
+
+```rs
+use std::collections::HashMap;
+
+let teams = vec![String::from("Seattle Krakens"), String::from("Detroit Red Wings")];
+let initial_scores = vec![10, 50];
+
+let mut scores: HashMap<_,_> = team.into_iter().zip(initial_scores.into_iter()).collect()
+```
+
+Things that have the `Copy` trait, will be copied into
+the HashMap, things that are moved, will be owned by the
+HashMap.
+
+Retrieving something from a map: `scores.get(&team_name)`.
+The returned value is either `Some(&i32)` or `None`.
+
+We can iterate over a HashMap like:
+
+```rs
+for (key, value) in &scores {
+  println!("{}: {}", key, value);
+}
+```
+
+#### Inserting to HashMap
+
+We can update in three different ways:
+
+1. We can insert to overwrite
+  - `scores.insert(String::from("Seattle Krakens"), 10)`
+2. We can insert if no entry exists
+  - `scores.entry(String::from("Seattle Krakens")).or_insert(10)`
+3. We can update a value if it exists
+  - Doing the insert of #2 but then updating the value
