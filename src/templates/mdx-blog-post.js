@@ -6,7 +6,7 @@ import getShareImage from '@jlengstorf/get-share-image'
 
 import Footer from '../components/footer'
 import Layout from '../pages/layout'
-import Head from '../components/social'
+import Head from '../components/Head'
 
 export default ({ data }) => {
   const post = data.mdx

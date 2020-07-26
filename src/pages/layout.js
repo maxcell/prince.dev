@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { MDXProvider } from '@mdx-js/react'
-import Head from '../components/social'
+import Head from '../components/Head'
 import { StaticQuery, graphql } from 'gatsby'
 
 import Header from '../components/header'
