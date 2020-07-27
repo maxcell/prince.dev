@@ -39,7 +39,8 @@ const BlogSection = () => {
         query BlogPageQuery {
           allMdx(
             sort: { fields: [frontmatter___date], order: DESC }
-            filter: { frontmatter: { draft: { ne: true } } }
+            filter: { frontmatter: { draft: { ne: true } } },
+            limit: 5
           ) {
             edges {
               node {
@@ -60,9 +61,11 @@ const BlogSection = () => {
       render={data => {
         const edges = (data.allMdx.edges);
         return (
-          <ol class="blog-list">
-            <BlogList edges={edges} />
-          </ol>
+          <Fragment>
+            <ol class="blog-list">
+              <BlogList edges={edges} />
+            </ol>
+          </Fragment>
         )
       }}
     />
@@ -100,7 +103,10 @@ const ShortAbout = () => {
 const IndexPage = () => (
   <Layout>
     <ShortAbout />
-    <h2>Articles</h2>
+    <div css={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <h2>Articles</h2>
+      <GatsbyLink to="/garden">All posts</GatsbyLink>
+    </div>
     <BlogSection />
   </Layout>
 )
