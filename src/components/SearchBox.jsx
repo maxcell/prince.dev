@@ -1,5 +1,9 @@
+/** @jsx jsx */
 import React, { useState } from 'react';
+import { jsx } from '@emotion/core';
 import Fuse from 'fuse.js';
+
+const HARDCODED_TOPICS = ['Rust', 'React', 'Learning', 'MDX'];
 
 const fuseOptions = {
   threshold: 0.35,
@@ -11,8 +15,6 @@ const fuseOptions = {
   useExtendedSearch: true,
   keys: ['title', 'tags']
 };
-
-const HARDCODED_TOPICS = ['Rust', 'React', 'Learning', 'MDX'];
 
 const SearchBox = ({ articles, handleFilter }) => {
   // TODO: Put query into the url
@@ -54,16 +56,44 @@ const SearchBox = ({ articles, handleFilter }) => {
     }
   }
 
+  const buttonTags = HARDCODED_TOPICS.map(tag => (
+    <li css={{
+      listStyle: 'none',
+      ':not(:first-child)': {
+        marginLeft: '1rem'
+      }
+    }}><button type="button"
+      css={() => {
+        const selectedStyles = {
+          color: '#FEFEFE',
+          backgroundColor: 'rgb(94, 8, 135)',
+        }
+
+        const unselectedStyles = {
+          color: 'rgb(94, 8, 135)',
+          backgroundColor: '#FEFEFE'
+        }
+
+        const baseStyles = {
+          padding: '4px 8px',
+          border: '1px solid FEFEFE',
+          borderRadius: '10px',
+          fontSize: '1rem',
+        }
+
+        return searchTags.includes(tag) ? { ...baseStyles, ...selectedStyles } : { ...baseStyles, ...unselectedStyles }
+      }}
+      onClick={e => onTagClick(tag)}
+    >
+        {tag}
+      </button>
+    </li>
+  ))
+
   return (
     <form>
-      <label htmlFor="search-term">Type in any search terms</label>
-      {HARDCODED_TOPICS.map(tag => (
-        <button type="button"
-          onClick={e => onTagClick(tag)}
-        >
-          {tag}
-        </button>
-      ))}
+      <ol css={{ display: 'flex', flexDirection: 'row', margin: '0', marginBottom: '1em' }}>{buttonTags}</ol>
+      <label htmlFor="search-term" css={{ paddingRight: '0.5rem' }}>Type in any search terms</label>
       <input
         id="search-term"
         value={searchValue}
