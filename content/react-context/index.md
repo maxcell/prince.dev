@@ -2,7 +2,7 @@
 title: 'React Context - Can you useContext in a sentence'
 date: '2020-01-31'
 slug: 'react-context'
-tags: ['learning', 'react', 'context']
+tags: ['react', 'context']
 ---
 
 If you're like me, hooks are still a thing that you hear about but don't actively use at work. Regardless, I never used the Context API pre-hooks and so I had to learn the mental model in both implementations before it clicked with me. I am here to help you out so you can add to your list of skills!

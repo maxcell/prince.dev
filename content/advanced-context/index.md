@@ -2,7 +2,7 @@
 title: 'Reducing Boilerplate With React Context'
 date: '2020-02-12'
 slug: 'reuse-context'
-tags: ['learning', 'react', 'context']
+tags: ['react', 'context']
 ---
 
 A lot of blog posts I have read highlight React Context as a way to pass data to components without needing to <a target="_blank" rel="noopener noreferrer" href="https://kentcdodds.com/blog/prop-drilling">prop drill</a>. They tend to use an example like passing along user information or creating a light/dark theme. I wanted to showcase another way to think about Context. Instead of just passing along data, we'll use Context to refactor our application's management of notifications. We'll expose a function to allow developers to have a consistent pattern to follow, reduce some of the boilerplate, while also improving the user experience.
