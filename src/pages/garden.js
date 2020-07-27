@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { jsx } from '@emotion/core';
 import { StaticQuery, graphql, Link as GatsbyLink } from 'gatsby';
 
-import Layout from './Layout';
+import Layout from './layout';
 import SearchBox from '../components/SearchBox';
 
 const BlogList = ({ posts }) =>
