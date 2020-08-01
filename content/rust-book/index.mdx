@@ -604,3 +604,155 @@ We can update in three different ways:
   - `scores.entry(String::from("Seattle Krakens")).or_insert(10)`
 3. We can update a value if it exists
   - Doing the insert of #2 but then updating the value
+
+### Chapter 9 - Error Handling
+
+Errors can be grouped into two major categories: recoverable and unrecoverable errors. Recoverable errors are those that report to the user and retry the operation. Whereas the unrecoverable errors are always a symptom of a bug.
+
+Rather than exceptions, they use the `Result<T, E>` for anything that can be recoverable and `panic!` macro that stops execution when the program encounters an unrecoverable error.
+
+#### Unrecoverable Errors with `panic!`
+
+We can manually force a panic with `panic!` macro. This will unwind the program.
+We can also see the backtrace for the error. We read until we find our line of execution.
+
+### Recoverable Errors with Result
+
+In the example of recovering from an error we could do something like:
+
+```rs
+use std::fs::File;
+use std::io::ErrorKind;
+
+fn main() {
+  let f = File::open("hello.txt");
+  // We can match against whether or not it works
+  let f = match f {
+    Ok(file) => file,
+    // And if there is an error, we can also gracefully,
+    // handle what we'd like to happen
+    Err(error) => match error.kind() {
+      ErrorKind::NotFound => match File::create("hello.txt") {
+        Ok(fc) => fc,
+        Err(e) => panic!("Problem creating the file!")
+      },
+      other_error => {
+        panic!("Problem opening the file: {:?}", other_error)
+      }
+    }
+  };
+}
+```
+
+A lot of matches happen here though, but let's consider using
+closer primitives.
+
+```rs
+use std::fs::File;
+use std::io::ErrorKind;
+
+fn main() {
+    let f = File::open("hello.txt").unwrap_or_else(|error| {
+        if error.kind() == ErrorKind::NotFound {
+            File::create("hello.txt").unwrap_or_else(|error| {
+                panic!("Problem creating the file: {:?}", error);
+            })
+        } else {
+            panic!("Problem opening the file: {:?}", error);
+        }
+    });
+}
+```
+
+A helper that you can use is `unwrap` that just handles the result if it is `Ok`, it will just call the `panic!` macro for us by default.
+
+Another helper `expect` allows us to choose the error
+message. That way you can convey your intent and make
+tracking down source of a panic easier.
+
+#### Propogate Errors
+
+You can return the error to the calling code instead of having
+your function handle it yourself
+
+```rs
+use std::fs::File;
+use std::io;
+use std::io::Read;
+
+fn read_username_from_file() -> Result<String, io::Error> {
+  let f = File::open("hello.txt");
+
+  let mut f = match f {
+    Ok(file) => file,
+    Err(e) => return Err(e)
+  };
+
+  let mut s = String::new();
+
+  match f.read_to_string(&mut s) {
+    Ok(_) => Ok(s),
+    Err(e) => Err(e)
+  }
+}
+```
+
+`io::Error` happens to be able to be the return Error that both methods would return back to us.
+
+To shortcut propagating errors, we use the `?` operator:
+
+```rs
+use std::fs::File;
+use std::io;
+use std::io::Read;
+
+fn read_username_from_file() -> Result<String, io::Error> {
+  let mut f = File::open("hello.txt")?;
+  let mut s = String::new();
+  f.read_to_string(&mut s)?;
+  Ok(s)
+}
+```
+
+Error values with the `?` operator called on them go through the `from` function which converts errors from one type to another. It is determined by the return type of the function.
+
+```rs
+use std::fs::File;
+use std::io;
+use std::io::Read;
+
+
+fn read_username_from_file() -> Result<String, io::Error> {
+  let mut s = String::new();
+
+  File::open("hello.txt")?.read_to_string(&mut s)?;
+
+  Ok(s)
+}
+```
+
+All of this can be condensed as a associated function:
+
+```rs
+use std::fs;
+use std::io;
+
+fn read_username_from_file() -> Result<String, io::Error> {
+  fs::read_to_string("hello.txt")
+}
+```
+
+The main function is special and has restrictions to what its return type can be. One is `()` and the other is `Result<T,E>`.
+
+```rs
+use std::error:Error;
+use std::fs::File;
+
+fn main() -> Result<(), Box<dyn Error>> {
+  let f = File::open("hello.txt")?;
+
+  Ok(())
+}
+```
+
+`Box<dyn Error>` represents something called a trait object. This for now means "any kind of error".
