@@ -368,7 +368,7 @@ valid.
 We can declare an Enum that will take in an argument. This 
 can then be used to match further if we want.
 
-```rs
+```rust
 enum Coin {
   Penny,
   Nickel,
@@ -386,7 +386,7 @@ enum Quarter {
 Here we build a function that let's us be able to take in a value
 and then return back the associated number
 
-```rs
+```rust
 fn value_in_cents(coin: Coin) -> u8 {
   match coin {
     Coin::Penny => 1,
@@ -400,7 +400,7 @@ fn value_in_cents(coin: Coin) -> u8 {
 We can extend this behavior to allow us to match even finer. Let's
 say we want to pull out the state and give that to the consumer:
 
-```rs
+```rust
 fn value_in_cents(coin: Coin) -> u8 {
   match coin {
     Coin::Penny => 1,
@@ -421,7 +421,7 @@ unless you use the `_` placeholder.
 
 If you want to do less work to write out only for matching to one case you can write as:
 
-```rs
+```rust
 let some_u8_value = Some(0u8);
 if let Some(3) = some_u8_value {
   println!('three');
@@ -457,21 +457,21 @@ items in a shopping cart.
 
 Creating a vector looks like:
 
-```rs
+```rust
 let v: Vec<i32> = Vec::new();
 ```
 
 In more common examples, we will declare the vector with an infered type with what
 items we initially store into it. To do this we will use the `vec!` 
 
-```rs
+```rust
 let v = vec![1,2,3];
 ```
 
 Adding things to a vector. **Note**: pay attention to the
 fact that you need to mutate.
 
-```rs
+```rust
 let mut v = Vec::new();
 v.push(5);
 v.push(6);
@@ -484,7 +484,7 @@ However deallocation of the content inside is more complicated.
 
 We can read from vectors in two ways:
 
-```rs
+```rust
 let v = vec![1,2,3];
 let third: &i32 = &v[2];
 match v.get(2) {
@@ -506,7 +506,7 @@ Reminder, you can only have mutable reference staying as mutable and not switchi
 
 We can iterate through the values of a vec using a `for` loop
 
-```rs
+```rust
 let v = vec![100,32,57];
 for i in &v {
   println!("{}", i);
@@ -515,7 +515,7 @@ for i in &v {
 
 If we want to mutate the reference, dereference first:
 
-```rs
+```rust
 let mut v = vec![100, 32, 57];
 for i in &mut v {
   *i += 50;
@@ -537,7 +537,7 @@ Strings become sticky for folks for 3 reasons:
 `String` is part of the standard library whereas `string`
 is in the core.
 
-```rs
+```rust
 String::from("this is a test");
 // To use to_string must have Display trait
 "this is a test".to_string();
@@ -554,7 +554,7 @@ look for the key to return the value.
 
 Creating a new HashMap:
 
-```rs
+```rust
 use std::collections::HashMap;
 
 let mut scores = HashMap::new();
@@ -570,7 +570,7 @@ a vector of tuples. `collect` gathers data into a number
 of collection types.
 
 
-```rs
+```rust
 use std::collections::HashMap;
 
 let teams = vec![String::from("Seattle Krakens"), String::from("Detroit Red Wings")];
@@ -588,7 +588,7 @@ The returned value is either `Some(&i32)` or `None`.
 
 We can iterate over a HashMap like:
 
-```rs
+```rust
 for (key, value) in &scores {
   println!("{}: {}", key, value);
 }
@@ -620,7 +620,7 @@ We can also see the backtrace for the error. We read until we find our line of e
 
 In the example of recovering from an error we could do something like:
 
-```rs
+```rust
 use std::fs::File;
 use std::io::ErrorKind;
 
@@ -647,7 +647,7 @@ fn main() {
 A lot of matches happen here though, but let's consider using
 closer primitives.
 
-```rs
+```rust
 use std::fs::File;
 use std::io::ErrorKind;
 
@@ -675,7 +675,7 @@ tracking down source of a panic easier.
 You can return the error to the calling code instead of having
 your function handle it yourself
 
-```rs
+```rust
 use std::fs::File;
 use std::io;
 use std::io::Read;
@@ -701,7 +701,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
 To shortcut propagating errors, we use the `?` operator:
 
-```rs
+```rust
 use std::fs::File;
 use std::io;
 use std::io::Read;
@@ -716,7 +716,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
 Error values with the `?` operator called on them go through the `from` function which converts errors from one type to another. It is determined by the return type of the function.
 
-```rs
+```rust
 use std::fs::File;
 use std::io;
 use std::io::Read;
@@ -733,7 +733,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
 All of this can be condensed as a associated function:
 
-```rs
+```rust
 use std::fs;
 use std::io;
 
@@ -744,7 +744,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
 The main function is special and has restrictions to what its return type can be. One is `()` and the other is `Result<T,E>`.
 
-```rs
+```rust
 use std::error:Error;
 use std::fs::File;
 
@@ -756,3 +756,122 @@ fn main() -> Result<(), Box<dyn Error>> {
 ```
 
 `Box<dyn Error>` represents something called a trait object. This for now means "any kind of error".
+
+### Chapter 10 - Generics, Traits, Lifetimes
+
+#### Generics
+
+Just like we can create functions to abstract out operations
+given that they work on the same type. We can extend this 
+to towards generics. Generics are a "declared" type of item,
+without specifically noting what that type is.
+
+```rust
+// WON'T COMPILE YET BUT STILL
+fn largest<T>(list: &[T]) -> T {
+  let mut largest = list[0];
+
+  for &item in list {
+    if item > largest {
+      largest = item;
+    }
+  }
+  largest
+}
+```
+
+We can extend this to be generics for Struct definitions:
+
+```rust
+// Note: x,y have the same type, so must match
+struct Point<T> {
+  x: T,
+  y: T,
+}
+```
+
+Enums already support this but we can now understand why `Option<T>` or `Result<T,E>` look the way they do.
+
+If you want to extend this logic to implementations as well:
+
+```rust
+struct Point<T> {
+  x: T,
+  y: T
+}
+
+impl<T> Point<T> {
+  fn x(&self) -> &T {
+    &self.x
+  }
+}
+
+fn main() {
+  let p = Point { x: 5, y: 10 };
+  println!("p.x = {}", p.x());
+}
+```
+
+If we want to put a concrete type here, but it changes to:
+`impl Point<f32>`
+
+_Monomorphization_ is the process of turning generic code into specific code by filling in the concrete types that are used when compiled.
+
+#### Traits
+
+A trait is for telling the compiler about functionality a particular type has and can share with other types. When couped with a generic, this allows us to say what shared
+behavior exists. These are _similiar, but not exact_ to interfaces.
+
+Let's say we had a `NewsArticle` and `Tweet` struct. We want to be able to display their summaries, so we can add a trait with a method:
+
+```rust
+pub trait Summary {
+  fn summarize(&self) -> String;
+}
+```
+
+The way we declared this allows us to say we need to have the types who use this trait to also implement the behavior. To get this trait implemented we just need to: `impl Summary for Tweet` and then write out the implementation details.
+
+<Callout>
+  One thing to note is that implementing a trait on type can only happen if either that trait or the type is local to our crate. An example of where this wouldn't work is trying implement Display trait on a Vec. This is a part of coherence, primarily the orphan rule, because the parent type isn't present.
+</Callout>
+
+We can also implement default implementations of the traits, and just call `impl Summary for Tweet {}`.
+
+##### Traits as Parameters
+
+Instead of declaring a type in a function. We can suggest that the parameter implements a trait instead.
+
+```rust
+pub fn notify(item: &impl Summary) {
+  println!("Breaking news! {}", item.summarize());
+}
+```
+
+This is technically syntactical sugar to a `trait bound`:
+
+```rust
+pub fn notify<T: Summary>(item: &T) {
+  println!("Breaking news! {}", item.summarize());
+}
+```
+
+If we want to add multiple trait bounds, we do something such as:
+
+```rust
+pub fn notify(item: &(impl Summary + Display)) {
+```
+
+or:
+
+```rust
+pub fn notify<T: Summary + Display>(item: &T) {
+```
+
+If it gets a bit too clustered though, a recommended solution would be using `where` clauses:
+
+```rust
+fn some_function<T, U>(t: &T, u: &U) -> i32
+  where T: Display + Clone,
+        U: Clone + Debug
+```
