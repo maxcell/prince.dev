@@ -1,6 +1,6 @@
 # Prince's Website
 
-This is the repository that determines what is going on over at [maxcell.me](https://maxcell.me). It is powered by [Gatsby]((https://www.gatsbyjs.org/) a static website generator that utilizes the JavaScript framework, React!
+This is the repository that determines what is going on over at <prince.dev>. It is powered by [Gatsby]((https://www.gatsbyjs.org/) a static website generator that utilizes the JavaScript framework, React!
 
 
 ## Install
@@ -15,6 +15,6 @@ npm install --global gatsby-cli
 
 Then you can run it by:
 ```sh
-cd blog
+cd prince.dev
 gatsby develop
 ```
