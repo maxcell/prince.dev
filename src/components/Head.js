@@ -17,6 +17,7 @@ const Head = props => {
       <link rel="icon" type="image/x-icon" href="favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content={props.description} />
+      <meta name="author" content="Prince Wilson" />
       <meta name="image" content={socialImage} />
 
       <meta property="twitter:card" content="summary_large_image" />
