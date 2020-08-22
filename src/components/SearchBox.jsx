@@ -16,6 +16,42 @@ const fuseOptions = {
   keys: ['title', 'tags']
 };
 
+const TagButton = ({ isSelected, onTagClick, tag }) => (
+  <li css={{
+    listStyle: 'none',
+    ':not(:first-child)': {
+      marginLeft: '1rem'
+    }
+  }}><button type="button"
+    css={() => {
+      const selectedStyles = {
+        color: '#FEFEFE',
+        backgroundColor: 'rgb(94, 8, 135)',
+      }
+
+      const unselectedStyles = {
+        color: 'rgb(94, 8, 135)',
+        backgroundColor: '#FEFEFE'
+      }
+
+      const baseStyles = {
+        padding: '4px 8px',
+        border: '1px solid FEFEFE',
+        borderRadius: '10px',
+        fontSize: '1rem',
+      }
+
+      return isSelected ? { ...baseStyles, ...selectedStyles } : { ...baseStyles, ...unselectedStyles }
+    }}
+    onClick={e => onTagClick(tag)}
+  >
+      {tag}
+    </button>
+  </li>
+)
+
+
+
 const SearchBox = ({ articles, handleFilter }) => {
   // TODO: Put query into the url
   const [searchValue, setSearchValue] = useState('');
@@ -56,39 +92,13 @@ const SearchBox = ({ articles, handleFilter }) => {
     }
   }
 
-  const buttonTags = HARDCODED_TOPICS.map(tag => (
-    <li css={{
-      listStyle: 'none',
-      ':not(:first-child)': {
-        marginLeft: '1rem'
-      }
-    }}><button type="button"
-      css={() => {
-        const selectedStyles = {
-          color: '#FEFEFE',
-          backgroundColor: 'rgb(94, 8, 135)',
-        }
-
-        const unselectedStyles = {
-          color: 'rgb(94, 8, 135)',
-          backgroundColor: '#FEFEFE'
-        }
-
-        const baseStyles = {
-          padding: '4px 8px',
-          border: '1px solid FEFEFE',
-          borderRadius: '10px',
-          fontSize: '1rem',
-        }
-
-        return searchTags.includes(tag) ? { ...baseStyles, ...selectedStyles } : { ...baseStyles, ...unselectedStyles }
-      }}
-      onClick={e => onTagClick(tag)}
-    >
-        {tag}
-      </button>
-    </li>
-  ))
+  const buttonTags = HARDCODED_TOPICS.map((tag) => (
+    <TagButton
+      isSelected={searchTags.includes(tag)}
+      onTagClick={onTagClick}
+      tag={tag}
+    />)
+  )
 
   return (
     <form>
