@@ -68,13 +68,7 @@ const BlogSection = () => {
         }));
 
         const [filteredArticles, setFilteredArticles] = useState(articles)
-
-
-        console.log('Filtered Output: ', filteredArticles)
-
-        const handleFilter = (data) => {
-          setFilteredArticles(data)
-        }
+        const handleFilter = (data) => { setFilteredArticles(data) }
 
         return (
           <Layout>
