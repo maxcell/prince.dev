@@ -1,3 +1,11 @@
+---
+title: 'Notes - Atomic Habits'
+date: '2020-08-26'
+draft: true
+slug: 'atomic-habits'
+tags: ['notes', 'learning', 'habits']
+---
+
 - Implementation Intentions
   - Being able to highlight a clear vision of when you will do a thing, how you do it
   as well as where.
