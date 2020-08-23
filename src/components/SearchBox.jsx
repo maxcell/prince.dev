@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { jsx } from '@emotion/core';
 import Fuse from 'fuse.js';
+import useQueryParamState, { serializeArray, deserializeArray } from '../hooks/useQueryParameter';
 
 const HARDCODED_TOPICS = ['Rust', 'React', 'Learning', 'MDX'];
 
@@ -54,7 +55,7 @@ const TagButton = ({ isSelected, onTagClick, tag }) => (
 
 const SearchBox = ({ articles, handleFilter }) => {
   // TODO: Put query into the url
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useQueryParamState('q');
   const [searchTags, setSearchTags] = useState([]);
   const fuse = new Fuse(articles, fuseOptions);
 
@@ -103,7 +104,9 @@ const SearchBox = ({ articles, handleFilter }) => {
   return (
     <form>
       <ol css={{ display: 'flex', flexDirection: 'row', margin: '0', marginBottom: '1em' }}>{buttonTags}</ol>
-      <label htmlFor="search-term" css={{ paddingRight: '0.5rem' }}>Type in any search terms</label>
+      <label htmlFor="search-term" css={{ paddingRight: '0.5rem' }}>
+        Type in any search terms
+      </label>
       <input
         id="search-term"
         value={searchValue}

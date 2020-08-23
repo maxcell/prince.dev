@@ -1,3 +1,8 @@
+/**
+ * This is from Kent C. Dodds' site. Source can be found here:
+ * https://github.com/kentcdodds/kentcdodds.com/blob/ddec06e845b97d590041e44a2b88184c53efb2f4/src/components/search/index.js#L86-L111
+ */
+
 import React from 'react';
 
 export default function useQueryParamState(searchParamName) {
@@ -25,4 +30,19 @@ export default function useQueryParamState(searchParamName) {
   }, [searchParamName, value])
 
   return [value, setValue]
+}
+
+
+export function serializeArray(array) {
+  return array
+    .join(',')
+    .replace(' ', '+')
+}
+
+export function deserializeArray(arrString) {
+  // full thing "tags=some+string,and+another"
+  // "some+string,and+another"
+  return arrString
+    .split(',')
+    .map(string => string.replace('+', ' '))
 }
