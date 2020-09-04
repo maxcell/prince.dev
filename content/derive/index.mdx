@@ -1,0 +1,76 @@
+---
+title: Debugging a struct in Rust
+date: '2020-08-30'
+slug: 'derive-in-rust'
+tags: ['rust', 'learning', 'macros']
+---
+
+In writing this short Rust program:
+
+```rust
+struct Person {
+    name: String,
+    age_in_years: u32,
+}
+
+fn main() {
+    let prince = Person {
+        name: String::from("Prince"),
+        age_in_years: 100,
+    };
+    dbg!(prince);
+}
+```
+
+I came across an error I hadn't seen in a long time so I forgot why it came up
+and also how to fix it:
+
+```rust
+11 |     dbg!(prince);
+   |     ^^^^^^^^^^^^^ `Person` cannot be formatted using `{:?}`
+```
+
+Fortunately, Rust gives us hints on how to fix this:
+
+```rust
+= help: the trait `std::fmt::Debug` is not implemented for `Person`
+= note: add `#[derive(Debug)]` or manually implement `std::fmt::Debug`
+= note: required because of the requirements on the impl of `std::fmt::Debug` for `&Person`
+```
+
+So, the short answer to fix this is we need to add `#[derive(Debug)]` onto our
+`struct Person`, resulting in:
+
+```rust
+#[derive(Debug)]
+struct Person {
+    name: String,
+    age_in_years: u32,
+}
+```
+
+Alternatively, we could also do their other suggestion and implement the trait for
+struct our struct manually. That means we'd need to implement `fmt::Debug for Person`.
+And one of its requirements is that we have a function `fmt` that describes how to output
+it to the terminal:
+
+```rust
+use std::fmt;
+
+struct Person {
+  name: String,
+  age_in_years: u32
+}
+
+impl fmt::Debug for Person {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    f.debug_struct("Point")
+      .field("name", &self.name)
+      .field("age_in_years", &self.age_in_years)
+      .finish()
+  }
+}
+```
+
+If we wanted to do any customization to how to output it for our user, we can also
+do that but this is what gets generated for us using `#[derive(Debug)]`.
