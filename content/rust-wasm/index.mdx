@@ -117,19 +117,3 @@ how to offload the performance we want.
 [my-rust-wasm-repo]: https://github.com/maxcell/rust-wasm-game-of-life
 [rust-wasm-col]: https://rust-wasm-gol.netlify.app/
 [wasm-pack-github]: https://github.com/rustwasm/wasm-pack
-
-
-### Getting started with WASM
-
-#### Setup
-- Install cargo-generate `cargo install cargo-generate`
-- Install wasm-pack (https://rustwasm.github.io/wasm-pack/installer/)
-
-#### Hello, World version
-
-- Pull down the cargo template
-- Look into the `src/lib.rs`
-- We can add connections to the methods afford to use through the `extern`
-- We can add new functions and then connect them with the `wasm_bindgen`
-
-- We can also connect directly through with the js_namespace `#[wasm_bindgen(js_namespace = console)]`
