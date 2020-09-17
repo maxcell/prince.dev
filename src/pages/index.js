@@ -77,6 +77,7 @@ const SocialList = () => {
     <Fragment>
       <ul>
         {/*<li>Read my <a target="_blank" rel="noopener noreferrer" href="http://bit.ly/prince-wilson">resume</a> and let's do work together!</li>*/}
+        <li>Join me on <Link target="_blank" rel="noopener noreferrer" to="https://prince.dev/twitch">Twitch</Link> every Tuesday!</li>
         <li>Follow me on <Link target="_blank" rel="noopener noreferrer" to="https://twitter.com/maxcell">Twitter</Link></li>
         <li>Connect with me on <Link target="_blank" rel="noopener noreferrer" to="https://linkedin.com/in/maxcell">LinkedIn</Link></li>
         <li>See my code on <Link target="_blank" rel="noopener noreferrer" to="https://github.com/maxcell">GitHub</Link></li>
