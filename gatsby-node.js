@@ -6,10 +6,30 @@
 
 // You can delete this file if you're not using it
 
-const { createFilePath } = require('gatsby-source-filesystem')
+const talks = require('./talk-source.json')
+
 const slugify = require('@sindresorhus/slugify')
 const path = require('path')
 const _ = require('lodash')
+
+exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
+
+  talks.forEach(talk => {
+    const node = {
+      id: createNodeId(`Talk-${talk.title}`),
+      internal: {
+        type: "Talk",
+        contentDigest: createContentDigest(talk)
+      },
+      title: talk.title,
+      type: talk.type,
+      url: talk.url
+    }
+
+    actions.createNode(node)
+  })
+}
+
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const parent = getNode(node.parent)

@@ -2,6 +2,7 @@
 import React, { Fragment } from 'react'
 import { Link as GatsbyLink } from 'gatsby';
 import Link from '../components/Link'
+import EngagementSection from '../components/EngagementSection'
 import Layout from './layout'
 import { jsx } from '@emotion/core';
 import { StaticQuery, graphql } from 'gatsby'
@@ -108,6 +109,8 @@ const IndexPage = () => (
       <GatsbyLink to="/garden">All posts</GatsbyLink>
     </div>
     <BlogSection />
+    <h2>Speaking Engagements</h2>
+    <EngagementSection />
   </Layout>
 )
 
