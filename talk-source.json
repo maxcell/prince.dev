@@ -1,6 +1,11 @@
 [
   {
     "type": "Talk",
+    "title": "Personal Sites as Personal Playgrounds",
+    "url": "https://egghead.io/lessons/egghead-personal-site-playgrounds-with-mdx"
+  },
+  {
+    "type": "Talk",
     "title": "Building Custom Components with MDX",
     "url": "https://youtu.be/-xusVshCZ3M"
   },
