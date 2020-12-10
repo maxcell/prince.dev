@@ -1,5 +1,10 @@
 # Prince's Website
 
+
+**This is now old and shall be archived! If you're interested in following in the new iteration, feel free to check out <https://github.com/maxcell/prince-toast>**
+
+
+
 This is the repository that determines what is going on over at <prince.dev>. It is powered by [Gatsby](https://www.gatsbyjs.org/) a static website generator that utilizes the JavaScript framework, React!
 
 
