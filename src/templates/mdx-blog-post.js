@@ -3,10 +3,11 @@ import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import getShareImage from '@jlengstorf/get-share-image'
 
-
 import Footer from '../components/footer'
 import Layout from '../pages/layout'
 import Head from '../components/Head'
+
+import { ColorSwitcher } from '../components/ColorSwitcher'
 
 export default ({ data }) => {
   const post = data.mdx
@@ -31,6 +32,7 @@ export default ({ data }) => {
         socialImage={socialImage}
       />
       <h1>{post.frontmatter.title}</h1>
+      <ColorSwitcher />
       <MDXRenderer>
         {post.body}
       </MDXRenderer>
